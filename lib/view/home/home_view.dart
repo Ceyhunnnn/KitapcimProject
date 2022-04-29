@@ -28,12 +28,12 @@ class _HomePageState extends State<HomePage> {
           slivers: [
             SliverAppBar(
               stretch: true,
-              collapsedHeight: context.dynamicHeight(0.1),
+              collapsedHeight: context.dynamicHeight(0.15),
               pinned: true,
               forceElevated: true,
               automaticallyImplyLeading: false,
               backgroundColor: Colors.transparent,
-              expandedHeight: context.dynamicHeight(0.1),
+              expandedHeight: context.dynamicHeight(0.12),
               flexibleSpace: FlexibleSpaceBar(
                 background: Column(
                   children: [
@@ -96,17 +96,17 @@ class _HomePageState extends State<HomePage> {
   Expanded buildTopBar(BuildContext context) {
     return Expanded(
       child: Container(
-        //margin: EdgeInsets.only(top: context.dynamicHeight(0.05)),
         padding: EdgeInsets.only(
-          top: context.dynamicHeight(0.04),
+          top:context.dynamicHeight(0.05)
         ),
+        //margin: EdgeInsets.only(top: context.dynamicHeight(0.05)),
         color: Color(0xff05595B),
         child: Column(
           children: [
             Row(
               children: [
                 SizedBox(
-                  width: context.dynamicWidth(0.05),
+                  width: context.dynamicWidth(0.03),
                 ),
                 Image.asset(
                   "assets/icons/avataricon.png",
@@ -285,6 +285,7 @@ class buildSearchBar extends StatelessWidget {
   Widget build(BuildContext context) {
     return Row(
       children: [
+
         Expanded(
             child: TextFormField(
           cursorColor: Colors.white,

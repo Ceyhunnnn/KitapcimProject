@@ -22,58 +22,60 @@ class _EntryPageState extends State<EntryPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       resizeToAvoidBottomInset: false,
-      body: Container(
-        /*decoration: BoxDecoration(
-          image: DecorationImage(
-            image: AssetImage("assets/images/background.jpg"),
-            fit: BoxFit.cover,
-          ),
-        ),*/
-        color: Color(0XFFF7F7F7),
-        width: context.dynamicWidth(1),
-        height: context.dynamicHeight(1),
-        child: SingleChildScrollView(
-          child: Column(
-            children: [
-              SizedBox(height: context.dynamicHeight(0.01)),
-              KitapcimWidget(), //logo
-              SizedBox(
-                height: context.dynamicHeight(0.005),
-              ),
-              Account_Entry_Widget(), //hesabiniza giris yapin
+      body: SafeArea(
+        child: Container(
+          /*decoration: BoxDecoration(
+            image: DecorationImage(
+              image: AssetImage("assets/images/background.jpg"),
+              fit: BoxFit.cover,
+            ),
+          ),*/
+          color: Color(0XFFF7F7F7),
+          width: context.dynamicWidth(1),
+          height: context.dynamicHeight(1),
+          child: SingleChildScrollView(
+            child: Column(
+              children: [
+                SizedBox(height: context.dynamicHeight(0.01)),
+                KitapcimWidget(), //logo
+                SizedBox(
+                  height: context.dynamicHeight(0.005),
+                ),
+                Account_Entry_Widget(), //hesabiniza giris yapin
 
-              buildTextFormField(
-                text: email,
-              ),
-              buildTextFormField(
-                text: password,
-              ),
-              SizedBox(
-                height: context.dynamicHeight(0.005),
-              ),
-              buildButtonSignin(
-                butonAciklama: "Giriş Yap",
-              ),
-              SizedBox(
-                height: context.dynamicHeight(0.04),
-              ),
-              Create_Account(),
-              SizedBox(
-                height: context.dynamicHeight(0.02),
-              ),
-              buildPasswordForget(context),
-              SizedBox(height: context.dynamicHeight(0)),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Text("Diğer oturum açma seçenekleri",
-                      style: GoogleFonts.biryani())
-                ],
-              ), //oturum acma secenekleri
-              SizedBox(height: context.dynamicHeight(0.01)),
-              buildSocialMedia(),
-              SizedBox(height: context.dynamicHeight(0.020)),
-            ],
+                buildTextFormField(
+                  text: email,
+                ),
+                buildTextFormField(
+                  text: password,
+                ),
+                SizedBox(
+                  height: context.dynamicHeight(0.005),
+                ),
+                buildButtonSignin(
+                  butonAciklama: "Giriş Yap",
+                ),
+                SizedBox(
+                  height: context.dynamicHeight(0.04),
+                ),
+                Create_Account(),
+                SizedBox(
+                  height: context.dynamicHeight(0.02),
+                ),
+                buildPasswordForget(context),
+                SizedBox(height: context.dynamicHeight(0)),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Text("Diğer oturum açma seçenekleri",
+                        style: GoogleFonts.biryani())
+                  ],
+                ), //oturum acma secenekleri
+                SizedBox(height: context.dynamicHeight(0.01)),
+                buildSocialMedia(),
+                SizedBox(height: context.dynamicHeight(0.020)),
+              ],
+            ),
           ),
         ),
       ),

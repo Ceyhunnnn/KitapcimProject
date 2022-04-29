@@ -21,34 +21,36 @@ class _RegisterState extends State<Register> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Container(
-        height: context.dynamicHeight(1),
-        width: context.dynamicWidth(1),
-        child: SingleChildScrollView(
-          child: Column(
-            children: [
-              SizedBox(height: context.dynamicHeight(0.01)),
-              KitapcimWidget(),
-              SizedBox(height: context.dynamicHeight(0.01)),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.start,
-                children: [
-                  SizedBox(width: context.dynamicWidth(0.015)),
-                  Text(
-                    "Yeni bir hesap oluşturun",
-                    style: GoogleFonts.biryani(
-                        textStyle: TextStyle(
-                            fontSize: 15, fontWeight: FontWeight.bold)),
-                  )
-                ],
-              ),
-              buildTextFormField(text: name),
-              buildTextFormField(text: surname),
-              buildTextFormField(text: email),
-              buildTextFormField(text: password),
-              buildButtonSignin(),
-              SizedBox(height: context.dynamicHeight(0.010))
-            ],
+      body: SafeArea(
+        child: Container(
+          height: context.dynamicHeight(1),
+          width: context.dynamicWidth(1),
+          child: SingleChildScrollView(
+            child: Column(
+              children: [
+                SizedBox(height: context.dynamicHeight(0.01)),
+                KitapcimWidget(),
+                SizedBox(height: context.dynamicHeight(0.01)),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  children: [
+                    SizedBox(width: context.dynamicWidth(0.015)),
+                    Text(
+                      "Yeni bir hesap oluşturun",
+                      style: GoogleFonts.biryani(
+                          textStyle: TextStyle(
+                              fontSize: 15, fontWeight: FontWeight.bold)),
+                    )
+                  ],
+                ),
+                buildTextFormField(text: name),
+                buildTextFormField(text: surname),
+                buildTextFormField(text: email),
+                buildTextFormField(text: password),
+                buildButtonSignin(),
+                SizedBox(height: context.dynamicHeight(0.010))
+              ],
+            ),
           ),
         ),
       ),
