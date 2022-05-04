@@ -1,5 +1,6 @@
 import "package:flutter/material.dart";
 import 'package:kitapcim/constants/context_extentions.dart';
+import 'package:like_button/like_button.dart';
 
 class buildBooksCards extends StatelessWidget {
   const buildBooksCards({
@@ -21,17 +22,16 @@ class buildBooksCards extends StatelessWidget {
             children: [
               Expanded(
                   child: Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: Text(
-                      "Kitaba ait açıklama bu kısımda yer almaktadır. "
-                          "Kısa ve öz bir şekilde açıklama eklenmelidir.",
-                      style: context.buildTextStyle(18, Colors.black),
-                    ),
-                  ))
+                padding: const EdgeInsets.all(8.0),
+                child: Text(
+                  "Kitaba ait açıklama bu kısımda yer almaktadır. "
+                  "Kısa ve öz bir şekilde açıklama eklenmelidir.",
+                  style: context.buildTextStyle(18, Colors.black),
+                ),
+              ))
             ],
           ), //kitaba dair aciklama
           Row(
-            //mainAxisAlignment: MainAxisAlignment.start,
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               Padding(
@@ -74,16 +74,9 @@ class buildBooksCards extends StatelessWidget {
             padding: const EdgeInsets.all(10.0),
             child: Row(
               children: [
-                Icon(
-                  Icons.favorite,
-                  color: Colors.red,
-                ),
+                LikeButton(countPostion: CountPostion.right, likeCount: 0),
                 SizedBox(
-                  width: context.dynamicWidth(0.01),
-                ),
-                Text("25"),
-                SizedBox(
-                  width: context.dynamicWidth(0.05),
+                  width: context.dynamicWidth(0.03),
                 ),
                 Icon(
                   Icons.comment_bank_outlined,

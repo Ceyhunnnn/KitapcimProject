@@ -76,18 +76,6 @@ class _HomePageState extends State<HomePage> {
               context: context,
             ),
           ),
-          Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: buildBooksCards(
-              context: context,
-            ),
-          ),
-          Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: buildBooksCards(
-              context: context,
-            ),
-          ),
         ],
       )),
     ];
@@ -96,9 +84,7 @@ class _HomePageState extends State<HomePage> {
   Expanded buildTopBar(BuildContext context) {
     return Expanded(
       child: Container(
-        padding: EdgeInsets.only(
-          top:context.dynamicHeight(0.05)
-        ),
+        padding: EdgeInsets.only(top: context.dynamicHeight(0.05)),
         //margin: EdgeInsets.only(top: context.dynamicHeight(0.05)),
         color: Color(0xff05595B),
         child: Column(
@@ -157,125 +143,6 @@ class _HomePageState extends State<HomePage> {
   }
 }
 
-class builBooksList extends StatelessWidget {
-  const builBooksList({
-    Key? key,
-  }) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return Column(
-      children: [
-        Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: Card(
-              child: Row(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Padding(
-                    padding: const EdgeInsets.all(2.0),
-                    child: Image.asset("assets/books/as.png",
-                        width: context.dynamicWidth(0.25),
-                        height: context.dynamicHeight(0.12)),
-                  ),
-                  Expanded(
-                      child: Padding(
-                    padding: const EdgeInsets.all(5.0),
-                    child: Text(
-                        "Kitap Açıklaması Kitap Açıklaması Kitap Açıklaması Kitap Açıklaması Kitap Açıklaması Kitap Açıklaması Kitap Açıklaması Kitap Açıklaması Kitap Açıklaması Kitap Açıklaması"),
-                  )),
-                ],
-              ),
-            )),
-        Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: Card(
-              child: Row(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Expanded(
-                    child: Padding(
-                      padding: const EdgeInsets.all(2.0),
-                      child: Text(
-                          "Kitap Açıklaması Kitap Açıklaması Kitap Açıklaması Kitap Açıklaması Kitap Açıklaması Kitap Açıklaması Kitap Açıklaması Kitap Açıklaması Kitap Açıklaması Kitap Açıklaması"),
-                    ),
-                  ),
-                  Padding(
-                      padding: const EdgeInsets.all(5.0),
-                      child: Image.asset("assets/books/au.jpg",
-                          width: context.dynamicWidth(0.25),
-                          height: context.dynamicHeight(0.12))),
-                ],
-              ),
-            )),
-        Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: Card(
-              child: Row(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Padding(
-                    padding: const EdgeInsets.all(2.0),
-                    child: Image.asset("assets/books/as.png",
-                        width: context.dynamicWidth(0.25),
-                        height: context.dynamicHeight(0.12)),
-                  ),
-                  Expanded(
-                      child: Padding(
-                    padding: const EdgeInsets.all(5.0),
-                    child: Text(
-                        "Kitap Açıklaması Kitap Açıklaması Kitap Açıklaması Kitap Açıklaması Kitap Açıklaması Kitap Açıklaması Kitap Açıklaması Kitap Açıklaması Kitap Açıklaması Kitap Açıklaması"),
-                  )),
-                ],
-              ),
-            )),
-        Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: Card(
-              child: Row(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Expanded(
-                    child: Padding(
-                      padding: const EdgeInsets.all(2.0),
-                      child: Text(
-                          "Kitap Açıklaması Kitap Açıklaması Kitap Açıklaması Kitap Açıklaması Kitap Açıklaması Kitap Açıklaması Kitap Açıklaması Kitap Açıklaması Kitap Açıklaması Kitap Açıklaması"),
-                    ),
-                  ),
-                  Padding(
-                      padding: const EdgeInsets.all(5.0),
-                      child: Image.asset("assets/books/au.jpg",
-                          width: context.dynamicWidth(0.25),
-                          height: context.dynamicHeight(0.12))),
-                ],
-              ),
-            )),
-        Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: Card(
-              child: Row(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Padding(
-                    padding: const EdgeInsets.all(2.0),
-                    child: Image.asset("assets/books/tcr.png",
-                        width: context.dynamicWidth(0.25),
-                        height: context.dynamicHeight(0.12)),
-                  ),
-                  Expanded(
-                      child: Padding(
-                    padding: const EdgeInsets.all(5.0),
-                    child: Text(
-                        "Kitap Açıklaması Kitap Açıklaması Kitap Açıklaması Kitap Açıklaması Kitap Açıklaması Kitap Açıklaması Kitap Açıklaması Kitap Açıklaması Kitap Açıklaması Kitap Açıklaması"),
-                  )),
-                ],
-              ),
-            )),
-      ],
-    );
-  }
-}
-
 class buildSearchBar extends StatelessWidget {
   const buildSearchBar({
     Key? key,
@@ -285,7 +152,6 @@ class buildSearchBar extends StatelessWidget {
   Widget build(BuildContext context) {
     return Row(
       children: [
-
         Expanded(
             child: TextFormField(
           cursorColor: Colors.white,

@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
 
 import 'entry_view.dart';
 
@@ -16,8 +15,9 @@ class ScaleTransitionScreenState extends State<ScaleTransitionScreen>
   @override
   void initState() {
     Future.delayed(Duration(seconds: 2), () {
-      Navigator.of(context).pushAndRemoveUntil(MaterialPageRoute(builder: (context) =>
-          EntryPage()), (Route<dynamic> route) => false);
+      Navigator.of(context).pushAndRemoveUntil(
+          MaterialPageRoute(builder: (context) => EntryPage()),
+          (Route<dynamic> route) => false);
     });
     _controller =
         AnimationController(vsync: this, duration: const Duration(seconds: 1));
@@ -35,8 +35,9 @@ class ScaleTransitionScreenState extends State<ScaleTransitionScreen>
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: ScaleTransition(
-        scale: _scale,
-        child:  Center(child: Image.asset("assets/images/logo.png")),));
-      }
+        body: ScaleTransition(
+      scale: _scale,
+      child: Center(child: Image.asset("assets/images/logo.png")),
+    ));
+  }
 }

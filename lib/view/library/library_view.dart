@@ -1,9 +1,7 @@
+// ignore: import_of_legacy_library_into_null_safe
 import 'package:category_picker/category_picker.dart';
-import 'package:category_picker/category_picker_item.dart';
-import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:get/get_core/src/get_main.dart';
 import 'package:kitapcim/constants/context_extentions.dart';
 import 'package:kitapcim/view/library/library_view_model.dart';
 
