@@ -23,15 +23,7 @@ class _ProfileState extends State<Profile> {
               Text("Profilim", style: buildTextStyle(22, Colors.black)),
             ],
           ), //profilimYazisi
-          Row(
-            mainAxisAlignment: MainAxisAlignment.end,
-            children: [
-              Icon(Icons.logout_sharp),
-              SizedBox(
-                width: context.dynamicWidth(0.05),
-              )
-            ],
-          ),
+
           SizedBox(
             height: context.dynamicHeight(0.05),
           ),
@@ -166,6 +158,16 @@ class _ProfileState extends State<Profile> {
                       );
                     }).toList(),
                   ),*/
+          Row(
+            mainAxisAlignment: MainAxisAlignment.end,
+            crossAxisAlignment: CrossAxisAlignment.end,
+            children: [
+              Icon(Icons.logout_sharp),
+              SizedBox(
+                width: context.dynamicWidth(0.05),
+              )
+            ],
+          ),
         ],
       ),
     ));
