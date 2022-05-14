@@ -74,7 +74,10 @@ class buildBooksCards extends StatelessWidget {
             padding: const EdgeInsets.all(10.0),
             child: Row(
               children: [
-                LikeButton(countPostion: CountPostion.right, likeCount: 0),
+                LikeButton(
+                  countPostion: CountPostion.right,
+                  likeCount: 0,
+                ),
                 SizedBox(
                   width: context.dynamicWidth(0.03),
                 ),
