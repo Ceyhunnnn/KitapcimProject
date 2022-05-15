@@ -1,8 +1,10 @@
 import "package:flutter/material.dart";
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:kitapcim/constants/context_extentions.dart';
 import 'package:kitapcim/services/auth.dart';
-
+import 'package:rflutter_alert/rflutter_alert.dart';
+import 'package:intl/intl.dart';
 import 'entry_view.dart';
 
 class Register extends StatefulWidget {
@@ -107,6 +109,7 @@ class _RegisterState extends State<Register> {
                         child: Padding(
                       padding: const EdgeInsets.all(10.0),
                       child: TextFormField(
+                          obscureText: true,
                           controller: passwordController,
                           cursorColor: Colors.grey,
                           keyboardType: TextInputType.emailAddress,
@@ -125,16 +128,44 @@ class _RegisterState extends State<Register> {
                   children: [
                     ElevatedButton(
                         onPressed: () {
-                          _authService.createUser(
-                              nameController.text,
-                              surnameController.text,
-                              mailController.text,
-                              passwordController.text);
-                          Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                builder: (context) => EntryPage(),
-                              ));
+                          final DateTime now = DateTime.now();
+                          final DateFormat formatter = DateFormat('dd-MM-yyyy');
+                          final String formatted = formatter.format(now);
+                          if (nameController.text != "" &&
+                              surnameController.text != "" &&
+                              mailController.text != "" &&
+                              passwordController.text != "") {
+                            _authService.createUser(
+                                nameController.text,
+                                surnameController.text,
+                                mailController.text,
+                                passwordController.text,
+                                formatted);
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) => EntryPage(),
+                                ));
+                          } else {
+                            Alert(
+                              context: context,
+                              type: AlertType.warning,
+                              title: "Hata",
+                              desc:
+                                  "Boşlukları eksiksiz ve doğru doldurduğundan emin ol",
+                              buttons: [
+                                DialogButton(
+                                  child: Text(
+                                    "Kapat",
+                                    style: TextStyle(
+                                        color: Colors.white, fontSize: 20),
+                                  ),
+                                  onPressed: () => Navigator.pop(context),
+                                  color: context.appColor,
+                                )
+                              ],
+                            ).show();
+                          }
                         },
                         style: ElevatedButton.styleFrom(
                             primary: Color(0xff1e1b32)),
@@ -145,7 +176,17 @@ class _RegisterState extends State<Register> {
                         ))
                   ],
                 ),
-                SizedBox(height: context.dynamicHeight(0.010))
+                SizedBox(
+                  height: context.dynamicHeight(0.05),
+                ),
+                GestureDetector(
+                  onTap: () {
+                    Navigator.pop(context);
+                  },
+                  child: FaIcon(
+                    FontAwesomeIcons.arrowCircleLeft,
+                  ),
+                ),
               ],
             ),
           ),

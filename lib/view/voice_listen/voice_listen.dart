@@ -2,6 +2,7 @@ import 'package:audioplayers/audioplayers.dart';
 import "package:flutter/material.dart";
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:kitapcim/constants/context_extentions.dart';
+import 'dart:io' show Platform;
 
 class VoiceListen extends StatefulWidget {
   const VoiceListen({Key? key}) : super(key: key);
@@ -68,121 +69,126 @@ class _VoiceListenState extends State<VoiceListen> {
           automaticallyImplyLeading: false,
           centerTitle: true,
         ),
-        body: Container(
-            width: context.dynamicWidth(1),
-            height: context.dynamicHeight(1),
-            decoration: BoxDecoration(
-                gradient: LinearGradient(
-                    begin: Alignment.topLeft,
-                    end: Alignment.bottomRight,
-                    colors: [
-                  Color.fromARGB(255, 129, 159, 153),
-                  Color.fromARGB(255, 83, 95, 105)
-                ])),
-            child: Container(
-              child: Column(
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    SizedBox(
-                      height: context.dynamicHeight(0.03),
-                    ),
-                    Center(
-                      child: Text(
-                        "Oynatma Listesi",
-                        style: context.buildTextStyle(25, Colors.white),
-                      ),
-                    ),
-                    Center(
-                      child: Container(
-                        width: context.dynamicWidth(0.4),
-                        height: context.dynamicHeight(0.4),
-                        decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(30),
-                            image: DecorationImage(
-                                image: AssetImage("assets/books/au.jpg"))),
-                      ),
-                    ),
-                    Center(
-                        child: Text("Aşkımız Eski Bir Roman",
-                            style: context.buildTextStyle(20, Colors.white))),
-                    SizedBox(
-                      height: context.dynamicHeight(0.05),
-                    ),
-                    Expanded(
-                      child: Container(
-                        decoration: BoxDecoration(
-                            color: Colors.white,
-                            borderRadius: BorderRadius.only(
-                                topLeft: Radius.circular(30),
-                                topRight: Radius.circular(30))),
-                        child: Column(
+        body: Platform.isAndroid
+            ? buildMp3Player(context)
+            : Center(child: NullPageWidget()));
+  }
+
+  Container buildMp3Player(BuildContext context) {
+    return Container(
+        width: context.dynamicWidth(1),
+        height: context.dynamicHeight(1),
+        decoration: BoxDecoration(
+            gradient: LinearGradient(
+                begin: Alignment.topLeft,
+                end: Alignment.bottomRight,
+                colors: [
+              Color.fromARGB(255, 129, 159, 153),
+              Color.fromARGB(255, 83, 95, 105)
+            ])),
+        child: Container(
+          child: Column(
+              mainAxisAlignment: MainAxisAlignment.start,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                SizedBox(
+                  height: context.dynamicHeight(0.03),
+                ),
+                Center(
+                  child: Text(
+                    "Oynatma Listesi",
+                    style: context.buildTextStyle(25, Colors.white),
+                  ),
+                ),
+                Center(
+                  child: Container(
+                    width: context.dynamicWidth(0.4),
+                    height: context.dynamicHeight(0.4),
+                    decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(30),
+                        image: DecorationImage(
+                            image: AssetImage("assets/books/au.jpg"))),
+                  ),
+                ),
+                Center(
+                    child: Text("Aşkımız Eski Bir Roman",
+                        style: context.buildTextStyle(20, Colors.white))),
+                SizedBox(
+                  height: context.dynamicHeight(0.05),
+                ),
+                Expanded(
+                  child: Container(
+                    decoration: BoxDecoration(
+                        color: Colors.white,
+                        borderRadius: BorderRadius.only(
+                            topLeft: Radius.circular(30),
+                            topRight: Radius.circular(30))),
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                        Container(
+                          width: context.dynamicWidth(1),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            children: [
+                              Text(
+                                  "${position.inMinutes}:${position.inSeconds.remainder(60)}"),
+                              slider(),
+                              Text(
+                                  "${musicLength.inMinutes}:${musicLength.inSeconds.remainder(60)}"),
+                            ],
+                          ),
+                        ),
+                        Row(
                           mainAxisAlignment: MainAxisAlignment.center,
                           crossAxisAlignment: CrossAxisAlignment.center,
                           children: [
-                            Container(
-                              width: context.dynamicWidth(1),
-                              child: Row(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                crossAxisAlignment: CrossAxisAlignment.center,
-                                children: [
-                                  Text(
-                                      "${position.inMinutes}:${position.inSeconds.remainder(60)}"),
-                                  slider(),
-                                  Text(
-                                      "${musicLength.inMinutes}:${musicLength.inSeconds.remainder(60)}"),
-                                ],
-                              ),
-                            ),
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              crossAxisAlignment: CrossAxisAlignment.center,
-                              children: [
-                                IconButton(
-                                    onPressed: () {},
-                                    iconSize: 45,
-                                    color: Colors.black,
-                                    icon: Icon(Icons.skip_previous)),
-                                IconButton(
-                                    onPressed: () {
-                                      if (!playing) {
-                                        cache.play("sound_example.mp3");
+                            IconButton(
+                                onPressed: () {},
+                                iconSize: 45,
+                                color: Colors.black,
+                                icon: Icon(Icons.skip_previous)),
+                            IconButton(
+                                onPressed: () {
+                                  if (!playing) {
+                                    cache.play("sound_example.mp3");
 
-                                        setState(() {
-                                          plyButton = Icons.pause;
-                                          playing = true;
-                                        });
-                                      } else {
-                                        _player.pause();
-                                        setState(() {
-                                          plyButton = Icons.play_arrow;
-                                          playing = false;
-                                        });
-                                      }
-                                    },
-                                    iconSize: 60,
-                                    color: Colors.black,
-                                    icon: Container(
-                                        decoration: BoxDecoration(
-                                          border: Border.all(
-                                              style: BorderStyle.solid),
-                                          borderRadius:
-                                              BorderRadius.circular(35),
-                                        ),
-                                        child: Center(child: Icon(plyButton)))),
-                                IconButton(
-                                    onPressed: () {},
-                                    iconSize: 45,
-                                    color: Colors.black,
-                                    icon: Icon(Icons.skip_next))
-                              ],
-                            ),
+                                    setState(() {
+                                      plyButton = Icons.pause;
+                                      playing = true;
+                                    });
+                                  } else {
+                                    _player.pause();
+                                    setState(() {
+                                      plyButton = Icons.play_arrow;
+                                      playing = false;
+                                    });
+                                  }
+                                },
+                                iconSize: 60,
+                                color: Colors.black,
+                                icon: Container(
+                                    decoration: BoxDecoration(
+                                      border:
+                                          Border.all(style: BorderStyle.solid),
+                                      borderRadius: BorderRadius.circular(35),
+                                    ),
+                                    child: Center(child: Icon(plyButton)))),
+                            IconButton(
+                                onPressed: () {},
+                                iconSize: 45,
+                                color: Colors.black,
+                                icon: Icon(Icons.skip_next))
                           ],
                         ),
-                      ),
-                    )
-                  ]),
-            )));
+                      ],
+                    ),
+                  ),
+                )
+              ]),
+        ));
   }
 }
 

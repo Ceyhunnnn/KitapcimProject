@@ -18,8 +18,8 @@ class AuthService {
   }
 
   //Kayit ol Fonk.
-  Future<User?> createUser(
-      String name, String surName, String email, String password) async {
+  Future<User?> createUser(String name, String surName, String email,
+      String password, String date) async {
     var user = await _auth.createUserWithEmailAndPassword(
         email: email, password: password);
 
@@ -27,7 +27,8 @@ class AuthService {
       "userName": name,
       "userSurname": surName,
       "E-Mail": email,
-      "Password": password
+      "Password": password,
+      "Date": date
     });
 
     return user.user;

@@ -1,5 +1,6 @@
 // --no-sound-null-safety
 // @dart=2.9
+
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -9,12 +10,12 @@ import 'package:kitapcim/view/user/splash_screen.dart';
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
+  runApp(MyApp());
+
   SystemChrome.setSystemUIOverlayStyle(const SystemUiOverlayStyle(
     statusBarColor: Colors.transparent,
     statusBarBrightness: Brightness.dark,
   ));
-
-  runApp(MyApp());
 }
 
 class MyApp extends StatelessWidget {

@@ -1,3 +1,5 @@
+import 'dart:io' show Platform;
+
 import 'package:carousel_slider/carousel_slider.dart';
 import "package:flutter/material.dart";
 import 'package:google_fonts/google_fonts.dart';
@@ -28,7 +30,11 @@ class _HomePageState extends State<HomePage> {
           slivers: [
             SliverAppBar(
               stretch: true,
-              collapsedHeight: context.dynamicHeight(0.15),
+              collapsedHeight: Platform.isAndroid
+                  ? context.dynamicHeight(0.15)
+                  : Platform.isIOS
+                      ? context.dynamicHeight(0.12)
+                      : context.dynamicHeight(0.15),
               pinned: true,
               forceElevated: true,
               automaticallyImplyLeading: false,

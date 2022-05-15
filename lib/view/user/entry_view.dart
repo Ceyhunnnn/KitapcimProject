@@ -1,6 +1,8 @@
 import 'package:flutter/gestures.dart';
 import "package:flutter/material.dart";
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+
 import 'package:google_fonts/google_fonts.dart';
 import 'package:kitapcim/constants/context_extentions.dart';
 import 'package:kitapcim/components/bottombar_view.dart';
@@ -21,18 +23,16 @@ class _EntryPageState extends State<EntryPage> {
   AuthService _authService = AuthService();
 
   late String butonAciklama = "Giriş Yap";
+
+  var changeIcon = FontAwesomeIcons.eye;
+  bool showHide = false;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       resizeToAvoidBottomInset: false,
       body: SafeArea(
         child: Container(
-          /*decoration: BoxDecoration(
-            image: DecorationImage(
-              image: AssetImage("assets/images/background.jpg"),
-              fit: BoxFit.cover,
-            ),
-          ),*/
           color: Color(0XFFF7F7F7),
           width: context.dynamicWidth(1),
           height: context.dynamicHeight(1),
@@ -73,10 +73,32 @@ class _EntryPageState extends State<EntryPage> {
                       child: Padding(
                         padding: const EdgeInsets.all(20.0),
                         child: TextFormField(
+                            obscureText: showHide,
                             controller: passwordController,
                             cursorColor: Colors.grey,
                             keyboardType: TextInputType.emailAddress,
                             decoration: new InputDecoration(
+                                suffixIcon: Column(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    InkWell(
+                                      child: FaIcon(changeIcon),
+                                      onTap: () {
+                                        setState(() {
+                                          if (changeIcon ==
+                                              FontAwesomeIcons.eyeSlash) {
+                                            showHide = false;
+                                            changeIcon = FontAwesomeIcons.eye;
+                                          } else {
+                                            showHide = true;
+                                            changeIcon =
+                                                FontAwesomeIcons.eyeSlash;
+                                          }
+                                        });
+                                      },
+                                    ),
+                                  ],
+                                ),
                                 labelText: "Parola",
                                 labelStyle: TextStyle(color: Colors.grey),
                                 border: new OutlineInputBorder(
@@ -96,12 +118,34 @@ class _EntryPageState extends State<EntryPage> {
                   children: [
                     ElevatedButton(
                         onPressed: () {
-                          _authService.signIn(
-                              mailController.text, passwordController.text);
-                          Navigator.push(
+                          if (mailController.text != "" &&
+                              passwordController.text != "") {
+                            _authService.signIn(
+                                mailController.text, passwordController.text);
+                            Navigator.push(
                               context,
                               MaterialPageRoute(
-                                  builder: (context) => BottomBarPage()));
+                                  builder: (context) => BottomBarPage()),
+                            );
+                          } else {
+                            Alert(
+                              context: context,
+                              type: AlertType.warning,
+                              title: "Hata",
+                              desc: "E-posta ve Parolayı kontrol et",
+                              buttons: [
+                                DialogButton(
+                                  child: Text(
+                                    "Kapat",
+                                    style: TextStyle(
+                                        color: Colors.white, fontSize: 20),
+                                  ),
+                                  onPressed: () => Navigator.pop(context),
+                                  color: context.appColor,
+                                )
+                              ],
+                            ).show();
+                          }
                         },
                         style: ElevatedButton.styleFrom(
                             primary: Color(0xff1e1b32)),
