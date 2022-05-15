@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:kitapcim/constants/context_extentions.dart';
+import 'package:kitapcim/services/auth.dart';
+import 'package:kitapcim/view/user/entry_view.dart';
 
 class Profile extends StatefulWidget {
   const Profile({Key? key}) : super(key: key);
@@ -11,6 +13,8 @@ class Profile extends StatefulWidget {
 }
 
 class _ProfileState extends State<Profile> {
+  AuthService _authService = AuthService();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -165,6 +169,9 @@ class _ProfileState extends State<Profile> {
               children: [
                 GestureDetector(
                     onTap: () {
+                      _authService.singOut();
+                      Navigator.push(context,
+                          MaterialPageRoute(builder: (context) => EntryPage()));
                       print("Logout!");
                     },
                     child: Icon(Icons.logout_sharp)),

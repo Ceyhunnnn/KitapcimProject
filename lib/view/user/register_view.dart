@@ -1,6 +1,7 @@
 import "package:flutter/material.dart";
 import 'package:google_fonts/google_fonts.dart';
 import 'package:kitapcim/constants/context_extentions.dart';
+import 'package:kitapcim/services/auth.dart';
 
 import 'entry_view.dart';
 
@@ -12,11 +13,11 @@ class Register extends StatefulWidget {
 }
 
 class _RegisterState extends State<Register> {
-  late String email = "E-Posta";
-  late String password = "Parola";
-  late String cPassword = "Tekrar Parola";
-  late String name = "Ad";
-  late String surname = "Soyad";
+  TextEditingController nameController = TextEditingController();
+  TextEditingController surnameController = TextEditingController();
+  TextEditingController mailController = TextEditingController();
+  TextEditingController passwordController = TextEditingController();
+  AuthService _authService = AuthService();
 
   @override
   Widget build(BuildContext context) {
@@ -43,77 +44,113 @@ class _RegisterState extends State<Register> {
                     )
                   ],
                 ),
-                buildTextFormField(text: name),
-                buildTextFormField(text: surname),
-                buildTextFormField(text: email),
-                buildTextFormField(text: password),
-                buildButtonSignin(),
+                Row(
+                  children: [
+                    Expanded(
+                        child: Padding(
+                      padding: const EdgeInsets.all(10.0),
+                      child: TextFormField(
+                          controller: nameController,
+                          cursorColor: Colors.grey,
+                          keyboardType: TextInputType.emailAddress,
+                          decoration: new InputDecoration(
+                            labelText: "Ad",
+                            labelStyle: TextStyle(color: Colors.grey),
+                            border: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(20.0),
+                            ),
+                          )),
+                    )),
+                  ],
+                ),
+                Row(
+                  children: [
+                    Expanded(
+                        child: Padding(
+                      padding: const EdgeInsets.all(10.0),
+                      child: TextFormField(
+                          controller: surnameController,
+                          cursorColor: Colors.grey,
+                          keyboardType: TextInputType.emailAddress,
+                          decoration: new InputDecoration(
+                            labelText: "Soyad",
+                            labelStyle: TextStyle(color: Colors.grey),
+                            border: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(20.0),
+                            ),
+                          )),
+                    )),
+                  ],
+                ),
+                Row(
+                  children: [
+                    Expanded(
+                        child: Padding(
+                      padding: const EdgeInsets.all(10.0),
+                      child: TextFormField(
+                          controller: mailController,
+                          cursorColor: Colors.grey,
+                          keyboardType: TextInputType.emailAddress,
+                          decoration: new InputDecoration(
+                            labelText: "E-Posta",
+                            labelStyle: TextStyle(color: Colors.grey),
+                            border: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(20.0),
+                            ),
+                          )),
+                    )),
+                  ],
+                ),
+                Row(
+                  children: [
+                    Expanded(
+                        child: Padding(
+                      padding: const EdgeInsets.all(10.0),
+                      child: TextFormField(
+                          controller: passwordController,
+                          cursorColor: Colors.grey,
+                          keyboardType: TextInputType.emailAddress,
+                          decoration: new InputDecoration(
+                            labelText: "Parola",
+                            labelStyle: TextStyle(color: Colors.grey),
+                            border: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(20.0),
+                            ),
+                          )),
+                    )),
+                  ],
+                ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    ElevatedButton(
+                        onPressed: () {
+                          _authService.createUser(
+                              nameController.text,
+                              surnameController.text,
+                              mailController.text,
+                              passwordController.text);
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => EntryPage(),
+                              ));
+                        },
+                        style: ElevatedButton.styleFrom(
+                            primary: Color(0xff1e1b32)),
+                        child: Padding(
+                          padding: const EdgeInsets.only(
+                              top: 15, bottom: 15, left: 20, right: 20),
+                          child: Text("Kullanıcı oluştur"),
+                        ))
+                  ],
+                ),
                 SizedBox(height: context.dynamicHeight(0.010))
               ],
             ),
           ),
         ),
       ),
-    );
-  }
-}
-
-class buildButtonSignin extends StatelessWidget {
-  const buildButtonSignin({
-    Key? key,
-  }) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.center,
-      children: [
-        ElevatedButton(
-            onPressed: () {
-              Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => EntryPage(),
-                  ));
-            },
-            style: ElevatedButton.styleFrom(primary: Color(0xff1e1b32)),
-            child: Padding(
-              padding: const EdgeInsets.only(
-                  top: 15, bottom: 15, left: 20, right: 20),
-              child: Text("Kullanıcı oluştur"),
-            ))
-      ],
-    );
-  }
-}
-
-class buildTextFormField extends StatelessWidget {
-  const buildTextFormField({
-    Key? key,
-    required this.text,
-  }) : super(key: key);
-
-  final String text;
-
-  @override
-  Widget build(BuildContext context) {
-    return Row(
-      children: [
-        Expanded(
-            child: Padding(
-          padding: const EdgeInsets.all(10.0),
-          child: TextFormField(
-              cursorColor: Colors.grey,
-              keyboardType: TextInputType.emailAddress,
-              decoration: new InputDecoration(
-                labelText: text,
-                labelStyle: TextStyle(color: Colors.grey),
-                border: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(20.0),
-                ),
-              )),
-        )),
-      ],
     );
   }
 }
