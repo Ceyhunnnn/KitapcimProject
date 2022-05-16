@@ -24,8 +24,8 @@ class _EntryPageState extends State<EntryPage> {
 
   late String butonAciklama = "Giriş Yap";
 
-  var changeIcon = FontAwesomeIcons.eye;
-  bool showHide = false;
+  var changeIcon = FontAwesomeIcons.eyeSlash;
+  bool showHide = true;
 
   @override
   Widget build(BuildContext context) {
@@ -86,13 +86,13 @@ class _EntryPageState extends State<EntryPage> {
                                       onTap: () {
                                         setState(() {
                                           if (changeIcon ==
-                                              FontAwesomeIcons.eyeSlash) {
-                                            showHide = false;
-                                            changeIcon = FontAwesomeIcons.eye;
-                                          } else {
+                                              FontAwesomeIcons.eye) {
                                             showHide = true;
                                             changeIcon =
                                                 FontAwesomeIcons.eyeSlash;
+                                          } else {
+                                            showHide = false;
+                                            changeIcon = FontAwesomeIcons.eye;
                                           }
                                         });
                                       },

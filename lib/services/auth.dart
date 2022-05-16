@@ -28,7 +28,7 @@ class AuthService {
       "userSurname": surName,
       "E-Mail": email,
       "Password": password,
-      "Date": date
+      "Date": date,
     });
 
     return user.user;
