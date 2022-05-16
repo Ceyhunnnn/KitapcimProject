@@ -20,6 +20,8 @@ class _RegisterState extends State<Register> {
   TextEditingController mailController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
   AuthService _authService = AuthService();
+  var changeIcon = FontAwesomeIcons.eyeSlash;
+  bool showHide = true;
 
   @override
   Widget build(BuildContext context) {
@@ -54,7 +56,6 @@ class _RegisterState extends State<Register> {
                       child: TextFormField(
                           controller: nameController,
                           cursorColor: Colors.grey,
-                          keyboardType: TextInputType.emailAddress,
                           decoration: new InputDecoration(
                             labelText: "Ad",
                             labelStyle: TextStyle(color: Colors.grey),
@@ -73,7 +74,6 @@ class _RegisterState extends State<Register> {
                       child: TextFormField(
                           controller: surnameController,
                           cursorColor: Colors.grey,
-                          keyboardType: TextInputType.emailAddress,
                           decoration: new InputDecoration(
                             labelText: "Soyad",
                             labelStyle: TextStyle(color: Colors.grey),
@@ -109,11 +109,29 @@ class _RegisterState extends State<Register> {
                         child: Padding(
                       padding: const EdgeInsets.all(10.0),
                       child: TextFormField(
-                          obscureText: true,
+                          obscureText: showHide,
                           controller: passwordController,
                           cursorColor: Colors.grey,
-                          keyboardType: TextInputType.emailAddress,
                           decoration: new InputDecoration(
+                            suffixIcon: Column(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                InkWell(
+                                  child: FaIcon(changeIcon),
+                                  onTap: () {
+                                    setState(() {
+                                      if (changeIcon == FontAwesomeIcons.eye) {
+                                        showHide = true;
+                                        changeIcon = FontAwesomeIcons.eyeSlash;
+                                      } else {
+                                        showHide = false;
+                                        changeIcon = FontAwesomeIcons.eye;
+                                      }
+                                    });
+                                  },
+                                ),
+                              ],
+                            ),
                             labelText: "Parola",
                             labelStyle: TextStyle(color: Colors.grey),
                             border: OutlineInputBorder(

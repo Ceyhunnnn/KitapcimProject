@@ -76,7 +76,6 @@ class _EntryPageState extends State<EntryPage> {
                             obscureText: showHide,
                             controller: passwordController,
                             cursorColor: Colors.grey,
-                            keyboardType: TextInputType.emailAddress,
                             decoration: new InputDecoration(
                                 suffixIcon: Column(
                                   mainAxisAlignment: MainAxisAlignment.center,
