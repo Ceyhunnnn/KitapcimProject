@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/gestures.dart';
 import "package:flutter/material.dart";
 import 'package:flutter_svg/flutter_svg.dart';
@@ -10,6 +11,8 @@ import 'package:kitapcim/services/auth.dart';
 import 'package:kitapcim/view/user/register_view.dart';
 import 'package:rflutter_alert/rflutter_alert.dart';
 
+//final userRef = FirebaseFirestore.instance.collection("Users");
+
 class EntryPage extends StatefulWidget {
   const EntryPage({Key? key}) : super(key: key);
 
@@ -21,11 +24,17 @@ class _EntryPageState extends State<EntryPage> {
   TextEditingController mailController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
   AuthService _authService = AuthService();
-
   late String butonAciklama = "Giriş Yap";
-
   var changeIcon = FontAwesomeIcons.eyeSlash;
   bool showHide = true;
+
+/*
+  getUsers() {
+    userRef.get().then((QuerySnapshot snapshot) =>
+        snapshot.docs.forEach((DocumentSnapshot doc) {
+          print(doc.data());
+        }));
+  }*/
 
   @override
   Widget build(BuildContext context) {

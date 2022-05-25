@@ -1,3 +1,5 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -13,7 +15,32 @@ class Profile extends StatefulWidget {
 }
 
 class _ProfileState extends State<Profile> {
+  var firebaseUser = FirebaseAuth.instance.currentUser;
+
   AuthService _authService = AuthService();
+  var name, surname, mail, date;
+
+  Future<void> veriAl() async {
+    FirebaseFirestore.instance
+        .collection('Users')
+        .doc(firebaseUser!.uid)
+        .get()
+        .then((gelenVeri) {
+      setState(() {
+        name = gelenVeri.data()!['userName'];
+        surname = gelenVeri.data()!['userSurname'];
+        mail = gelenVeri.data()!['E-Mail'];
+        date = gelenVeri.data()!['Date'];
+      });
+      print("name : $name, surname : $surname, mail : $mail, date : $date");
+    });
+  }
+
+  @override
+  void initState() {
+    veriAl();
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -45,9 +72,6 @@ class _ProfileState extends State<Profile> {
                       right: 1,
                       bottom: 1,
                       child: GestureDetector(
-                          onTap: () {
-                            print("Photo change");
-                          },
                           child: Icon(FontAwesomeIcons.camera, size: 25)))
                 ]),
                 SizedBox(
@@ -56,7 +80,8 @@ class _ProfileState extends State<Profile> {
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text("Ceyhun GÜL", style: buildTextStyle(22, Colors.black)),
+                    Text("$name $surname",
+                        style: buildTextStyle(22, Colors.black)),
                     Text("Kitap okuma ünvanı",
                         style: buildTextStyle(15, Colors.grey)),
                   ],
@@ -104,15 +129,15 @@ class _ProfileState extends State<Profile> {
             SizedBox(
               height: context.dynamicHeight(0.04),
             ),
-            Text("E-posta : asdasd@gmail.com"),
+            Text("E-posta : $mail"),
             SizedBox(
               height: context.dynamicHeight(0.04),
             ),
-            Text("Kayıt tarihi : 25.03.2022"),
+            Text("Kayıt tarihi : $date"),
             SizedBox(
               height: context.dynamicHeight(0.04),
             ),
-            Text("Beğenilen kitap sayısı : 5"),
+            Text("Beğenilen kitap sayısı : 0"),
             SizedBox(
               height: context.dynamicHeight(0.04),
             ),
@@ -170,6 +195,7 @@ class _ProfileState extends State<Profile> {
                 GestureDetector(
                     onTap: () {
                       _authService.singOut();
+                      print("Çıkış");
                       Navigator.push(context,
                           MaterialPageRoute(builder: (context) => EntryPage()));
                       print("Logout!");

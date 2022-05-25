@@ -33,7 +33,7 @@ class _HomePageState extends State<HomePage> {
               collapsedHeight: Platform.isAndroid
                   ? context.dynamicHeight(0.15)
                   : Platform.isIOS
-                      ? context.dynamicHeight(0.12)
+                      ? context.dynamicHeight(0.10)
                       : context.dynamicHeight(0.15),
               pinned: true,
               forceElevated: true,

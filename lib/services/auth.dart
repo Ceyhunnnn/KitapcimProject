@@ -2,13 +2,17 @@ import "package:cloud_firestore/cloud_firestore.dart";
 import "package:firebase_auth/firebase_auth.dart";
 
 class AuthService {
+  var userUID;
   final FirebaseAuth _auth = FirebaseAuth.instance;
   final FirebaseFirestore _firestore = FirebaseFirestore.instance;
+
+  //profil fotoğrafı
 
 //Giris yap fonk.
   Future<User?> signIn(String email, String password) async {
     var user = await _auth.signInWithEmailAndPassword(
         email: email, password: password);
+
     return user.user;
   }
 
@@ -30,7 +34,7 @@ class AuthService {
       "Password": password,
       "Date": date,
     });
-
+    userUID = user.user;
     return user.user;
   }
 }
