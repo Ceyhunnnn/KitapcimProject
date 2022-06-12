@@ -1,9 +1,12 @@
 import 'dart:io' show Platform;
 
 import 'package:carousel_slider/carousel_slider.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import "package:flutter/material.dart";
 import 'package:google_fonts/google_fonts.dart';
 import 'package:kitapcim/constants/context_extentions.dart';
+
 import 'package:rflutter_alert/rflutter_alert.dart';
 
 import '../../components/bookCard.dart';
@@ -16,6 +19,29 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
+  var firebaseUser = FirebaseAuth.instance.currentUser;
+  var name;
+  Future<void> userGet() async {
+    FirebaseFirestore.instance
+        .collection('Users')
+        .doc(firebaseUser!.uid)
+        .get()
+        .then((gelenVeri) {
+      setState(() {
+        name = gelenVeri.data()!['userName'];
+      });
+      print("name : $name");
+    });
+  }
+
+  @override
+  void initState() {
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      userGet();
+    });
+    super.initState();
+  }
+
   List<String> listPhoto = [
     "assets/books/as.png",
     "assets/books/au.jpg",
@@ -33,7 +59,7 @@ class _HomePageState extends State<HomePage> {
               collapsedHeight: Platform.isAndroid
                   ? context.dynamicHeight(0.15)
                   : Platform.isIOS
-                      ? context.dynamicHeight(0.10)
+                      ? context.dynamicHeight(0.12)
                       : context.dynamicHeight(0.15),
               pinned: true,
               forceElevated: true,
@@ -60,11 +86,8 @@ class _HomePageState extends State<HomePage> {
   List<Widget> Widgets() {
     return [
       buildCarouselSlider(context),
-      SizedBox(
-        height: context.dynamicHeight(0.015),
-      ),
       Divider(
-        thickness: 2,
+        thickness: 1,
       ),
       Center(
         child: Text(
@@ -72,18 +95,10 @@ class _HomePageState extends State<HomePage> {
           style: buildTextStyle(20, Colors.black),
         ),
       ),
-      SingleChildScrollView(
-          //builBooksList(),
-          child: Column(
-        children: [
-          Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: buildBooksCards(
-              context: context,
-            ),
-          ),
-        ],
-      )),
+      Padding(
+        padding: const EdgeInsets.all(5.0),
+        child: buildBooksCards(),
+      ),
     ];
   }
 
@@ -108,7 +123,7 @@ class _HomePageState extends State<HomePage> {
                   width: context.dynamicWidth(0.03),
                 ),
                 Text(
-                  "Merhaba Ceyhun",
+                  "Merhaba $name",
                   style: buildTextStyle(20, Colors.white),
                 )
               ],
@@ -126,17 +141,18 @@ class _HomePageState extends State<HomePage> {
   CarouselSlider buildCarouselSlider(BuildContext context) {
     return CarouselSlider(
       options: CarouselOptions(
+        height: context.dynamicHeight(0.25),
         enlargeCenterPage: true,
         autoPlay: true,
-        height: context.dynamicHeight(0.30),
       ),
       items: listPhoto.map<Widget>((index) {
         return Builder(
           builder: (BuildContext context) {
             return Padding(
-              padding: const EdgeInsets.all(15),
-              child: Container(
-                  child: Center(child: Image.asset(index.toString()))),
+              padding: const EdgeInsets.all(8.0),
+              child: Image.asset(
+                index.toString(),
+              ),
             );
           },
         );

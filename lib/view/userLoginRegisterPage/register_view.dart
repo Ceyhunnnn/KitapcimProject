@@ -57,6 +57,7 @@ class _RegisterState extends State<Register> {
                           controller: nameController,
                           cursorColor: Colors.grey,
                           decoration: new InputDecoration(
+                            isDense: true,
                             labelText: "Ad",
                             labelStyle: TextStyle(color: Colors.grey),
                             border: OutlineInputBorder(
@@ -75,6 +76,7 @@ class _RegisterState extends State<Register> {
                           controller: surnameController,
                           cursorColor: Colors.grey,
                           decoration: new InputDecoration(
+                            isDense: true,
                             labelText: "Soyad",
                             labelStyle: TextStyle(color: Colors.grey),
                             border: OutlineInputBorder(
@@ -94,6 +96,7 @@ class _RegisterState extends State<Register> {
                           cursorColor: Colors.grey,
                           keyboardType: TextInputType.emailAddress,
                           decoration: new InputDecoration(
+                            isDense: true,
                             labelText: "E-Posta",
                             labelStyle: TextStyle(color: Colors.grey),
                             border: OutlineInputBorder(
@@ -113,6 +116,7 @@ class _RegisterState extends State<Register> {
                           controller: passwordController,
                           cursorColor: Colors.grey,
                           decoration: new InputDecoration(
+                            isDense: true,
                             suffixIcon: Column(
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: [
@@ -223,7 +227,13 @@ class KitapcimWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return Row(
       mainAxisAlignment: MainAxisAlignment.center,
-      children: [Image.asset("assets/images/logo.png")],
+      children: [
+        Image.asset(
+          "assets/newLogo.png",
+          width: context.dynamicWidth(0.6),
+          height: context.dynamicHeight(0.3),
+        )
+      ],
     );
   }
 }

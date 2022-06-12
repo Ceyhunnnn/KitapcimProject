@@ -1,4 +1,3 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/gestures.dart';
 import "package:flutter/material.dart";
 import 'package:flutter_svg/flutter_svg.dart';
@@ -8,7 +7,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:kitapcim/constants/context_extentions.dart';
 import 'package:kitapcim/components/bottombar_view.dart';
 import 'package:kitapcim/services/auth.dart';
-import 'package:kitapcim/view/user/register_view.dart';
+import 'package:kitapcim/view/userLoginRegisterPage/register_view.dart';
 import 'package:rflutter_alert/rflutter_alert.dart';
 
 //final userRef = FirebaseFirestore.instance.collection("Users");
@@ -50,6 +49,7 @@ class _EntryPageState extends State<EntryPage> {
               children: [
                 SizedBox(height: context.dynamicHeight(0.01)),
                 KitapcimWidget(), //logo
+
                 SizedBox(
                   height: context.dynamicHeight(0.005),
                 ),
@@ -65,13 +65,13 @@ class _EntryPageState extends State<EntryPage> {
                             cursorColor: Colors.grey,
                             keyboardType: TextInputType.emailAddress,
                             decoration: new InputDecoration(
-                                labelText: "E-Posta",
-                                labelStyle: TextStyle(color: Colors.grey),
-                                border: new OutlineInputBorder(
-                                  borderSide: new BorderSide(
-                                    color: Colors.transparent,
-                                  ),
-                                ))),
+                              isDense: true,
+                              labelText: "E-Posta",
+                              labelStyle: TextStyle(color: Colors.grey),
+                              border: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(20.0),
+                              ),
+                            )),
                       ),
                     ),
                   ],
@@ -86,34 +86,34 @@ class _EntryPageState extends State<EntryPage> {
                             controller: passwordController,
                             cursorColor: Colors.grey,
                             decoration: new InputDecoration(
-                                suffixIcon: Column(
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  children: [
-                                    InkWell(
-                                      child: FaIcon(changeIcon),
-                                      onTap: () {
-                                        setState(() {
-                                          if (changeIcon ==
-                                              FontAwesomeIcons.eye) {
-                                            showHide = true;
-                                            changeIcon =
-                                                FontAwesomeIcons.eyeSlash;
-                                          } else {
-                                            showHide = false;
-                                            changeIcon = FontAwesomeIcons.eye;
-                                          }
-                                        });
-                                      },
-                                    ),
-                                  ],
-                                ),
-                                labelText: "Parola",
-                                labelStyle: TextStyle(color: Colors.grey),
-                                border: new OutlineInputBorder(
-                                  borderSide: new BorderSide(
-                                    color: Colors.transparent,
+                              isDense: true,
+                              suffixIcon: Column(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  InkWell(
+                                    child: FaIcon(changeIcon),
+                                    onTap: () {
+                                      setState(() {
+                                        if (changeIcon ==
+                                            FontAwesomeIcons.eye) {
+                                          showHide = true;
+                                          changeIcon =
+                                              FontAwesomeIcons.eyeSlash;
+                                        } else {
+                                          showHide = false;
+                                          changeIcon = FontAwesomeIcons.eye;
+                                        }
+                                      });
+                                    },
                                   ),
-                                ))),
+                                ],
+                              ),
+                              labelText: "Parola",
+                              labelStyle: TextStyle(color: Colors.grey),
+                              border: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(20.0),
+                              ),
+                            )),
                       ),
                     ),
                   ],
@@ -221,6 +221,7 @@ class _EntryPageState extends State<EntryPage> {
                 cursorColor: Colors.grey,
                 keyboardType: TextInputType.emailAddress,
                 decoration: new InputDecoration(
+                  isDense: true,
                   labelText: "E-Posta",
                   labelStyle: TextStyle(color: Colors.grey),
                   border: OutlineInputBorder(
@@ -361,7 +362,13 @@ class KitapcimWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return Row(
       mainAxisAlignment: MainAxisAlignment.center,
-      children: [Image.asset("assets/images/logo.png")],
+      children: [
+        Image.asset(
+          "assets/newLogo.png",
+          width: context.dynamicWidth(0.6),
+          height: context.dynamicHeight(0.3),
+        )
+      ],
     );
   }
 }

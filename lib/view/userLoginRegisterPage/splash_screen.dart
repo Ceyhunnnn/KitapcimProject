@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:kitapcim/constants/context_extentions.dart';
 
 import 'entry_view.dart';
 
@@ -37,7 +38,12 @@ class ScaleTransitionScreenState extends State<ScaleTransitionScreen>
     return Scaffold(
         body: ScaleTransition(
       scale: _scale,
-      child: Center(child: Image.asset("assets/images/logo.png")),
+      child: Center(
+          child: Image.asset(
+        "assets/newLogo.png",
+        width: context.dynamicWidth(0.6),
+        height: context.dynamicHeight(0.3),
+      )),
     ));
   }
 }

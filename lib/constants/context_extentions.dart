@@ -26,13 +26,13 @@ extension ScreenExtension on BuildContext {
   double dynamicHeight(double val) => MediaQuery.of(this).size.height * val;
 }
 
-extension buildText on BuildContext{
+extension buildText on BuildContext {
   TextStyle buildTextStyle(double fontSize, Color color) {
     return GoogleFonts.comfortaa(fontSize: fontSize, color: color);
   }
 }
 
-extension buildColor on BuildContext{
+extension buildColor on BuildContext {
   Color get appColor => Color(0xff05595B);
 }
 
