@@ -25,7 +25,7 @@ class _ProfileState extends State<Profile> {
   var firebaseUser = FirebaseAuth.instance.currentUser;
   AuthService _authService = AuthService();
   FirebaseAuth _auth = FirebaseAuth.instance;
-  var name, surname, mail, date;
+  var name, surname, mail, date, photo;
   Future<void> userGet() async {
     FirebaseFirestore.instance
         .collection('Users')
@@ -72,12 +72,14 @@ class _ProfileState extends State<Profile> {
 
   @override
   void initState() {
+    print("Profile Page Init");
     WidgetsBinding.instance.addPostFrameCallback((_) async {
       userGet();
-      //baglantiAl();
+      baglantiAl();
       print("Giris Yapili Kullanici id : " + firebaseUser!.uid);
       //ilk durum için kontrol yap
     });
+
     super.initState();
   }
 
@@ -240,10 +242,10 @@ class _ProfileState extends State<Profile> {
                                 onTap: () {
                                   _authService.singOut();
                                   print("Çıkış");
-                                  Navigator.push(
-                                      context,
+                                  Navigator.of(context).pushAndRemoveUntil(
                                       MaterialPageRoute(
-                                          builder: (context) => EntryPage()));
+                                          builder: (context) => EntryPage()),
+                                      (Route<dynamic> route) => false);
                                   print("Logout!");
                                 },
                                 child: Icon(Icons.logout_sharp)),

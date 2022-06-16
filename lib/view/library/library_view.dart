@@ -22,6 +22,12 @@ class _LibraryState extends State<Library> {
     );
   }
 
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    print("Library Page Init");
+  }
+
   CategoryPicker buildCategoryPicker() {
     return CategoryPicker(
       selectedItemBorderColor: Colors.transparent,

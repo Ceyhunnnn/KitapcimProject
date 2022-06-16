@@ -43,6 +43,7 @@ class _VoiceListenState extends State<VoiceListen> {
   //Now let's initialize our player
   @override
   void initState() {
+    print("Voice Listen Page Init");
     super.initState();
     _player = AudioPlayer();
     cache = AudioCache(fixedPlayer: _player);

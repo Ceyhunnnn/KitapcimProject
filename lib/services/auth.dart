@@ -5,6 +5,8 @@ class AuthService {
   var userUID;
   final FirebaseAuth _auth = FirebaseAuth.instance;
   final FirebaseFirestore _firestore = FirebaseFirestore.instance;
+  var defaultProfilPhoto =
+      "https://icon-library.com/images/profile-image-icon/profile-image-icon-25.jpg";
 
   //profil fotoğrafı
 
