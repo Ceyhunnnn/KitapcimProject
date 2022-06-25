@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
+
+/// Bu extentionu değiştirelim lütfen
+
 extension TextExtension on BuildContext {
   Text kapsulTitleFont(
           String title, FontWeight fontWeight, double fontSize, Color color) =>
