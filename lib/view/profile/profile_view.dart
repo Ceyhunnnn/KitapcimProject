@@ -75,7 +75,7 @@ class _ProfileState extends State<Profile> {
     print("Profile Page Init");
     WidgetsBinding.instance.addPostFrameCallback((_) async {
       userGet();
-      baglantiAl();
+      //baglantiAl();
       print("Giris Yapili Kullanici id : " + firebaseUser!.uid);
       //ilk durum için kontrol yap
     });

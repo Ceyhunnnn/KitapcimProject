@@ -1,26 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-extension TextExtension on BuildContext {
-  Text kapsulTitleFont(
-          String title, FontWeight fontWeight, double fontSize, Color color) =>
-      Text(
-        title,
-        style: TextStyle(
-            fontFamily: "Nasalization",
-            fontWeight: fontWeight,
-            fontSize: fontSize,
-            color: color),
-      );
-
-  Text kapsulSubtitleFont(String text, TextAlign align, double spacing,
-          Color color, double fontSize) =>
-      Text(text,
-          textAlign: align,
-          style: GoogleFonts.roboto(
-              letterSpacing: spacing, color: color, fontSize: fontSize));
-}
-
 extension ScreenExtension on BuildContext {
   double dynamicWidth(double val) => MediaQuery.of(this).size.width * val;
   double dynamicHeight(double val) => MediaQuery.of(this).size.height * val;

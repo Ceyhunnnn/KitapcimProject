@@ -24,9 +24,8 @@ class CommentPageDetail extends StatefulWidget {
 class _CommentPageDetailState extends State<CommentPageDetail> {
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
-    print("Home Page Inıt");
+    print("BookComment Page Inıt");
   }
 
   @override
