@@ -15,3 +15,10 @@ extension buildText on BuildContext {
 extension buildColor on BuildContext {
   Color get appColor => Color(0xff05595B);
 }
+
+extension buildDecoration on BuildContext {
+  Decoration get contDecoration => BoxDecoration(
+      color: Colors.white,
+      borderRadius: BorderRadius.only(
+          topLeft: Radius.circular(30), topRight: Radius.circular(30)));
+}

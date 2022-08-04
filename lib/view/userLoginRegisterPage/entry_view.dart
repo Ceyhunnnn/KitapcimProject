@@ -69,7 +69,7 @@ class _EntryPageState extends State<EntryPage> {
                               labelText: "E-Posta",
                               labelStyle: TextStyle(color: Colors.grey),
                               border: OutlineInputBorder(
-                                borderRadius: BorderRadius.circular(20.0),
+                                borderRadius: BorderRadius.circular(15.0),
                               ),
                             )),
                       ),
@@ -111,7 +111,7 @@ class _EntryPageState extends State<EntryPage> {
                               labelText: "Parola",
                               labelStyle: TextStyle(color: Colors.grey),
                               border: OutlineInputBorder(
-                                borderRadius: BorderRadius.circular(20.0),
+                                borderRadius: BorderRadius.circular(15.0),
                               ),
                             )),
                       ),
@@ -365,8 +365,8 @@ class KitapcimWidget extends StatelessWidget {
       children: [
         Image.asset(
           "assets/newLogo.png",
-          width: context.dynamicWidth(0.6),
-          height: context.dynamicHeight(0.3),
+          width: context.dynamicWidth(0.55),
+          height: context.dynamicHeight(0.25),
         )
       ],
     );

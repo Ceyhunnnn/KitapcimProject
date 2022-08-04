@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:kitapcim/constants/context_extentions.dart';
-
-import 'entry_view.dart';
+import 'package:kitapcim/view/userLoginRegisterPage/entry_page_view2.dart';
 
 class ScaleTransitionScreen extends StatefulWidget {
   @override
@@ -17,7 +16,7 @@ class ScaleTransitionScreenState extends State<ScaleTransitionScreen>
   void initState() {
     Future.delayed(Duration(seconds: 2), () {
       Navigator.of(context).pushAndRemoveUntil(
-          MaterialPageRoute(builder: (context) => EntryPage()),
+          MaterialPageRoute(builder: (context) => EntryPageView()),
           (Route<dynamic> route) => false);
     });
     _controller =
