@@ -24,17 +24,14 @@ class AuthService {
   }
 
   //Kayit ol Fonk.
-  Future<User?> createUser(String name, String surName, String email,
-      String password, String date) async {
+  Future<User?> createUser(String name, String email, String password) async {
     var user = await _auth.createUserWithEmailAndPassword(
         email: email, password: password);
 
     await _firestore.collection("Users").doc(user.user?.uid).set({
       "userName": name,
-      "userSurname": surName,
       "E-Mail": email,
       "Password": password,
-      "Date": date,
     });
     userUID = user.user;
     return user.user;

@@ -11,7 +11,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:kitapcim/constants/context_extentions.dart';
 import 'package:kitapcim/services/auth.dart';
-import 'package:kitapcim/view/userLoginRegisterPage/entry_view.dart';
+import 'package:kitapcim/view/userLoginRegisterPage/entry_page_view2.dart';
 
 class Profile extends StatefulWidget {
   const Profile({Key? key}) : super(key: key);
@@ -244,7 +244,8 @@ class _ProfileState extends State<Profile> {
                                   print("Çıkış");
                                   Navigator.of(context).pushAndRemoveUntil(
                                       MaterialPageRoute(
-                                          builder: (context) => EntryPage()),
+                                          builder: (context) =>
+                                              EntryPageView()),
                                       (Route<dynamic> route) => false);
                                   print("Logout!");
                                 },
