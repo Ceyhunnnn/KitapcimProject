@@ -1,6 +1,7 @@
 import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:kitapcim/components/bottombar_view.dart';
 import 'package:kitapcim/constants/context_extentions.dart';
@@ -329,7 +330,12 @@ class _registerPage extends StatelessWidget {
                                           pageController.animateToPage(0,
                                               duration:
                                                   Duration(milliseconds: 500),
-                                              curve: Curves.ease)
+                                              curve: Curves.ease),
+                                          Get.snackbar(
+                                              "Kayıt", "Hesap oluşturuldu",
+                                              colorText: Colors.white,
+                                              backgroundColor:
+                                                  context.appColor),
                                         }
                                       else
                                         {print("Hesap olusturma hata")}

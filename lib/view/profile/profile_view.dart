@@ -34,11 +34,10 @@ class _ProfileState extends State<Profile> {
         .then((gelenVeri) {
       setState(() {
         name = gelenVeri.data()!['userName'];
-        surname = gelenVeri.data()!['userSurname'];
         mail = gelenVeri.data()!['E-Mail'];
         date = gelenVeri.data()!['Date'];
       });
-      print("name : $name, surname : $surname, mail : $mail, date : $date");
+      print("name : $name, mail : $mail, date : $date");
     });
     isLoading = true;
   }
@@ -104,164 +103,166 @@ class _ProfileState extends State<Profile> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-        body: SafeArea(
-            child: isLoading
-                ? SingleChildScrollView(
-                    child: Column(
+    return Scaffold(body: oldProfilePage(context));
+  }
+
+  SafeArea oldProfilePage(BuildContext context) {
+    return SafeArea(
+        child: isLoading
+            ? SingleChildScrollView(
+                child: Column(
+                  children: [
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
+                        Text("Profilim",
+                            style: buildTextStyle(22, Colors.black)),
+                      ],
+                    ), //profilimYazisi
+
+                    SizedBox(
+                      height: context.dynamicHeight(0.05),
+                    ),
+                    Row(
+                      children: [
+                        SizedBox(
+                          width: context.dynamicWidth(0.05),
+                        ),
+                        Stack(children: [
+                          CircleAvatar(
+                            backgroundColor: Colors.transparent,
+                            radius: 48, // Image radius
+                            backgroundImage: NetworkImage(indirmeBag),
+                          ),
+                          Positioned(
+                              right: 1,
+                              bottom: 1,
+                              child: InkWell(
+                                  onTap: () {
+                                    kameradanYukle();
+                                  },
+                                  child:
+                                      Icon(FontAwesomeIcons.camera, size: 25)))
+                        ]),
+                        SizedBox(
+                          width: context.dynamicWidth(0.03),
+                        ),
+                        Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            Text("Profilim",
+                            Text("$name ",
                                 style: buildTextStyle(22, Colors.black)),
+                            Text("Kitap okuma ünvanı",
+                                style: buildTextStyle(15, Colors.grey)),
                           ],
-                        ), //profilimYazisi
-
+                        )
+                      ],
+                    ) //circle avatar ad soyad
+                    ,
+                    SizedBox(
+                      height: context.dynamicHeight(0.03),
+                    ),
+                    Row(
+                      children: [
                         SizedBox(
-                          height: context.dynamicHeight(0.05),
+                          width: context.dynamicWidth(0.05),
                         ),
-                        Row(
-                          children: [
-                            SizedBox(
-                              width: context.dynamicWidth(0.05),
-                            ),
-                            Stack(children: [
-                              CircleAvatar(
-                                backgroundColor: Colors.transparent,
-                                radius: 48, // Image radius
-                                backgroundImage: NetworkImage(indirmeBag),
+                        Text(
+                          "Bilgilerim",
+                          style: buildTextStyle(20, Colors.black),
+                        )
+                      ],
+                    ), //bilgilerim
+
+                    SizedBox(
+                      height: context.dynamicHeight(0.04),
+                    ),
+                    Text("E-posta : $mail"),
+                    SizedBox(
+                      height: context.dynamicHeight(0.04),
+                    ),
+                    Text("Kayıt tarihi : $date"),
+                    SizedBox(
+                      height: context.dynamicHeight(0.04),
+                    ),
+                    Text("Beğenilen kitap sayısı : 0"),
+                    SizedBox(
+                      height: context.dynamicHeight(0.04),
+                    ),
+
+                    SizedBox(
+                      height: context.dynamicHeight(0.01),
+                    ),
+                    Row(
+                      children: [
+                        SizedBox(
+                          width: context.dynamicWidth(0.05),
+                        ),
+                        Text(
+                          "Favorilerim",
+                          style: buildTextStyle(20, Colors.black),
+                        )
+                      ],
+                    ), //kütüphanem
+                    SizedBox(
+                      height: context.dynamicHeight(0.02),
+                    ),
+                    Container(
+                      // width: context.dynamicWidth(0.3),
+                      height: context.dynamicHeight(0.10),
+                      child: Center(
+                          child: Text(
+                        "Henüz bir kitap beğenilmedi",
+                        style: buildTextStyle(15, Colors.black),
+                      )),
+                    ),
+                    //begenilen kitapların fotoğraflarının görünecegi kisim
+                    /*CarouselSlider(
+                    options: CarouselOptions(
+                      height: context.dynamicHeight(0.15),
+                    ),
+                    items: [1,2].map((i) {
+                      return Builder(
+                        builder: (BuildContext context) {
+                          return Container(
+                              width: context.dynamicWidth(0.3),
+                              margin: EdgeInsets.symmetric(horizontal: 5.0),
+                              decoration: BoxDecoration(
+                                  color: Color(0xFF1e319d)
                               ),
-                              Positioned(
-                                  right: 1,
-                                  bottom: 1,
-                                  child: InkWell(
-                                      onTap: () {
-                                        kameradanYukle();
-                                      },
-                                      child: Icon(FontAwesomeIcons.camera,
-                                          size: 25)))
-                            ]),
-                            SizedBox(
-                              width: context.dynamicWidth(0.03),
-                            ),
-                            Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Text("$name $surname",
-                                    style: buildTextStyle(22, Colors.black)),
-                                Text("Kitap okuma ünvanı",
-                                    style: buildTextStyle(15, Colors.grey)),
-                              ],
-                            )
-                          ],
-                        ) //circle avatar ad soyad
-                        ,
+                              child: Center(child: Text('text $i', style: TextStyle(fontSize: 16.0),))
+                          );
+                        },
+                      );
+                    }).toList(),
+                  ),*/
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.end,
+                      crossAxisAlignment: CrossAxisAlignment.end,
+                      children: [
+                        GestureDetector(
+                            onTap: () {
+                              _authService.singOut();
+                              print("Çıkış");
+                              Navigator.of(context).pushAndRemoveUntil(
+                                  MaterialPageRoute(
+                                      builder: (context) => EntryPageView()),
+                                  (Route<dynamic> route) => false);
+                              print("Logout!");
+                            },
+                            child: Icon(Icons.logout_sharp)),
                         SizedBox(
-                          height: context.dynamicHeight(0.03),
-                        ),
-                        Row(
-                          children: [
-                            SizedBox(
-                              width: context.dynamicWidth(0.05),
-                            ),
-                            Text(
-                              "Bilgilerim",
-                              style: buildTextStyle(20, Colors.black),
-                            )
-                          ],
-                        ), //bilgilerim
-
-                        SizedBox(
-                          height: context.dynamicHeight(0.04),
-                        ),
-                        Text("E-posta : $mail"),
-                        SizedBox(
-                          height: context.dynamicHeight(0.04),
-                        ),
-                        Text("Kayıt tarihi : $date"),
-                        SizedBox(
-                          height: context.dynamicHeight(0.04),
-                        ),
-                        Text("Beğenilen kitap sayısı : 0"),
-                        SizedBox(
-                          height: context.dynamicHeight(0.04),
-                        ),
-
-                        SizedBox(
-                          height: context.dynamicHeight(0.01),
-                        ),
-                        Row(
-                          children: [
-                            SizedBox(
-                              width: context.dynamicWidth(0.05),
-                            ),
-                            Text(
-                              "Favorilerim",
-                              style: buildTextStyle(20, Colors.black),
-                            )
-                          ],
-                        ), //kütüphanem
-                        SizedBox(
-                          height: context.dynamicHeight(0.02),
-                        ),
-                        Container(
-                          // width: context.dynamicWidth(0.3),
-                          height: context.dynamicHeight(0.10),
-                          child: Center(
-                              child: Text(
-                            "Henüz bir kitap beğenilmedi",
-                            style: buildTextStyle(15, Colors.black),
-                          )),
-                        ),
-                        //begenilen kitapların fotoğraflarının görünecegi kisim
-                        /*CarouselSlider(
-                      options: CarouselOptions(
-                        height: context.dynamicHeight(0.15),
-                      ),
-                      items: [1,2].map((i) {
-                        return Builder(
-                          builder: (BuildContext context) {
-                            return Container(
-                                width: context.dynamicWidth(0.3),
-                                margin: EdgeInsets.symmetric(horizontal: 5.0),
-                                decoration: BoxDecoration(
-                                    color: Color(0xFF1e319d)
-                                ),
-                                child: Center(child: Text('text $i', style: TextStyle(fontSize: 16.0),))
-                            );
-                          },
-                        );
-                      }).toList(),
-                    ),*/
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.end,
-                          crossAxisAlignment: CrossAxisAlignment.end,
-                          children: [
-                            GestureDetector(
-                                onTap: () {
-                                  _authService.singOut();
-                                  print("Çıkış");
-                                  Navigator.of(context).pushAndRemoveUntil(
-                                      MaterialPageRoute(
-                                          builder: (context) =>
-                                              EntryPageView()),
-                                      (Route<dynamic> route) => false);
-                                  print("Logout!");
-                                },
-                                child: Icon(Icons.logout_sharp)),
-                            SizedBox(
-                              width: context.dynamicWidth(0.05),
-                            )
-                          ],
-                        ),
+                          width: context.dynamicWidth(0.05),
+                        )
                       ],
                     ),
-                  )
-                : Center(
-                    child: CircularProgressIndicator(
-                    color: Color(0xff05595B),
-                  ))));
+                  ],
+                ),
+              )
+            : Center(
+                child: CircularProgressIndicator(
+                color: Color(0xff05595B),
+              )));
   }
 
   TextStyle buildTextStyle(double fontSize, Color color) {

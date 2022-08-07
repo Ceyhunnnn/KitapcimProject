@@ -46,19 +46,19 @@ class _BottomBarPageState extends State<BottomBarPage> {
               icon: Icon(Icons.home),
               title: Text('Anasayfa'),
               activeColor: Colors.white,
-              inactiveColor: Colors.grey),
+              inactiveColor: Colors.white),
           BottomBarItem(
               icon: Icon(Icons.book_sharp),
               title: Text('Kütüphane'),
               activeColor: Colors.white,
-              inactiveColor: Colors.grey
+              inactiveColor: Colors.white
               // Optional
               ),
           BottomBarItem(
               icon: Icon(Icons.library_music),
               title: Text('Sesli Dinle'),
               activeColor: Colors.white,
-              inactiveColor: Colors.grey
+              inactiveColor: Colors.white
 
               // Optional
               ),
@@ -66,7 +66,7 @@ class _BottomBarPageState extends State<BottomBarPage> {
               icon: Icon(Icons.person),
               title: Text('Profil'),
               activeColor: Colors.white,
-              inactiveColor: Colors.grey
+              inactiveColor: Colors.white
               // Optional
               ),
         ],
