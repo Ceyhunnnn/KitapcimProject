@@ -18,6 +18,12 @@ class LibraryView extends GetxController {
     "assets/books/as.png",
     "assets/books/au.jpg",
     "assets/books/tcr.png",
+    "assets/books/au.jpg",
+    "assets/books/au.jpg",
+    "assets/books/tcr.png",
+    "assets/books/as.png",
+    "assets/books/au.jpg",
+    "assets/books/tcr.png",
     "assets/books/au.jpg"
   ];
 }

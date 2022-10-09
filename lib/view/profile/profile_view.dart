@@ -78,7 +78,6 @@ class _ProfileState extends State<Profile> {
       print("Giris Yapili Kullanici id : " + firebaseUser!.uid);
       //ilk durum için kontrol yap
     });
-
     super.initState();
   }
 
@@ -109,25 +108,25 @@ class _ProfileState extends State<Profile> {
   SafeArea oldProfilePage(BuildContext context) {
     return SafeArea(
         child: isLoading
-            ? SingleChildScrollView(
-                child: Column(
-                  children: [
-                    Row(
+            ? Column(
+                children: [
+                  Expanded(
+                    flex: 1,
+                    child: Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         Text("Profilim",
                             style: buildTextStyle(22, Colors.black)),
                       ],
-                    ), //profilimYazisi
-
-                    SizedBox(
-                      height: context.dynamicHeight(0.05),
                     ),
-                    Row(
+                  ), //profilimYazisi
+
+                  Spacer(),
+                  Expanded(
+                    flex: 2,
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        SizedBox(
-                          width: context.dynamicWidth(0.05),
-                        ),
                         Stack(children: [
                           CircleAvatar(
                             backgroundColor: Colors.transparent,
@@ -144,10 +143,11 @@ class _ProfileState extends State<Profile> {
                                   child:
                                       Icon(FontAwesomeIcons.camera, size: 25)))
                         ]),
-                        SizedBox(
-                          width: context.dynamicWidth(0.03),
-                        ),
+                        // SizedBox(
+                        //   width: context.dynamicWidth(0.03),
+                        // ),
                         Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             Text("$name ",
@@ -157,107 +157,105 @@ class _ProfileState extends State<Profile> {
                           ],
                         )
                       ],
-                    ) //circle avatar ad soyad
-                    ,
-                    SizedBox(
-                      height: context.dynamicHeight(0.03),
                     ),
-                    Row(
+                  ) //circle avatar ad soyad
+                  ,
+
+                  Expanded(
+                    flex: 2,
+                    child: Row(
                       children: [
-                        SizedBox(
-                          width: context.dynamicWidth(0.05),
-                        ),
-                        Text(
-                          "Bilgilerim",
-                          style: buildTextStyle(20, Colors.black),
+                        Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: Text(
+                            "Bilgilerim",
+                            style: buildTextStyle(20, Colors.black),
+                          ),
                         )
                       ],
-                    ), //bilgilerim
+                    ),
+                  ), //bilgilerim
 
-                    SizedBox(
-                      height: context.dynamicHeight(0.04),
-                    ),
-                    Text("E-posta : $mail"),
-                    SizedBox(
-                      height: context.dynamicHeight(0.04),
-                    ),
-                    Text("Kayıt tarihi : $date"),
-                    SizedBox(
-                      height: context.dynamicHeight(0.04),
-                    ),
-                    Text("Beğenilen kitap sayısı : 0"),
-                    SizedBox(
-                      height: context.dynamicHeight(0.04),
-                    ),
-
-                    SizedBox(
-                      height: context.dynamicHeight(0.01),
-                    ),
-                    Row(
+                  Expanded(
+                    flex: 2,
+                    child: Column(
                       children: [
-                        SizedBox(
-                          width: context.dynamicWidth(0.05),
-                        ),
-                        Text(
-                          "Favorilerim",
-                          style: buildTextStyle(20, Colors.black),
-                        )
+                        Text("E-posta : $mail"),
+                        Spacer(),
+                        Text("Kayıt tarihi : $date"),
+                        Spacer(),
+                        Text("Beğenilen kitap sayısı : 0"),
                       ],
-                    ), //kütüphanem
-                    SizedBox(
-                      height: context.dynamicHeight(0.02),
                     ),
-                    Container(
-                      // width: context.dynamicWidth(0.3),
-                      height: context.dynamicHeight(0.10),
+                  ),
+
+                  Expanded(
+                    flex: 2,
+                    child: Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: Row(
+                        children: [
+                          Text(
+                            "Favorilerim",
+                            style: buildTextStyle(20, Colors.black),
+                          )
+                        ],
+                      ),
+                    ),
+                  ), //kütüphanem
+
+                  Expanded(
+                    flex: 1,
+                    child: Container(
                       child: Center(
                           child: Text(
                         "Henüz bir kitap beğenilmedi",
                         style: buildTextStyle(15, Colors.black),
                       )),
                     ),
-                    //begenilen kitapların fotoğraflarının görünecegi kisim
-                    /*CarouselSlider(
-                    options: CarouselOptions(
-                      height: context.dynamicHeight(0.15),
+                  ),
+                  //begenilen kitapların fotoğraflarının görünecegi kisim
+                  /*CarouselSlider(
+              options: CarouselOptions(
+                height: context.dynamicHeight(0.15),
+              ),
+              items: [1,2].map((i) {
+                return Builder(
+                  builder: (BuildContext context) {
+                    return Container(
+                        width: context.dynamicWidth(0.3),
+                        margin: EdgeInsets.symmetric(horizontal: 5.0),
+                        decoration: BoxDecoration(
+                            color: Color(0xFF1e319d)
+                        ),
+                        child: Center(child: Text('text $i', style: TextStyle(fontSize: 16.0),))
+                    );
+                  },
+                );
+              }).toList(),
+            ),*/
+                  Expanded(
+                    flex: 3,
+                    child: Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.end,
+                        children: [
+                          GestureDetector(
+                              onTap: () {
+                                _authService.singOut();
+                                Navigator.of(context).pushAndRemoveUntil(
+                                    MaterialPageRoute(
+                                        builder: (context) => EntryPageView()),
+                                    (Route<dynamic> route) => false);
+                                print("Logout!");
+                              },
+                              child: Icon(Icons.logout_sharp)),
+                        ],
+                      ),
                     ),
-                    items: [1,2].map((i) {
-                      return Builder(
-                        builder: (BuildContext context) {
-                          return Container(
-                              width: context.dynamicWidth(0.3),
-                              margin: EdgeInsets.symmetric(horizontal: 5.0),
-                              decoration: BoxDecoration(
-                                  color: Color(0xFF1e319d)
-                              ),
-                              child: Center(child: Text('text $i', style: TextStyle(fontSize: 16.0),))
-                          );
-                        },
-                      );
-                    }).toList(),
-                  ),*/
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.end,
-                      crossAxisAlignment: CrossAxisAlignment.end,
-                      children: [
-                        GestureDetector(
-                            onTap: () {
-                              _authService.singOut();
-                              print("Çıkış");
-                              Navigator.of(context).pushAndRemoveUntil(
-                                  MaterialPageRoute(
-                                      builder: (context) => EntryPageView()),
-                                  (Route<dynamic> route) => false);
-                              print("Logout!");
-                            },
-                            child: Icon(Icons.logout_sharp)),
-                        SizedBox(
-                          width: context.dynamicWidth(0.05),
-                        )
-                      ],
-                    ),
-                  ],
-                ),
+                  ),
+                ],
               )
             : Center(
                 child: CircularProgressIndicator(

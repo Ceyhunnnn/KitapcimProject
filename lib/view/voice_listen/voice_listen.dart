@@ -200,25 +200,25 @@ class NullPageWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SingleChildScrollView(
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          Image.asset("assets/gifs/workss.gif"),
-          Icon(
+    return Column(
+      children: [
+        Expanded(flex: 8, child: Image.asset("assets/gifs/workss.gif")),
+        Expanded(
+          flex: 1,
+          child: Icon(
             FontAwesomeIcons.exclamationTriangle,
             size: 25,
             color: Colors.black,
           ),
-          SizedBox(
-            height: context.dynamicHeight(0.01),
-          ),
-          Text(
+        ),
+        Expanded(
+          flex: 1,
+          child: Text(
             "Bu bölüm yapım aşamasındadır.",
             style: context.buildTextStyle(15, Colors.black),
-          )
-        ],
-      ),
+          ),
+        )
+      ],
     );
   }
 }
