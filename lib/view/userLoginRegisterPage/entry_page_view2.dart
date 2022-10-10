@@ -141,8 +141,9 @@ class _EntryPageViewState extends State<EntryPageView> {
                           onPressed: () {
                             if (mailController.text != "" &&
                                 passwordController.text != "") {
-                              _authService.signIn(
+                              var result = _authService.signIn(
                                   mailController.text, passwordController.text);
+                              print("ssss" + result.toString());
                               Navigator.push(
                                 context,
                                 MaterialPageRoute(

@@ -30,7 +30,6 @@ class _HomePageState extends State<HomePage> {
       setState(() {
         name = gelenVeri.data()!['userName'];
       });
-      print("name : $name");
     });
   }
 
@@ -39,7 +38,6 @@ class _HomePageState extends State<HomePage> {
     WidgetsBinding.instance.addPostFrameCallback((_) {
       userGet();
     });
-    print("Home Page Inıt");
     super.initState();
   }
 

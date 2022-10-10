@@ -40,7 +40,6 @@ class _buildBooksCardsState extends State<buildBooksCards> {
                   itemCount: snapshot.data!.docs.length,
                   itemBuilder: (context, index) {
                     DocumentSnapshot myBooks = snapshot.data!.docs[index];
-                    print(snapshot.data);
                     String photoUrl = '${myBooks['bookUrl']}';
                     return Padding(
                       padding: const EdgeInsets.all(8.0),
