@@ -19,6 +19,7 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
+  var isLoading = false;
   var firebaseUser = FirebaseAuth.instance.currentUser;
   var name;
   Future<void> userGet() async {
@@ -37,6 +38,7 @@ class _HomePageState extends State<HomePage> {
   void initState() {
     WidgetsBinding.instance.addPostFrameCallback((_) {
       userGet();
+      getBookInfo();
     });
     super.initState();
   }
@@ -46,6 +48,17 @@ class _HomePageState extends State<HomePage> {
     "assets/books/au.jpg",
     "assets/books/tcr.png",
   ];
+  List photoList = [];
+
+  Future<void> getBookInfo() async {
+    FirebaseFirestore.instance.collection('Books').get().then((value) {
+      for (var i in value.docs) {
+        photoList.add(i.data()["bookUrl"]);
+      }
+    });
+    isLoading = true;
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -144,14 +157,19 @@ class _HomePageState extends State<HomePage> {
         enlargeCenterPage: true,
         autoPlay: true,
       ),
-      items: listPhoto.map<Widget>((index) {
+      items: photoList.map<Widget>((index) {
         return Builder(
           builder: (BuildContext context) {
             return Padding(
               padding: const EdgeInsets.all(8.0),
-              child: Image.asset(
-                index.toString(),
-              ),
+              child: isLoading == false
+                  ? Center(
+                      child: CircularProgressIndicator(
+                      color: context.appColor,
+                    ))
+                  : Image.network(
+                      index.toString(),
+                    ),
             );
           },
         );
