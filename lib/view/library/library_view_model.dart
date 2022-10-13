@@ -5,12 +5,12 @@ import 'package:get/get_state_manager/src/simple/get_controllers.dart';
 class LibraryView extends GetxController {
   List<CategoryPickerItem> booksCategoryList = [
     CategoryPickerItem(
-      value: "Romantik",
-      label: "Romantik",
+      value: "Rastgele",
+      label: "Rastgele",
     ),
-    CategoryPickerItem(value: "Polisiye", label: "Polisiye"),
-    CategoryPickerItem(value: "Tarihi", label: "Tarih"),
-    CategoryPickerItem(value: "Psikoloji", label: "Psikoloji"),
+    CategoryPickerItem(value: "Olay", label: "Olay"),
+    CategoryPickerItem(value: "Otobiyografi", label: "Otobiyografi"),
+    CategoryPickerItem(value: "Tarihi", label: "Tarihi"),
   ];
   final List<String> booksGridList = [
     "assets/books/au.jpg",

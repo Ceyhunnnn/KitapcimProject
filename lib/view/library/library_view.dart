@@ -48,6 +48,8 @@ class _LibraryState extends State<Library> {
   }
 
   Container buildTopBar(BuildContext context) {
+    var bookForYou = "Senin için\nen iyi kitaplar!";
+    var findLoveBook = "En sevdiğin kitapları ara";
     return Container(
       decoration: BoxDecoration(
         borderRadius: BorderRadius.only(bottomRight: Radius.circular(35)),
@@ -63,7 +65,7 @@ class _LibraryState extends State<Library> {
                 child: Row(
                   children: [
                     Text(
-                      "Senin için\nen iyi kitaplar!",
+                      bookForYou,
                       style: context.buildTextStyle(25, Colors.white),
                     ),
                   ],
@@ -73,7 +75,7 @@ class _LibraryState extends State<Library> {
                 child: Row(
                   children: [
                     Text(
-                      "En sevdiğin kitapları ara",
+                      findLoveBook,
                       style: context.buildTextStyle(14, Colors.white),
                     ),
                   ],
@@ -105,7 +107,6 @@ class _LibraryState extends State<Library> {
 
   void initState() {
     super.initState();
-    print("Library Page Init");
   }
 
   CategoryPicker buildCategoryPicker() {

@@ -18,7 +18,8 @@ var about;
 var url;
 var author;
 var number;
-var bookUid;
+List gelenVeri = [];
+List likeList = [];
 // ignore: unused_element
 final FirebaseFirestore _firestore = FirebaseFirestore.instance;
 final current_id = FirebaseAuth.instance.currentUser!.uid;
@@ -41,6 +42,10 @@ class _buildBooksCardsState extends State<buildBooksCards> {
                   itemBuilder: (context, index) {
                     DocumentSnapshot myBooks = snapshot.data!.docs[index];
                     String photoUrl = '${myBooks['bookUrl']}';
+                    var bookUid = '${myBooks['uid']}';
+
+                    likeList = myBooks['likes'] as List;
+
                     return Padding(
                       padding: const EdgeInsets.all(8.0),
                       child: Card(
@@ -121,9 +126,22 @@ class _buildBooksCardsState extends State<buildBooksCards> {
                                 child: Row(
                                   children: [
                                     GestureDetector(
+                                      onTap: () {
+                                        getBookInfo(bookUid);
+                                        likePost(
+                                            bookUid, current_id, gelenVeri);
+                                      },
                                       child: Icon(Icons.favorite,
-                                          color: Colors.red),
+                                          color:
+                                              likeList.contains(current_id) ==
+                                                      true
+                                                  ? Colors.red
+                                                  : Colors.grey),
                                     ),
+                                    SizedBox(
+                                      width: context.dynamicWidth(0.01),
+                                    ),
+                                    Text(likeList.length.toString()),
                                     SizedBox(
                                       width: context.dynamicWidth(0.03),
                                     ),
@@ -148,8 +166,6 @@ class _buildBooksCardsState extends State<buildBooksCards> {
                                                       number: number,
                                                       about: about)),
                                         );
-                                        print("Girilen Sayfa Index : " +
-                                            index.toString());
                                       },
                                       child: Icon(
                                         Icons.comment_bank_outlined,
@@ -184,25 +200,38 @@ class _buildBooksCardsState extends State<buildBooksCards> {
                   });
         }));
   }
+
+  void getBookInfo(String bookUid) {
+    FirebaseFirestore.instance
+        .collection('Books')
+        .doc("${bookUid}")
+        .get()
+        .then((value) {
+      if (value.data()!.isNotEmpty) {
+        gelenVeri = value.data()!['likes'];
+        print(gelenVeri);
+      } else {
+        print('Document does not exist on the database');
+      }
+    });
+  }
 }
 
-// Future<String> likePost(String bookUid, String current_id, likes) async {
-//   String res = "Some error occurred";
-//   try {
-//     if (likes.contains(current_id)) {
-//       // if the likes list contains the user uid, we need to remove it
-//       _firestore.collection('Books').doc(bookUid).update({
-//         'likes': FieldValue.arrayRemove([current_id])
-//       });
-//     } else {
-//       // else we need to add uid to the likes array
-//       _firestore.collection('Books').doc(bookUid).update({
-//         'likes': FieldValue.arrayUnion([current_id])
-//       });
-//     }
-//     res = 'success';
-//   } catch (err) {
-//     res = err.toString();
-//   }
-//   return res;
-// }
+Future<String> likePost(String bookUid, String current_id, likes) async {
+  String res = "Some error occurred";
+  try {
+    if (likes.contains(current_id)) {
+      _firestore.collection('Books').doc(bookUid).update({
+        'likes': FieldValue.arrayRemove([current_id])
+      });
+    } else {
+      _firestore.collection('Books').doc(bookUid).update({
+        'likes': FieldValue.arrayUnion([current_id])
+      });
+    }
+    res = 'success';
+  } catch (err) {
+    res = err.toString();
+  }
+  return res;
+}
