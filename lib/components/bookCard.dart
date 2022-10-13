@@ -19,7 +19,7 @@ var url;
 var author;
 var number;
 List gelenVeri = [];
-List likeList = [];
+List? likeList = [];
 // ignore: unused_element
 final FirebaseFirestore _firestore = FirebaseFirestore.instance;
 final current_id = FirebaseAuth.instance.currentUser!.uid;
@@ -133,7 +133,7 @@ class _buildBooksCardsState extends State<buildBooksCards> {
                                       },
                                       child: Icon(Icons.favorite,
                                           color:
-                                              likeList.contains(current_id) ==
+                                              likeList!.contains(current_id) ==
                                                       true
                                                   ? Colors.red
                                                   : Colors.grey),
@@ -141,7 +141,7 @@ class _buildBooksCardsState extends State<buildBooksCards> {
                                     SizedBox(
                                       width: context.dynamicWidth(0.01),
                                     ),
-                                    Text(likeList.length.toString()),
+                                    Text(likeList!.length.toString()),
                                     SizedBox(
                                       width: context.dynamicWidth(0.03),
                                     ),

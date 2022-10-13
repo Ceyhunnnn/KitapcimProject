@@ -37,7 +37,6 @@ class _ProfileState extends State<Profile> {
         mail = gelenVeri.data()!['E-Mail'];
         date = gelenVeri.data()!['Date'];
       });
-      print("name : $name, mail : $mail, date : $date");
     });
     isLoading = true;
   }
@@ -57,7 +56,6 @@ class _ProfileState extends State<Profile> {
           .child("ProfilResmi.png")
           .getDownloadURL()
           .then((value) {
-        print(value);
         if (value.isEmpty) {
           print("Fotoğraf yok");
         } else {
@@ -71,11 +69,9 @@ class _ProfileState extends State<Profile> {
 
   @override
   void initState() {
-    print("Profile Page Init");
     WidgetsBinding.instance.addPostFrameCallback((_) async {
       userGet();
       //baglantiAl();
-      print("Giris Yapili Kullanici id : " + firebaseUser!.uid);
       //ilk durum için kontrol yap
     });
     super.initState();

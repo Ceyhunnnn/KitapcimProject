@@ -139,35 +139,7 @@ class _EntryPageViewState extends State<EntryPageView> {
                                 borderRadius: BorderRadius.circular(10.0),
                               )),
                           onPressed: () {
-                            if (mailController.text != "" &&
-                                passwordController.text != "") {
-                              var result = _authService.signIn(
-                                  mailController.text, passwordController.text);
-                              print("ssss" + result.toString());
-                              Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                    builder: (context) => BottomBarPage()),
-                              );
-                            } else {
-                              Alert(
-                                context: context,
-                                type: AlertType.warning,
-                                title: "Hata",
-                                desc: "E-posta ve Parolayı kontrol et",
-                                buttons: [
-                                  DialogButton(
-                                    child: Text(
-                                      "Kapat",
-                                      style: TextStyle(
-                                          color: Colors.white, fontSize: 20),
-                                    ),
-                                    onPressed: () => Navigator.pop(context),
-                                    color: context.appColor,
-                                  )
-                                ],
-                              ).show();
-                            }
+                            _loginFunction();
                           },
                           child: Padding(
                             padding:
@@ -227,6 +199,39 @@ class _EntryPageViewState extends State<EntryPageView> {
               ),
             ],
           )),
+    );
+  }
+
+  void _loginFunction() {
+    _authService
+        .signIn(mailController.text, passwordController.text)
+        .then((value) {
+      return Navigator.push(
+          context, MaterialPageRoute(builder: (context) => BottomBarPage()));
+    }).catchError((dynamic error) {
+      if (error.code.contains('invalid-email')) {
+        _buildErrorMessage("Mail adresi geçersizdir");
+      }
+      if (error.code.contains('user-not-found')) {
+        _buildErrorMessage("Kullanıcı bulunamadı");
+      }
+      if (error.code.contains('wrong-password')) {
+        _buildErrorMessage("Parola yanlıştır");
+      }
+
+      //  _buildErrorMessage(error.message);
+
+      print(error.message);
+    });
+  }
+
+  void _buildErrorMessage(String text) {
+    //Get.snackbar("Uyarı", text);
+    Get.defaultDialog(
+      title: "Uyarı",
+      barrierDismissible: true,
+      content: Text(text),
+      textCancel: "Kapat",
     );
   }
 }

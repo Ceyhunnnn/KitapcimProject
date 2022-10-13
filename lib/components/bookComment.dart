@@ -25,7 +25,6 @@ class _CommentPageDetailState extends State<CommentPageDetail> {
   @override
   void initState() {
     super.initState();
-    print("BookComment Page Inıt");
   }
 
   @override

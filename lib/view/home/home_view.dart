@@ -29,7 +29,6 @@ class _HomePageState extends State<HomePage> {
         .then((gelenVeri) {
       setState(() {
         name = gelenVeri.data()!['userName'];
-        print(name);
       });
     });
   }

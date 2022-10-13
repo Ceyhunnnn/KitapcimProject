@@ -11,17 +11,10 @@ class AuthService {
   //profil fotoğrafı
 
 //Giris yap fonk.
-  Future<Object?> signIn(String email, String password) async {
-    try {
-      var user = await FirebaseAuth.instance
-          .signInWithEmailAndPassword(email: email, password: password);
-      print("Basarili");
-      return user.user;
-    } on FirebaseAuthException catch (e) {
-      print('Failed with error code: ${e.code}');
-      print("basarisiz");
-      return e.message;
-    }
+  Future<User?> signIn(String email, String password) async {
+    var user = await _auth.signInWithEmailAndPassword(
+        email: email, password: password);
+    return user.user;
   }
 
   //Cikis yap Fonk.
