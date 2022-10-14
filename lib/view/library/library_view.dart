@@ -43,7 +43,14 @@ class _LibraryState extends State<Library> {
         ),
         itemCount: _controller.booksGridList.length,
         itemBuilder: (BuildContext context, index) {
-          return Image.asset(_controller.booksGridList[index]);
+          return InkWell(
+              onTap: () {
+                Get.snackbar(
+                  "Uyarı",
+                  _controller.booksGridList[index].toString(),
+                );
+              },
+              child: Image.asset(_controller.booksGridList[index]));
         });
   }
 

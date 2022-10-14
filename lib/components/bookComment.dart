@@ -36,89 +36,90 @@ class _CommentPageDetailState extends State<CommentPageDetail> {
         ),
         body: Column(
           children: [
-            Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: Column(
+            // Expanded(
+            //   flex: 0,
+            //   child: Padding(
+            //     padding: const EdgeInsets.all(10.0),
+            //     child: Text(
+            //       '${widget.about}',
+            //       overflow: TextOverflow.ellipsis,
+            //       textAlign: TextAlign.justify,
+            //       style: context.buildTextStyle(15, Colors.black),
+            //     ),
+            //   ),
+            // ),
+            Expanded(
+              flex: 3,
+              child: Row(
                 children: [
-                  Row(
-                    children: [
-                      Expanded(
-                          child: Padding(
-                        padding: const EdgeInsets.all(10.0),
-                        child: Text(
-                          '${widget.about}',
-                          style: context.buildTextStyle(15, Colors.black),
-                        ),
-                      ))
-                    ],
+                  Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Container(
+                      child: Image.network(widget.url),
+                      width: context.dynamicWidth(0.20),
+                      height: context.dynamicHeight(0.15),
+                    ),
                   ),
-                  Row(
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    children: [
-                      Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: Container(
-                          child: Image.network(widget.url),
-                          width: context.dynamicWidth(0.20),
-                          height: context.dynamicHeight(0.15),
+                  Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          '${widget.author}',
+                          style: TextStyle(fontStyle: FontStyle.italic),
                         ),
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: Column(
-                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text(
-                              '${widget.author}',
-                              style: TextStyle(fontStyle: FontStyle.italic),
-                            ),
-                            SizedBox(
-                              height: context.dynamicHeight(0.02),
-                            ),
-                            Text(
-                              '${widget.name}',
-                              style: TextStyle(fontStyle: FontStyle.italic),
-                            ),
-                            SizedBox(
-                              height: context.dynamicHeight(0.02),
-                            ),
-                            Text(
-                              '${widget.number}',
-                              style: TextStyle(fontStyle: FontStyle.italic),
-                            ),
-                          ],
+                        SizedBox(
+                          height: context.dynamicHeight(0.02),
                         ),
-                      )
-                    ],
-                  ),
+                        Text(
+                          '${widget.name}',
+                          style: TextStyle(fontStyle: FontStyle.italic),
+                        ),
+                        SizedBox(
+                          height: context.dynamicHeight(0.02),
+                        ),
+                        Text(
+                          '${widget.number}',
+                          style: TextStyle(fontStyle: FontStyle.italic),
+                        ),
+                      ],
+                    ),
+                  )
                 ],
               ),
             ),
-            Center(
-                child: CircularProgressIndicator(
-              color: context.appColor,
-            )),
-            Spacer(),
-            SafeArea(
-              child: Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: Row(
-                  children: [
-                    Expanded(
-                      child: TextFormField(
-                        decoration: InputDecoration(
-                            suffixIcon: InkWell(
-                                onTap: () => print("Yorum Yapildi!"),
-                                child: Icon(Icons.send)),
-                            border: new OutlineInputBorder(
-                              borderRadius: new BorderRadius.circular(15.0),
-                              borderSide: new BorderSide(),
-                            ),
-                            hintText: "Yorum Yap..."),
+            Expanded(
+                flex: 9,
+                child: SingleChildScrollView(
+                  child: Container(
+                    color: Colors.red,
+                    child: Text("Yorum " * 500),
+                  ),
+                )),
+            Expanded(
+              flex: 2,
+              child: SafeArea(
+                child: Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Row(
+                    children: [
+                      Expanded(
+                        child: TextFormField(
+                          decoration: InputDecoration(
+                              suffixIcon: InkWell(
+                                  onTap: () => print("Yorum Yapildi!"),
+                                  child: Icon(Icons.send)),
+                              border: new OutlineInputBorder(
+                                borderRadius: new BorderRadius.circular(15.0),
+                                borderSide: new BorderSide(),
+                              ),
+                              hintText: "Yorum Yap..."),
+                        ),
                       ),
-                    ),
-                  ],
+                    ],
+                  ),
                 ),
               ),
             ),

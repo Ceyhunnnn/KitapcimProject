@@ -43,6 +43,7 @@ class _buildBooksCardsState extends State<buildBooksCards> {
                     DocumentSnapshot myBooks = snapshot.data!.docs[index];
                     String photoUrl = '${myBooks['bookUrl']}';
                     var bookUid = '${myBooks['uid']}';
+                    var category = '${myBooks['category']}';
 
                     likeList = myBooks['likes'] as List;
 
@@ -107,7 +108,7 @@ class _buildBooksCardsState extends State<buildBooksCards> {
                                           height: context.dynamicHeight(0.02),
                                         ),
                                         Text(
-                                          '${myBooks['bookPageNumber']}',
+                                          '${myBooks['bookPageNumber']} - \t$category',
                                           style: TextStyle(
                                               fontStyle: FontStyle.italic),
                                         ),
@@ -127,9 +128,11 @@ class _buildBooksCardsState extends State<buildBooksCards> {
                                   children: [
                                     GestureDetector(
                                       onTap: () {
-                                        getBookInfo(bookUid);
-                                        likePost(
-                                            bookUid, current_id, gelenVeri);
+                                        setState(() {
+                                          getBookInfo(bookUid);
+                                          likePost(
+                                              bookUid, current_id, gelenVeri);
+                                        });
                                       },
                                       child: Icon(Icons.favorite,
                                           color:
