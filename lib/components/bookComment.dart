@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:kitapcim/components/userComment.dart';
 import 'package:kitapcim/constants/context_extentions.dart';
 
 // ignore: must_be_immutable
@@ -93,9 +94,11 @@ class _CommentPageDetailState extends State<CommentPageDetail> {
             Expanded(
                 flex: 9,
                 child: SingleChildScrollView(
-                  child: Container(
-                    color: Colors.red,
-                    child: Text("Yorum " * 500),
+                  child: Column(
+                    children: [
+                      UserComment(),
+                      UserComment(),
+                    ],
                   ),
                 )),
             Expanded(

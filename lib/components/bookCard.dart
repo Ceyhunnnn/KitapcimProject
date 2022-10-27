@@ -205,6 +205,7 @@ class _buildBooksCardsState extends State<buildBooksCards> {
   }
 
   void getBookInfo(String bookUid) {
+    print(bookUid);
     FirebaseFirestore.instance
         .collection('Books')
         .doc("${bookUid}")
