@@ -18,11 +18,17 @@ final _controller = Get.put(LibraryView());
 
 class _LibraryState extends State<Library> {
   StatusService _statusService = StatusService();
-  var categoryName = "";
+  var categoryName = "Rastgele";
+  var initSelected = 0;
+  var photoList = [];
+
   void initState() {
+    initSelected = 0;
     super.initState();
     _statusService.getBookAbout();
     buildBookListWidget();
+
+    bookListUpdate(categoryName);
   }
 
   @override
@@ -35,7 +41,7 @@ class _LibraryState extends State<Library> {
           child: Column(
             children: [
               Expanded(flex: 3, child: buildTopBar(context)),
-              Expanded(flex: 1, child: buildCategoryPicker()),
+              Expanded(flex: 1, child: buildCategoryPicker(initSelected)),
               Expanded(flex: 6, child: buildBookListWidget())
             ],
           ),
@@ -45,91 +51,40 @@ class _LibraryState extends State<Library> {
   }
 
   buildBookListWidget() {
-    return StreamBuilder<QuerySnapshot>(
-        stream: _statusService.getBookAbout(),
-        builder: ((context, snapshot) {
-          return !snapshot.hasData
-              ? Center(child: CircularProgressIndicator())
-              : ListView.builder(
-                  padding: EdgeInsets.all(0),
-                  shrinkWrap: true,
-                  itemCount: snapshot.data!.docs.length,
-                  itemBuilder: (context, index) {
-                    DocumentSnapshot myBooks = snapshot.data!.docs[index];
-                    String photoUrl = '${myBooks['bookUrl']}';
-                    String category = '${myBooks['category']}';
-                    print(category);
-                    return InkWell(
-                        onTap: () {
-                          Get.snackbar("Uyarı", "deneme");
-                        },
-                        child: category == categoryName
-                            ? Image.network(photoUrl)
-                            : Text(""));
-                    ;
-                  });
-        }));
-  }
-
-  Container buildTopBar(BuildContext context) {
-    var bookForYou = "Senin için\nen iyi kitaplar!";
-    var findLoveBook = "En sevdiğin kitapları ara";
-    return Container(
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.only(bottomRight: Radius.circular(35)),
-        color: Color(0xff05595B),
-      ),
-      child: Padding(
-        padding: const EdgeInsets.all(8.0),
-        child: Column(
-          children: [
-            Spacer(),
-            Expanded(
-                flex: 2,
-                child: Row(
-                  children: [
-                    Text(
-                      bookForYou,
-                      style: context.buildTextStyle(25, Colors.white),
-                    ),
-                  ],
-                )),
-            Expanded(
-                flex: 2,
-                child: Row(
-                  children: [
-                    Text(
-                      findLoveBook,
-                      style: context.buildTextStyle(14, Colors.white),
-                    ),
-                  ],
-                )),
-            Expanded(
-                flex: 2,
-                child: TextFormField(
-                  cursorColor: Colors.grey,
-                  decoration: InputDecoration(
-                      hoverColor: Colors.transparent,
-                      focusColor: Colors.transparent,
-                      border: OutlineInputBorder(
-                        borderSide: BorderSide(
-                          color: Colors.transparent,
-                        ),
-                        borderRadius: BorderRadius.circular(50.0),
-                      ),
-                      filled: true,
-                      hintStyle: TextStyle(color: Colors.grey[800]),
-                      hintText: "Kitap adı",
-                      prefixIcon: Icon(Icons.search),
-                      fillColor: Colors.white),
-                ))
-          ],
+    return GridView.builder(
+        gridDelegate: const SliverGridDelegateWithMaxCrossAxisExtent(
+          mainAxisSpacing: 20,
+          maxCrossAxisExtent: 200,
         ),
-      ),
-    );
+        padding: EdgeInsets.all(0),
+        shrinkWrap: true,
+        itemCount: photoList.length,
+        itemBuilder: (context, index) {
+          return InkWell(
+              onTap: () {
+                Get.snackbar("Uyarı", "deneme");
+              },
+              child: Image.network(photoList[index]));
+        });
   }
 
-  CategoryPicker buildCategoryPicker() {
+  void bookListUpdate(categoryName) {
+    photoList.clear();
+    print(photoList);
+
+    FirebaseFirestore.instance.collection('Books').get().then((value) {
+      for (var i in value.docs) {
+        setState(() {
+          if (i.data()["category"] == categoryName) {
+            photoList.add(i.data()["bookUrl"]);
+          }
+        });
+      }
+      print(photoList);
+    });
+  }
+
+  CategoryPicker buildCategoryPicker(initSelected) {
     return CategoryPicker(
       selectedItemBorderColor: Colors.transparent,
       unselectedItemBorderColor: Colors.transparent,
@@ -140,8 +95,67 @@ class _LibraryState extends State<Library> {
       onValueChanged: (value) {
         setState(() {
           categoryName = value.label.toString();
+          bookListUpdate(categoryName);
         });
       },
     );
   }
+}
+
+Container buildTopBar(BuildContext context) {
+  var bookForYou = "Senin için\nen iyi kitaplar!";
+  var findLoveBook = "En sevdiğin kitapları ara";
+  return Container(
+    decoration: BoxDecoration(
+      borderRadius: BorderRadius.only(bottomRight: Radius.circular(35)),
+      color: Color(0xff05595B),
+    ),
+    child: Padding(
+      padding: const EdgeInsets.all(8.0),
+      child: Column(
+        children: [
+          Spacer(),
+          Expanded(
+              flex: 2,
+              child: Row(
+                children: [
+                  Text(
+                    bookForYou,
+                    style: context.buildTextStyle(25, Colors.white),
+                  ),
+                ],
+              )),
+          Expanded(
+              flex: 2,
+              child: Row(
+                children: [
+                  Text(
+                    findLoveBook,
+                    style: context.buildTextStyle(14, Colors.white),
+                  ),
+                ],
+              )),
+          Expanded(
+              flex: 2,
+              child: TextFormField(
+                cursorColor: Colors.grey,
+                decoration: InputDecoration(
+                    hoverColor: Colors.transparent,
+                    focusColor: Colors.transparent,
+                    border: OutlineInputBorder(
+                      borderSide: BorderSide(
+                        color: Colors.transparent,
+                      ),
+                      borderRadius: BorderRadius.circular(50.0),
+                    ),
+                    filled: true,
+                    hintStyle: TextStyle(color: Colors.grey[800]),
+                    hintText: "Kitap adı",
+                    prefixIcon: Icon(Icons.search),
+                    fillColor: Colors.white),
+              ))
+        ],
+      ),
+    ),
+  );
 }

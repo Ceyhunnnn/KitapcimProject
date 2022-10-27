@@ -44,7 +44,7 @@ class _ProfileState extends State<Profile> {
 
   late File yuklenecekDosya;
   String indirmeBag =
-      "https://icon-library.com/images/profile-image-icon/profile-image-icon-25.jpg";
+      "https://images.pexels.com/photos/46274/pexels-photo-46274.jpeg?auto=compress&cs=tinysrgb&w=1200";
 
   baglantiAl() async {
     //String baglanti = await

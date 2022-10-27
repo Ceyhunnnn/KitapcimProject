@@ -43,12 +43,9 @@ class _HomePageState extends State<HomePage> {
     super.initState();
   }
 
-  List<String> listPhoto = [
-    "assets/books/as.png",
-    "assets/books/au.jpg",
-    "assets/books/tcr.png",
-  ];
   List photoList = [];
+  var profilePhoto =
+      "https://images.pexels.com/photos/46274/pexels-photo-46274.jpeg?auto=compress&cs=tinysrgb&w=1200";
 
   Future<void> getBookInfo() async {
     FirebaseFirestore.instance.collection('Books').get().then((value) {
@@ -127,9 +124,10 @@ class _HomePageState extends State<HomePage> {
                 SizedBox(
                   width: context.dynamicWidth(0.03),
                 ),
-                Image.asset(
-                  "assets/icons/avataricon.png",
-                  width: context.dynamicWidth(0.1),
+                CircleAvatar(
+                  backgroundColor: Colors.transparent,
+                  radius: 15, // Image radius
+                  backgroundImage: NetworkImage(profilePhoto),
                 ),
                 SizedBox(
                   width: context.dynamicWidth(0.03),
