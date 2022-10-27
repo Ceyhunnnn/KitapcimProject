@@ -4,7 +4,6 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:kitapcim/constants/context_extentions.dart';
-import 'package:kitapcim/services/statusService.dart';
 import 'package:kitapcim/view/library/library_view_model.dart';
 
 class Library extends StatefulWidget {
@@ -17,7 +16,6 @@ class Library extends StatefulWidget {
 final _controller = Get.put(LibraryView());
 
 class _LibraryState extends State<Library> {
-  StatusService _statusService = StatusService();
   var categoryName = "Rastgele";
   var initSelected = 0;
   var photoList = [];
@@ -25,9 +23,8 @@ class _LibraryState extends State<Library> {
   void initState() {
     initSelected = 0;
     super.initState();
-    _statusService.getBookAbout();
-    buildBookListWidget();
 
+    buildBookListWidget();
     bookListUpdate(categoryName);
   }
 
@@ -62,16 +59,16 @@ class _LibraryState extends State<Library> {
         itemBuilder: (context, index) {
           return InkWell(
               onTap: () {
-                Get.snackbar("Uyarı", "deneme");
+                buildPhotoAbout();
               },
               child: Image.network(photoList[index]));
         });
   }
 
+  Future<void> buildPhotoAbout() async {}
+
   void bookListUpdate(categoryName) {
     photoList.clear();
-    print(photoList);
-
     FirebaseFirestore.instance.collection('Books').get().then((value) {
       for (var i in value.docs) {
         setState(() {
@@ -80,13 +77,12 @@ class _LibraryState extends State<Library> {
           }
         });
       }
-      print(photoList);
     });
   }
 
   CategoryPicker buildCategoryPicker(initSelected) {
     return CategoryPicker(
-      selectedItemBorderColor: Colors.transparent,
+      selectedItemBorderColor: Colors.grey,
       unselectedItemBorderColor: Colors.transparent,
       selectedItemColor: Color(0xffe4dfcc),
       selectedItemTextLightThemeColor: Color(0xff696353),

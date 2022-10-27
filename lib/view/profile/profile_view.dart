@@ -118,7 +118,6 @@ class _ProfileState extends State<Profile> {
                     ),
                   ), //profilimYazisi
 
-                  Spacer(),
                   Expanded(
                     flex: 3,
                     child: Column(
