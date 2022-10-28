@@ -97,7 +97,6 @@ class _CommentPageDetailState extends State<CommentPageDetail> {
                   child: Column(
                     children: [
                       UserComment(),
-                      UserComment(),
                     ],
                   ),
                 )),

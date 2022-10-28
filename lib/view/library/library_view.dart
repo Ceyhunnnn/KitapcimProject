@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:kitapcim/constants/context_extentions.dart';
 import 'package:kitapcim/view/library/library_view_model.dart';
+import 'package:rflutter_alert/rflutter_alert.dart';
 
 class Library extends StatefulWidget {
   const Library({Key? key}) : super(key: key);
@@ -19,6 +20,8 @@ class _LibraryState extends State<Library> {
   var categoryName = "Rastgele";
   var initSelected = 0;
   var photoList = [];
+  var bookAbout = [];
+  var bookName = [];
 
   void initState() {
     initSelected = 0;
@@ -50,7 +53,7 @@ class _LibraryState extends State<Library> {
   buildBookListWidget() {
     return GridView.builder(
         gridDelegate: const SliverGridDelegateWithMaxCrossAxisExtent(
-          mainAxisSpacing: 20,
+          mainAxisSpacing: 15,
           maxCrossAxisExtent: 200,
         ),
         padding: EdgeInsets.all(0),
@@ -59,6 +62,23 @@ class _LibraryState extends State<Library> {
         itemBuilder: (context, index) {
           return InkWell(
               onTap: () {
+                setState(() {
+                  Alert(
+                    context: context,
+                    title: "${bookName[index]}",
+                    desc: "${bookAbout[index]}",
+                    buttons: [
+                      DialogButton(
+                        color: Color(0xff05595B),
+                        child: Text(
+                          "Kapat",
+                          style: TextStyle(color: Colors.white, fontSize: 20),
+                        ),
+                        onPressed: () => Navigator.pop(context),
+                      )
+                    ],
+                  ).show();
+                });
                 buildPhotoAbout();
               },
               child: Image.network(photoList[index]));
@@ -69,11 +89,15 @@ class _LibraryState extends State<Library> {
 
   void bookListUpdate(categoryName) {
     photoList.clear();
+    bookAbout.clear();
+    bookName.clear();
     FirebaseFirestore.instance.collection('Books').get().then((value) {
       for (var i in value.docs) {
         setState(() {
           if (i.data()["category"] == categoryName) {
             photoList.add(i.data()["bookUrl"]);
+            bookAbout.add(i.data()["bookAbout"]);
+            bookName.add(i.data()["bookName"]);
           }
         });
       }

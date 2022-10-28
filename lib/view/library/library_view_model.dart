@@ -9,7 +9,7 @@ class LibraryView extends GetxController {
       label: "Rastgele",
     ),
     CategoryPickerItem(value: "Olay", label: "Olay"),
-    CategoryPickerItem(value: "Otobiyografi", label: "Otobiyografi"),
+    CategoryPickerItem(value: "Biyografi", label: "Biyografi"),
     CategoryPickerItem(value: "Tarih", label: "Tarih"),
   ];
 }
