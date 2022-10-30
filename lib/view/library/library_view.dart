@@ -54,34 +54,38 @@ class _LibraryState extends State<Library> {
     return GridView.builder(
         gridDelegate: const SliverGridDelegateWithMaxCrossAxisExtent(
           mainAxisSpacing: 15,
-          maxCrossAxisExtent: 200,
+          maxCrossAxisExtent: 150,
         ),
         padding: EdgeInsets.all(0),
         shrinkWrap: true,
         itemCount: photoList.length,
         itemBuilder: (context, index) {
           return InkWell(
-              onTap: () {
-                setState(() {
-                  Alert(
-                    context: context,
-                    title: "${bookName[index]}",
-                    desc: "${bookAbout[index]}",
-                    buttons: [
-                      DialogButton(
-                        color: Color(0xff05595B),
-                        child: Text(
-                          "Kapat",
-                          style: TextStyle(color: Colors.white, fontSize: 20),
-                        ),
-                        onPressed: () => Navigator.pop(context),
-                      )
-                    ],
-                  ).show();
-                });
-                buildPhotoAbout();
-              },
-              child: Image.network(photoList[index]));
+            onTap: () {
+              setState(() {
+                Alert(
+                  context: context,
+                  title: "${bookName[index]}",
+                  desc: "${bookAbout[index]}",
+                  buttons: [
+                    DialogButton(
+                      // gradient: Gradient(colors: [Colors.red, Colors.black]),
+                      color: Color(0xff05595B),
+                      child: Text(
+                        "Kapat",
+                        style: TextStyle(color: Colors.white, fontSize: 20),
+                      ),
+                      onPressed: () => Navigator.pop(context),
+                    )
+                  ],
+                ).show();
+              });
+              buildPhotoAbout();
+            },
+            child: Image.network(
+              photoList[index],
+            ),
+          );
         });
   }
 

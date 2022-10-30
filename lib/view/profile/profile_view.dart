@@ -109,106 +109,170 @@ class _ProfileState extends State<Profile> {
                 children: [
                   Expanded(
                     flex: 1,
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Text("Profilim",
-                            style: buildTextStyle(22, Colors.black)),
-                      ],
-                    ),
+                    child: myProfileText(),
                   ), //profilimYazisi
 
                   Expanded(
-                    flex: 3,
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Stack(children: [
-                          CircleAvatar(
-                            backgroundColor: Colors.transparent,
-                            radius: 48, // Image radius
-                            backgroundImage: NetworkImage(indirmeBag),
-                          ),
-                          Positioned(
-                              right: 1,
-                              bottom: 1,
-                              child: InkWell(
-                                  onTap: () {
-                                    kameradanYukle();
-                                  },
-                                  child:
-                                      Icon(FontAwesomeIcons.camera, size: 25))),
-                        ]),
-                        Column(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          crossAxisAlignment: CrossAxisAlignment.center,
-                          children: [
-                            SizedBox(height: context.dynamicHeight(0.02)),
-                            Text("$name ",
-                                style: buildTextStyle(22, Colors.black)),
-                            Text("Kitap okuma ünvanı",
-                                style: buildTextStyle(15, Colors.grey)),
-                          ],
-                        )
-                      ],
-                    ),
-                  ) //circle avatar ad soyad
-                  ,
+                    flex: 2,
+                    child: buildProfilePhoto(),
+                  ),
+                  //circle avatar ad soyad
 
                   Expanded(
-                    flex: 2,
-                    child: Row(
-                      children: [
-                        Padding(
-                          padding: const EdgeInsets.all(8.0),
-                          child: Text(
-                            "Bilgilerim",
-                            style: buildTextStyle(20, Colors.black),
-                          ),
-                        )
-                      ],
-                    ),
+                    flex: 1,
+                    child: nameAndBooks(context),
+                  ),
+
+                  Expanded(
+                    flex: 1,
+                    child: buildMyInfo(),
                   ), //bilgilerim
 
                   Expanded(
                     flex: 2,
-                    child: Column(
-                      children: [
-                        Text("E-posta : $mail"),
-                        Spacer(),
-                        Text("Kayıt tarihi : $date"),
-                        Spacer(),
-                        Text("Beğenilen kitap sayısı : 0"),
-                      ],
-                    ),
+                    child: mailDateLike(),
                   ),
 
                   Expanded(
                     flex: 2,
-                    child: Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: Row(
-                        children: [
-                          Text(
-                            "Favorilerim",
-                            style: buildTextStyle(20, Colors.black),
-                          )
-                        ],
-                      ),
-                    ),
+                    child: buildMyFav(),
                   ), //kütüphanem
 
                   Expanded(
-                    flex: 1,
-                    child: Container(
-                      child: Center(
-                          child: Text(
-                        "Henüz bir kitap beğenilmedi",
-                        style: buildTextStyle(15, Colors.black),
-                      )),
-                    ),
+                    flex: 2,
+                    child: buildMyFavBooks(),
                   ),
-                  //begenilen kitapların fotoğraflarının görünecegi kisim
+
+                  Expanded(
+                    flex: 2,
+                    child: buildExitButton(context),
+                  ),
+                ],
+              )
+            : Center(
+                child: CircularProgressIndicator(
+                color: Color(0xff05595B),
+              )));
+  }
+
+  Padding buildExitButton(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.all(8.0),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.end,
+        children: [
+          GestureDetector(
+              onTap: () {
+                _authService.singOut();
+                Navigator.of(context).pushAndRemoveUntil(
+                    MaterialPageRoute(builder: (context) => EntryPageView()),
+                    (Route<dynamic> route) => false);
+                print("Logout!");
+              },
+              child: Icon(Icons.logout_sharp)),
+        ],
+      ),
+    );
+  }
+
+  Container buildMyFavBooks() {
+    return Container(
+      child: Center(
+          child: Text(
+        "Henüz bir kitap beğenilmedi",
+        style: buildTextStyle(15, Colors.black),
+      )),
+    );
+  }
+
+  Padding buildMyFav() {
+    return Padding(
+      padding: const EdgeInsets.all(8.0),
+      child: Row(
+        children: [
+          Text(
+            "Favorilerim",
+            style: buildTextStyle(20, Colors.black),
+          )
+        ],
+      ),
+    );
+  }
+
+  Column mailDateLike() {
+    return Column(
+      children: [
+        Text("E-posta : $mail"),
+        Spacer(),
+        Text("Kayıt tarihi : $date"),
+        Spacer(),
+        Text("Beğenilen kitap sayısı : 0"),
+      ],
+    );
+  }
+
+  Row buildMyInfo() {
+    return Row(
+      children: [
+        Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: Text(
+            "Bilgilerim",
+            style: buildTextStyle(20, Colors.black),
+          ),
+        )
+      ],
+    );
+  }
+
+  Column nameAndBooks(BuildContext context) {
+    return Column(
+      mainAxisAlignment: MainAxisAlignment.center,
+      crossAxisAlignment: CrossAxisAlignment.center,
+      children: [
+        Text("$name ", style: buildTextStyle(22, Colors.black)),
+        Text("Kitap okuma ünvanı", style: buildTextStyle(15, Colors.grey)),
+      ],
+    );
+  }
+
+  Column buildProfilePhoto() {
+    return Column(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        Stack(children: [
+          CircleAvatar(
+            backgroundColor: Colors.transparent,
+            radius: 48, // Image radius
+            backgroundImage: NetworkImage(indirmeBag),
+          ),
+          Positioned(
+              right: 1,
+              bottom: 1,
+              child: InkWell(
+                  onTap: () {
+                    kameradanYukle();
+                  },
+                  child: Icon(FontAwesomeIcons.camera, size: 25))),
+        ]),
+      ],
+    );
+  }
+
+  Row myProfileText() {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        Text("Profilim", style: buildTextStyle(22, Colors.black)),
+      ],
+    );
+  }
+
+  TextStyle buildTextStyle(double fontSize, Color color) {
+    return GoogleFonts.comfortaa(fontSize: fontSize, color: color);
+  }
+}
+  //begenilen kitapların fotoğraflarının görünecegi kisim
                   /*CarouselSlider(
               options: CarouselOptions(
                 height: context.dynamicHeight(0.15),
@@ -228,36 +292,3 @@ class _ProfileState extends State<Profile> {
                 );
               }).toList(),
             ),*/
-                  Expanded(
-                    flex: 3,
-                    child: Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.end,
-                        children: [
-                          GestureDetector(
-                              onTap: () {
-                                _authService.singOut();
-                                Navigator.of(context).pushAndRemoveUntil(
-                                    MaterialPageRoute(
-                                        builder: (context) => EntryPageView()),
-                                    (Route<dynamic> route) => false);
-                                print("Logout!");
-                              },
-                              child: Icon(Icons.logout_sharp)),
-                        ],
-                      ),
-                    ),
-                  ),
-                ],
-              )
-            : Center(
-                child: CircularProgressIndicator(
-                color: Color(0xff05595B),
-              )));
-  }
-
-  TextStyle buildTextStyle(double fontSize, Color color) {
-    return GoogleFonts.comfortaa(fontSize: fontSize, color: color);
-  }
-}

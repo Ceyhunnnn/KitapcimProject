@@ -32,7 +32,10 @@ class _UserCommentState extends State<UserComment> {
                       Row(
                         children: [
                           CircleAvatar(
-                            child: Image.asset("assets/icons/circleIcon.png"),
+                            backgroundColor: Colors.transparent,
+                            radius: 15,
+                            backgroundImage: NetworkImage(
+                                "https://images.pexels.com/photos/46274/pexels-photo-46274.jpeg?auto=compress&cs=tinysrgb&w=1200"),
                           ),
                           SizedBox(
                             width: context.dynamicWidth(0.01),

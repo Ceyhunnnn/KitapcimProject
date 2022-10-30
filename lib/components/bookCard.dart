@@ -32,7 +32,6 @@ class _buildBooksCardsState extends State<buildBooksCards> {
     super.initState();
     firestore = FirebaseFirestore.instance;
     current_id = FirebaseAuth.instance.currentUser!.uid;
-    print(current_id);
   }
 
   @override

@@ -7,6 +7,7 @@ import 'package:kitapcim/components/bottombar_view.dart';
 import 'package:kitapcim/constants/context_extentions.dart';
 import 'package:kitapcim/services/auth.dart';
 import 'package:rflutter_alert/rflutter_alert.dart';
+import 'package:intl/intl.dart';
 
 class EntryPageView extends StatefulWidget {
   const EntryPageView({Key? key}) : super(key: key);
@@ -28,7 +29,6 @@ class _EntryPageViewState extends State<EntryPageView> {
   final _password = "Parola";
   TextEditingController mailController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
-
   TextEditingController nameRegisterController = TextEditingController();
   TextEditingController mailRegisterController = TextEditingController();
   TextEditingController passwordRegisterController = TextEditingController();
@@ -323,12 +323,17 @@ class _registerPage extends StatelessWidget {
                             primary: context.appColor,
                           ),
                           onPressed: () {
+                            final DateTime now = DateTime.now();
+                            final DateFormat formatter =
+                                DateFormat('dd.MM.yyyy');
+                            // ignore: unused_local_variable
+                            final String formatted = formatter.format(now);
                             _authService
                                 .createUser(
-                                  nameRegisterController.text,
-                                  mailRegisterController.text,
-                                  passwordRegisterController.text,
-                                )
+                                    nameRegisterController.text,
+                                    mailRegisterController.text,
+                                    passwordRegisterController.text,
+                                    formatted)
                                 .then((value) => {
                                       if (value != null)
                                         {

@@ -59,6 +59,7 @@ class _VoiceListenState extends State<VoiceListen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+        backgroundColor: Colors.white,
         appBar: AppBar(
           shadowColor: Colors.grey,
           backgroundColor: context.appColor,
@@ -69,9 +70,7 @@ class _VoiceListenState extends State<VoiceListen> {
           automaticallyImplyLeading: false,
           centerTitle: true,
         ),
-        body: Platform.isAndroid
-            ? buildMp3Player(context)
-            : Center(child: NullPageWidget()));
+        body: Center(child: NullPageWidget()));
   }
 
   Container buildMp3Player(BuildContext context) {
@@ -105,9 +104,8 @@ class _VoiceListenState extends State<VoiceListen> {
                     width: context.dynamicWidth(0.4),
                     height: context.dynamicHeight(0.4),
                     decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(30),
-                        image: DecorationImage(
-                            image: AssetImage("assets/books/au.jpg"))),
+                      borderRadius: BorderRadius.circular(30),
+                    ),
                   ),
                 ),
                 Center(
@@ -201,7 +199,12 @@ class NullPageWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return Column(
       children: [
-        Expanded(flex: 8, child: Image.asset("assets/gifs/workss.gif")),
+        Expanded(
+            flex: 5,
+            child: Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Image.asset("assets/work.gif"),
+            )),
         Expanded(
           flex: 1,
           child: Icon(
