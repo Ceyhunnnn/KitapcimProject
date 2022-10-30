@@ -20,12 +20,20 @@ var author;
 var number;
 List gelenVeri = [];
 List? likeList = [];
+FirebaseFirestore firestore = FirebaseFirestore.instance;
+var current_id;
 // ignore: unused_element
-final FirebaseFirestore _firestore = FirebaseFirestore.instance;
-final current_id = FirebaseAuth.instance.currentUser!.uid;
 
 class _buildBooksCardsState extends State<buildBooksCards> {
   StatusService _statusService = StatusService();
+
+  @override
+  void initState() {
+    super.initState();
+    firestore = FirebaseFirestore.instance;
+    current_id = FirebaseAuth.instance.currentUser!.uid;
+    print(current_id);
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -127,12 +135,10 @@ class _buildBooksCardsState extends State<buildBooksCards> {
                                 child: Row(
                                   children: [
                                     GestureDetector(
-                                      onTap: () {
-                                        setState(() {
-                                          getBookInfo(bookUid);
-                                          likePost(
-                                              bookUid, current_id, gelenVeri);
-                                        });
+                                      onTap: () async {
+                                        await getBookInfo(bookUid);
+                                        await likePost(
+                                            bookUid, current_id, gelenVeri);
                                       },
                                       child: Icon(Icons.favorite,
                                           color:
@@ -204,20 +210,17 @@ class _buildBooksCardsState extends State<buildBooksCards> {
         }));
   }
 
-  void getBookInfo(String bookUid) {
-    print(bookUid);
-    FirebaseFirestore.instance
+  Future<List?> getBookInfo(String bookUid) async {
+    var value = await FirebaseFirestore.instance
         .collection('Books')
         .doc("${bookUid}")
-        .get()
-        .then((value) {
-      if (value.data()!.isNotEmpty) {
-        gelenVeri = value.data()!['likes'];
-        print(gelenVeri);
-      } else {
-        print('Document does not exist on the database');
-      }
+        .get();
+
+    setState(() {
+      gelenVeri = value.data()!['likes'];
     });
+    print("Gelen veri veritabanı");
+    print(gelenVeri);
   }
 }
 
@@ -225,11 +228,11 @@ Future<String> likePost(String bookUid, String current_id, likes) async {
   String res = "Some error occurred";
   try {
     if (likes.contains(current_id)) {
-      _firestore.collection('Books').doc(bookUid).update({
+      firestore.collection('Books').doc(bookUid).update({
         'likes': FieldValue.arrayRemove([current_id])
       });
     } else {
-      _firestore.collection('Books').doc(bookUid).update({
+      firestore.collection('Books').doc(bookUid).update({
         'likes': FieldValue.arrayUnion([current_id])
       });
     }
