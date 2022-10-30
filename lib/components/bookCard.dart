@@ -136,9 +136,11 @@ class _buildBooksCardsState extends State<buildBooksCards> {
                                   children: [
                                     GestureDetector(
                                       onTap: () async {
-                                        await getBookInfo(bookUid);
-                                        await likePost(
-                                            bookUid, current_id, gelenVeri);
+                                        getBookInfo(bookUid).then(
+                                            (value) async => {
+                                                  likePost(bookUid, current_id,
+                                                      gelenVeri)
+                                                });
                                       },
                                       child: Icon(Icons.favorite,
                                           color:
@@ -219,8 +221,6 @@ class _buildBooksCardsState extends State<buildBooksCards> {
     setState(() {
       gelenVeri = value.data()!['likes'];
     });
-    print("Gelen veri veritabanı");
-    print(gelenVeri);
   }
 }
 
