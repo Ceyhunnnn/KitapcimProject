@@ -104,7 +104,10 @@ class _ProfileState extends State<Profile> {
                 gradient: LinearGradient(
               begin: Alignment.topRight,
               end: Alignment.bottomLeft,
-              colors: [Colors.grey, Color(0xff05595B)],
+              colors: [
+                Color(0xff05595B),
+                Colors.grey,
+              ],
             )),
             child: oldProfilePage(context)));
   }
@@ -264,14 +267,14 @@ class _ProfileState extends State<Profile> {
             radius: 48, // Image radius
             backgroundImage: NetworkImage(indirmeBag),
           ),
-          Positioned(
-              right: 1,
-              bottom: 1,
-              child: InkWell(
-                  onTap: () {
-                    kameradanYukle();
-                  },
-                  child: Icon(FontAwesomeIcons.camera, size: 25))),
+          // Positioned(
+          //     right: 1,
+          //     bottom: 1,
+          //     child: InkWell(
+          //         onTap: () {
+          //           kameradanYukle();
+          //         },
+          //         child: Icon(FontAwesomeIcons.camera, size: 25))),
         ]),
       ],
     );
