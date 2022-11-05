@@ -70,21 +70,26 @@ class _LibraryState extends State<Library> {
                     child: Container(
                       child: Padding(
                         padding: const EdgeInsets.all(8.0),
-                        child: Text(
-                          categoryItems[index],
-                          style: TextStyle(
-                              fontSize: 19,
-                              color:
-                                  categoryItems[index] == selectedItemCategory
-                                      ? Colors.white
-                                      : Colors.black),
+                        child: Column(
+                          children: [
+                            Text(categoryItems[index],
+                                style: TextStyle(
+                                  fontSize: 19,
+                                )),
+                            SizedBox(
+                              height: context.dynamicHeight(0.005),
+                            ),
+                            selectedItemCategory == categoryItems[index]
+                                ? CircleAvatar(
+                                    radius: 5,
+                                    backgroundColor: Color(0xff05595B),
+                                  )
+                                : Text("")
+                          ],
                         ),
                       ),
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(10),
-                        color: categoryItems[index] == selectedItemCategory
-                            ? Color.fromARGB(255, 156, 153, 147)
-                            : Colors.transparent,
                       ),
                     ),
                   ),

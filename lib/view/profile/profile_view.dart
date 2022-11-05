@@ -98,7 +98,15 @@ class _ProfileState extends State<Profile> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(body: oldProfilePage(context));
+    return Scaffold(
+        body: Container(
+            decoration: BoxDecoration(
+                gradient: LinearGradient(
+              begin: Alignment.topRight,
+              end: Alignment.bottomLeft,
+              colors: [Colors.grey, Color(0xff05595B)],
+            )),
+            child: oldProfilePage(context)));
   }
 
   SafeArea oldProfilePage(BuildContext context) {
@@ -150,7 +158,7 @@ class _ProfileState extends State<Profile> {
               )
             : Center(
                 child: CircularProgressIndicator(
-                color: Color(0xff05595B),
+                color: Color.fromARGB(255, 215, 213, 213),
               )));
   }
 
@@ -179,7 +187,7 @@ class _ProfileState extends State<Profile> {
       child: Center(
           child: Text(
         "Henüz bir kitap beğenilmedi",
-        style: buildTextStyle(15, Colors.black),
+        style: buildTextStyle(15, Color.fromARGB(255, 215, 213, 213)),
       )),
     );
   }
@@ -191,7 +199,7 @@ class _ProfileState extends State<Profile> {
         children: [
           Text(
             "Favorilerim",
-            style: buildTextStyle(20, Colors.black),
+            style: buildTextStyle(20, Color.fromARGB(255, 215, 213, 213)),
           )
         ],
       ),
@@ -201,11 +209,20 @@ class _ProfileState extends State<Profile> {
   Column mailDateLike() {
     return Column(
       children: [
-        Text("E-posta : $mail"),
+        Text(
+          "E-posta : $mail",
+          style: TextStyle(color: Color.fromARGB(255, 215, 213, 213)),
+        ),
         Spacer(),
-        Text("Kayıt tarihi : $date"),
+        Text(
+          "Kayıt tarihi : $date",
+          style: TextStyle(color: Color.fromARGB(255, 215, 213, 213)),
+        ),
         Spacer(),
-        Text("Beğenilen kitap sayısı : 0"),
+        Text(
+          "Beğenilen kitap sayısı : 0",
+          style: TextStyle(color: Color.fromARGB(255, 215, 213, 213)),
+        ),
       ],
     );
   }
@@ -217,7 +234,7 @@ class _ProfileState extends State<Profile> {
           padding: const EdgeInsets.all(8.0),
           child: Text(
             "Bilgilerim",
-            style: buildTextStyle(20, Colors.black),
+            style: buildTextStyle(20, Color.fromARGB(255, 215, 213, 213)),
           ),
         )
       ],
@@ -229,8 +246,10 @@ class _ProfileState extends State<Profile> {
       mainAxisAlignment: MainAxisAlignment.center,
       crossAxisAlignment: CrossAxisAlignment.center,
       children: [
-        Text("$name ", style: buildTextStyle(22, Colors.black)),
-        Text("Kitap okuma ünvanı", style: buildTextStyle(15, Colors.grey)),
+        Text("$name ",
+            style: buildTextStyle(22, Color.fromARGB(255, 215, 213, 213))),
+        Text("Kitap okuma ünvanı",
+            style: buildTextStyle(15, Color.fromARGB(255, 215, 213, 213))),
       ],
     );
   }
@@ -262,7 +281,8 @@ class _ProfileState extends State<Profile> {
     return Row(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
-        Text("Profilim", style: buildTextStyle(22, Colors.black)),
+        Text("Profilim",
+            style: buildTextStyle(22, Color.fromARGB(255, 215, 213, 213))),
       ],
     );
   }
