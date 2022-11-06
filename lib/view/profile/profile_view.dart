@@ -137,7 +137,6 @@ class _ProfileState extends State<Profile> {
                     flex: 1,
                     child: mailDateLike(),
                   ),
-
                   Expanded(
                     flex: 1,
                     child: buildMyFav(),
