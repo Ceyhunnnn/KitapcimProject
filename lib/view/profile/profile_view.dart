@@ -118,44 +118,34 @@ class _ProfileState extends State<Profile> {
             ? Column(
                 children: [
                   Expanded(
-                    flex: 1,
+                    flex: 0,
                     child: myProfileText(),
                   ), //profilimYazisi
 
                   Expanded(
-                    flex: 2,
+                    flex: 1,
                     child: buildProfilePhoto(),
                   ),
                   //circle avatar ad soyad
 
                   Expanded(
-                    flex: 1,
+                    flex: 0,
                     child: nameAndBooks(context),
                   ),
 
                   Expanded(
                     flex: 1,
-                    child: buildMyInfo(),
-                  ), //bilgilerim
-
-                  Expanded(
-                    flex: 2,
                     child: mailDateLike(),
                   ),
 
                   Expanded(
-                    flex: 2,
+                    flex: 1,
                     child: buildMyFav(),
                   ), //kütüphanem
 
                   Expanded(
-                    flex: 2,
+                    flex: 1,
                     child: buildMyFavBooks(),
-                  ),
-
-                  Expanded(
-                    flex: 2,
-                    child: buildExitButton(context),
                   ),
                 ],
               )
@@ -165,24 +155,18 @@ class _ProfileState extends State<Profile> {
               )));
   }
 
-  Padding buildExitButton(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.all(8.0),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.end,
-        children: [
-          GestureDetector(
-              onTap: () {
-                _authService.singOut();
-                Navigator.of(context).pushAndRemoveUntil(
-                    MaterialPageRoute(builder: (context) => EntryPageView()),
-                    (Route<dynamic> route) => false);
-                print("Logout!");
-              },
-              child: Icon(Icons.logout_sharp)),
-        ],
-      ),
-    );
+  GestureDetector buildExitButton(BuildContext context) {
+    return GestureDetector(
+        onTap: () {
+          _authService.singOut();
+          Navigator.of(context).pushAndRemoveUntil(
+              MaterialPageRoute(builder: (context) => EntryPageView()),
+              (Route<dynamic> route) => false);
+        },
+        child: Icon(
+          Icons.logout,
+          color: Color.fromARGB(255, 215, 213, 213),
+        ));
   }
 
   Container buildMyFavBooks() {
@@ -195,33 +179,31 @@ class _ProfileState extends State<Profile> {
     );
   }
 
-  Padding buildMyFav() {
-    return Padding(
-      padding: const EdgeInsets.all(8.0),
-      child: Row(
-        children: [
-          Text(
-            "Favorilerim",
-            style: buildTextStyle(20, Color.fromARGB(255, 215, 213, 213)),
-          )
-        ],
-      ),
+  Row buildMyFav() {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        Text(
+          "Favorilerim",
+          style: buildTextStyle(20, Color.fromARGB(255, 215, 213, 213)),
+        )
+      ],
     );
   }
 
   Column mailDateLike() {
     return Column(
+      crossAxisAlignment: CrossAxisAlignment.center,
+      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
       children: [
         Text(
           "E-posta : $mail",
           style: TextStyle(color: Color.fromARGB(255, 215, 213, 213)),
         ),
-        Spacer(),
         Text(
           "Kayıt tarihi : $date",
           style: TextStyle(color: Color.fromARGB(255, 215, 213, 213)),
         ),
-        Spacer(),
         Text(
           "Beğenilen kitap sayısı : 0",
           style: TextStyle(color: Color.fromARGB(255, 215, 213, 213)),
@@ -233,12 +215,9 @@ class _ProfileState extends State<Profile> {
   Row buildMyInfo() {
     return Row(
       children: [
-        Padding(
-          padding: const EdgeInsets.all(8.0),
-          child: Text(
-            "Bilgilerim",
-            style: buildTextStyle(20, Color.fromARGB(255, 215, 213, 213)),
-          ),
+        Text(
+          "Bilgilerim",
+          style: buildTextStyle(20, Color.fromARGB(255, 215, 213, 213)),
         )
       ],
     );
@@ -257,35 +236,35 @@ class _ProfileState extends State<Profile> {
     );
   }
 
-  Column buildProfilePhoto() {
-    return Column(
+  Row buildProfilePhoto() {
+    return Row(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
-        Stack(children: [
-          CircleAvatar(
-            backgroundColor: Colors.transparent,
-            radius: 48, // Image radius
-            backgroundImage: NetworkImage(indirmeBag),
-          ),
-          // Positioned(
-          //     right: 1,
-          //     bottom: 1,
-          //     child: InkWell(
-          //         onTap: () {
-          //           kameradanYukle();
-          //         },
-          //         child: Icon(FontAwesomeIcons.camera, size: 25))),
-        ]),
+        CircleAvatar(
+          backgroundColor: Colors.transparent,
+          radius: 48, // Image radius
+          backgroundImage: NetworkImage(indirmeBag),
+        ),
       ],
     );
   }
 
   Row myProfileText() {
     return Row(
-      mainAxisAlignment: MainAxisAlignment.center,
       children: [
-        Text("Profilim",
-            style: buildTextStyle(22, Color.fromARGB(255, 215, 213, 213))),
+        Expanded(
+          child: Stack(children: [
+            Align(
+              alignment: Alignment.center,
+              child: Text("Profilim",
+                  style:
+                      buildTextStyle(26, Color.fromARGB(255, 215, 213, 213))),
+            ),
+            Align(
+                alignment: Alignment.centerRight,
+                child: buildExitButton(context)),
+          ]),
+        ),
       ],
     );
   }
