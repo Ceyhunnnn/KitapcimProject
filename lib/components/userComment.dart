@@ -3,7 +3,15 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:kitapcim/constants/context_extentions.dart';
 
 class UserComment extends StatefulWidget {
-  const UserComment({Key? key}) : super(key: key);
+  UserComment(
+      {Key? key,
+      required String this.userId,
+      required String this.content,
+      required String this.sender})
+      : super(key: key);
+  var userId;
+  var content;
+  var sender;
 
   @override
   State<UserComment> createState() => _UserCommentState();
@@ -41,7 +49,7 @@ class _UserCommentState extends State<UserComment> {
                             width: context.dynamicWidth(0.01),
                           ),
                           Text(
-                            "Ceyhun Gül",
+                            "${widget.sender}",
                             style: TextStyle(
                               decoration: TextDecoration.underline,
                             ),
@@ -56,7 +64,7 @@ class _UserCommentState extends State<UserComment> {
                       Padding(
                         padding: const EdgeInsets.all(8.0),
                         child: Text(
-                          "Bu bir yorum " * 5,
+                          "${widget.content}",
                           style: TextStyle(fontStyle: FontStyle.italic),
                         ),
                       ),

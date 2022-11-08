@@ -1,35 +1,63 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:kitapcim/components/userComment.dart';
 import 'package:kitapcim/constants/context_extentions.dart';
 
 // ignore: must_be_immutable
 class CommentPageDetail extends StatefulWidget {
-  CommentPageDetail(
-      {Key? key,
-      required String this.name,
-      required String this.url,
-      required String this.author,
-      required String this.number,
-      required String this.about})
-      : super(key: key);
+  CommentPageDetail({
+    Key? key,
+    required String this.name,
+    required String this.url,
+    required String this.author,
+    required String this.number,
+    required String this.about,
+    required String this.bookUid,
+  }) : super(key: key);
 
   var name;
   var url;
   var author;
   var number;
   var about;
+  var bookUid;
+
   @override
   State<CommentPageDetail> createState() => _CommentPageDetailState();
 }
 
 class _CommentPageDetailState extends State<CommentPageDetail> {
-  @override
+  var firestore;
+  var current_id;
+  var sender;
+  var firebaseUser = FirebaseAuth.instance.currentUser;
+
+  Future<void> userGet() async {
+    FirebaseFirestore.instance
+        .collection('Users')
+        .doc(firebaseUser!.uid)
+        .get()
+        .then((gelenVeri) {
+      setState(() {
+        sender = gelenVeri.data()!['userName'];
+      });
+    });
+  }
+
   void initState() {
     super.initState();
+    userGet();
+    firestore = FirebaseFirestore.instance;
+    current_id = FirebaseAuth.instance.currentUser!.uid;
+    print("Giris yapili kullanici : " + current_id);
+    print("Acilan Kitap Uid : ${widget.bookUid}");
   }
 
   @override
   Widget build(BuildContext context) {
+    TextEditingController content = TextEditingController();
+
     return Scaffold(
         appBar: AppBar(
           backgroundColor: context.appColor,
@@ -37,18 +65,6 @@ class _CommentPageDetailState extends State<CommentPageDetail> {
         ),
         body: Column(
           children: [
-            // Expanded(
-            //   flex: 0,
-            //   child: Padding(
-            //     padding: const EdgeInsets.all(10.0),
-            //     child: Text(
-            //       '${widget.about}',
-            //       overflow: TextOverflow.ellipsis,
-            //       textAlign: TextAlign.justify,
-            //       style: context.buildTextStyle(15, Colors.black),
-            //     ),
-            //   ),
-            // ),
             Expanded(
               flex: 3,
               child: Row(
@@ -96,7 +112,11 @@ class _CommentPageDetailState extends State<CommentPageDetail> {
                 child: SingleChildScrollView(
                   child: Column(
                     children: [
-                      UserComment(),
+                      UserComment(
+                        userId: "Ergga0QZOHecK3iMytoHytnfjjF3",
+                        content: "content",
+                        sender: "sender",
+                      ),
                     ],
                   ),
                 )),
@@ -109,9 +129,15 @@ class _CommentPageDetailState extends State<CommentPageDetail> {
                     children: [
                       Expanded(
                         child: TextFormField(
+                          controller: content,
                           decoration: InputDecoration(
                               suffixIcon: InkWell(
-                                  onTap: () => print("Yorum Yapildi!"),
+                                  onTap: () => {
+                                        print(
+                                            "Yorum yapan kisi : ${sender}\n Yorum : ${content.text}\n yorum yapan id : ${current_id}"),
+                                        saveComment(widget.bookUid, sender,
+                                            content.text, current_id)
+                                      },
                                   child: Icon(Icons.send)),
                               border: new OutlineInputBorder(
                                 borderRadius: new BorderRadius.circular(15.0),
@@ -127,5 +153,24 @@ class _CommentPageDetailState extends State<CommentPageDetail> {
             ),
           ],
         ));
+  }
+
+  Future<String> saveComment(
+    String bookUid,
+    String sender,
+    String content,
+    String current_id,
+  ) async {
+    String res = "Some error occurred";
+    try {
+      firestore.collection('Books').doc(bookUid).update({
+        'comments': FieldValue.arrayUnion([
+          {"content": content, "sender": sender, "id": current_id}
+        ]),
+      });
+    } catch (err) {
+      res = err.toString();
+    }
+    return res;
   }
 }

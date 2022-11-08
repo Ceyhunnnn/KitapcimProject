@@ -18,6 +18,7 @@ var about;
 var url;
 var author;
 var number;
+var bookUidPost;
 List gelenVeri = [];
 List? likeList = [];
 FirebaseFirestore firestore = FirebaseFirestore.instance;
@@ -164,6 +165,7 @@ class _buildBooksCardsState extends State<buildBooksCards> {
                                               '${myBooks['bookPageNumber']}';
                                           url = '${myBooks['bookUrl']}';
                                           about = '${myBooks['bookAbout']}';
+                                          bookUidPost = '${myBooks['uid']}';
                                         });
                                         Navigator.push(
                                           context,
@@ -174,7 +176,8 @@ class _buildBooksCardsState extends State<buildBooksCards> {
                                                       url: url,
                                                       author: author,
                                                       number: number,
-                                                      about: about)),
+                                                      about: about,
+                                                      bookUid: bookUid)),
                                         );
                                       },
                                       child: Icon(
