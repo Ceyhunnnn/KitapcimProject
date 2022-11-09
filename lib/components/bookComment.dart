@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:kitapcim/components/userComment.dart';
 import 'package:kitapcim/constants/context_extentions.dart';
 
@@ -31,7 +32,11 @@ class _CommentPageDetailState extends State<CommentPageDetail> {
   var firestore;
   var current_id;
   var sender;
+
   var firebaseUser = FirebaseAuth.instance.currentUser;
+  String comments = "Yorumlar";
+  String notFoundComment = "Henüz yorum yapılmamıştır";
+  List commentList = [];
 
   Future<void> userGet() async {
     FirebaseFirestore.instance
@@ -52,6 +57,7 @@ class _CommentPageDetailState extends State<CommentPageDetail> {
     current_id = FirebaseAuth.instance.currentUser!.uid;
     print("Giris yapili kullanici : " + current_id);
     print("Acilan Kitap Uid : ${widget.bookUid}");
+    //await getCommentFromFirebase(widget.bookUid);
   }
 
   @override
@@ -61,7 +67,7 @@ class _CommentPageDetailState extends State<CommentPageDetail> {
     return Scaffold(
         appBar: AppBar(
           backgroundColor: context.appColor,
-          title: Text("Yorumlar"),
+          title: Text(comments),
         ),
         body: Column(
           children: [
@@ -109,17 +115,31 @@ class _CommentPageDetailState extends State<CommentPageDetail> {
             ),
             Expanded(
                 flex: 9,
-                child: SingleChildScrollView(
-                  child: Column(
-                    children: [
-                      UserComment(
-                        userId: "Ergga0QZOHecK3iMytoHytnfjjF3",
-                        content: "content",
-                        sender: "sender",
-                      ),
-                    ],
-                  ),
-                )),
+                child: FutureBuilder(
+                    future: getCommentFromFirebase(widget.bookUid),
+                    builder: (context, snapshot) {
+                      if (snapshot.hasData) {
+                        List? comment = snapshot.data as List;
+                        return comment.isEmpty
+                            ? Center(child: Text("Henüz yorum yok..."))
+                            : ListView.builder(
+                                itemCount: comment.length,
+                                itemBuilder: (context, index) {
+                                  return UserComment(
+                                    bookId: widget.bookUid,
+                                    userId: comment[index]["id"],
+                                    content:
+                                        comment[index]["content"].toString(),
+                                    sender: comment[index]["sender"].toString(),
+                                  );
+                                },
+                              );
+                      } else {
+                        return Center(
+                          child: CircularProgressIndicator.adaptive(),
+                        );
+                      }
+                    })),
             Expanded(
               flex: 2,
               child: SafeArea(
@@ -133,10 +153,26 @@ class _CommentPageDetailState extends State<CommentPageDetail> {
                           decoration: InputDecoration(
                               suffixIcon: InkWell(
                                   onTap: () => {
-                                        print(
-                                            "Yorum yapan kisi : ${sender}\n Yorum : ${content.text}\n yorum yapan id : ${current_id}"),
-                                        saveComment(widget.bookUid, sender,
-                                            content.text, current_id)
+                                        if (content.text.isNotEmpty)
+                                          {
+                                            print(
+                                                "Yorum yapan kisi : ${sender}\nYorum : ${content.text}\nyorum yapan id : ${current_id}"),
+                                            saveComment(widget.bookUid, sender,
+                                                content.text, current_id),
+                                            content.clear(),
+                                            setState(() {
+                                              getCommentFromFirebase(
+                                                  widget.bookUid);
+                                            })
+                                          }
+                                        else
+                                          {
+                                            Get.snackbar(
+                                              "***Uyarı***",
+                                              "Yorum kısmı boş bırakılamaz",
+                                              colorText: Colors.white,
+                                            )
+                                          }
                                       },
                                   child: Icon(Icons.send)),
                               border: new OutlineInputBorder(
@@ -172,5 +208,16 @@ class _CommentPageDetailState extends State<CommentPageDetail> {
       res = err.toString();
     }
     return res;
+  }
+
+  Future<List?> getCommentFromFirebase(String bookUid) async {
+    await FirebaseFirestore.instance
+        .collection('Books')
+        .doc("${bookUid}")
+        .get()
+        .then((value) => {commentList = value.data()!['comments']});
+
+    print("Comments List from Firebase ${commentList}");
+    return commentList;
   }
 }
