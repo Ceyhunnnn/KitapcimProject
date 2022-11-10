@@ -1,8 +1,8 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
-import 'package:kitapcim/components/userComment.dart';
 import 'package:kitapcim/constants/context_extentions.dart';
 
 // ignore: must_be_immutable
@@ -125,12 +125,105 @@ class _CommentPageDetailState extends State<CommentPageDetail> {
                             : ListView.builder(
                                 itemCount: comment.length,
                                 itemBuilder: (context, index) {
-                                  return UserComment(
-                                    bookId: widget.bookUid,
-                                    userId: comment[index]["id"],
-                                    content:
-                                        comment[index]["content"].toString(),
-                                    sender: comment[index]["sender"].toString(),
+                                  return Padding(
+                                    padding: const EdgeInsets.all(8.0),
+                                    child: Row(
+                                      children: [
+                                        Expanded(
+                                            flex: 9,
+                                            child: Padding(
+                                              padding: EdgeInsets.only(
+                                                  left: 10, right: 10),
+                                              child: Container(
+                                                decoration: BoxDecoration(
+                                                  //color: Colors.red,
+                                                  borderRadius:
+                                                      BorderRadius.circular(50),
+                                                ),
+                                                child: Column(
+                                                  mainAxisAlignment:
+                                                      MainAxisAlignment.start,
+                                                  crossAxisAlignment:
+                                                      CrossAxisAlignment.start,
+                                                  children: [
+                                                    Row(
+                                                      children: [
+                                                        CircleAvatar(
+                                                          backgroundColor:
+                                                              Colors
+                                                                  .transparent,
+                                                          radius: 15,
+                                                          backgroundImage:
+                                                              NetworkImage(
+                                                                  "https://images.pexels.com/photos/46274/pexels-photo-46274.jpeg?auto=compress&cs=tinysrgb&w=1200"),
+                                                        ),
+                                                        SizedBox(
+                                                          width: context
+                                                              .dynamicWidth(
+                                                                  0.01),
+                                                        ),
+                                                        Text(
+                                                          comment[index]
+                                                                  ["sender"]
+                                                              .toString(),
+                                                          style: TextStyle(
+                                                            decoration:
+                                                                TextDecoration
+                                                                    .underline,
+                                                          ),
+                                                        ),
+                                                        Spacer(),
+                                                        current_id ==
+                                                                comment[index]
+                                                                    ["id"]
+                                                            ? GestureDetector(
+                                                                onTap: () {
+                                                                  setState(() {
+                                                                    deleteComment(
+                                                                            widget
+                                                                                .bookUid,
+                                                                            comment[index]["sender"]
+                                                                                .toString(),
+                                                                            comment[index]["content"]
+                                                                                .toString(),
+                                                                            current_id)
+                                                                        .then((value) =>
+                                                                            {
+                                                                              getCommentFromFirebase(widget.bookUid)
+                                                                            });
+                                                                  });
+                                                                },
+                                                                child: FaIcon(
+                                                                  FontAwesomeIcons
+                                                                      .trashAlt,
+                                                                  color: Colors
+                                                                      .red,
+                                                                  size: 20,
+                                                                ),
+                                                              )
+                                                            : Text("")
+                                                      ],
+                                                    ),
+                                                    Padding(
+                                                      padding:
+                                                          const EdgeInsets.all(
+                                                              8.0),
+                                                      child: Text(
+                                                        comment[index]
+                                                                ["content"]
+                                                            .toString(),
+                                                        style: TextStyle(
+                                                            fontStyle: FontStyle
+                                                                .italic),
+                                                      ),
+                                                    ),
+                                                    Divider()
+                                                  ],
+                                                ),
+                                              ),
+                                            )),
+                                      ],
+                                    ),
                                   );
                                 },
                               );
@@ -189,6 +282,25 @@ class _CommentPageDetailState extends State<CommentPageDetail> {
             ),
           ],
         ));
+  }
+
+  Future<String> deleteComment(
+    String bookUid,
+    String sender,
+    String content,
+    String current_id,
+  ) async {
+    String res = "Some error occurred";
+    try {
+      firestore.collection('Books').doc(bookUid).update({
+        'comments': FieldValue.arrayRemove([
+          {"content": content, "sender": sender, "id": current_id}
+        ]),
+      });
+    } catch (err) {
+      res = err.toString();
+    }
+    return res;
   }
 
   Future<String> saveComment(

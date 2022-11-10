@@ -134,7 +134,7 @@ class _EntryPageViewState extends State<EntryPageView> {
                       padding: const EdgeInsets.all(20.0),
                       child: ElevatedButton(
                           style: ElevatedButton.styleFrom(
-                              primary: context.appColor,
+                              backgroundColor: context.appColor,
                               shape: RoundedRectangleBorder(
                                 borderRadius: BorderRadius.circular(10.0),
                               )),
@@ -173,7 +173,7 @@ class _EntryPageViewState extends State<EntryPageView> {
                       padding: const EdgeInsets.all(20.0),
                       child: ElevatedButton(
                           style: ElevatedButton.styleFrom(
-                              primary: Colors.white,
+                              backgroundColor: Colors.white,
                               side: BorderSide(color: Colors.grey),
                               shape: RoundedRectangleBorder(
                                 borderRadius: BorderRadius.circular(10.0),
@@ -302,6 +302,7 @@ class _registerPage extends StatelessWidget {
               Padding(
                 padding: const EdgeInsets.all(8.0),
                 child: TextFormField(
+                  obscureText: true,
                   controller: passwordRegisterController,
                   cursorColor: Colors.grey,
                   keyboardType: TextInputType.emailAddress,
@@ -320,7 +321,7 @@ class _registerPage extends StatelessWidget {
                       padding: const EdgeInsets.all(20.0),
                       child: ElevatedButton(
                           style: ElevatedButton.styleFrom(
-                            primary: context.appColor,
+                            backgroundColor: context.appColor,
                           ),
                           onPressed: () {
                             final DateTime now = DateTime.now();
@@ -385,7 +386,7 @@ class _registerPage extends StatelessWidget {
                     children: [
                       ElevatedButton(
                           style: ElevatedButton.styleFrom(
-                              primary: Colors.white,
+                              backgroundColor: Colors.white,
                               side: BorderSide(color: Colors.grey),
                               shape: RoundedRectangleBorder(
                                 borderRadius: BorderRadius.circular(10.0),

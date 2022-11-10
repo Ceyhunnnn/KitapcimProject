@@ -136,11 +136,11 @@ class _LibraryState extends State<Library> {
         });
   }
 
-  void bookListUpdate(selectedItemCategory) {
+  void bookListUpdate(selectedItemCategory) async {
     photoList.clear();
     bookAbout.clear();
     bookName.clear();
-    FirebaseFirestore.instance.collection('Books').get().then((value) {
+    await FirebaseFirestore.instance.collection('Books').get().then((value) {
       for (var i in value.docs) {
         setState(() {
           if (i.data()["category"] == selectedItemCategory) {
