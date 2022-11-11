@@ -55,8 +55,7 @@ class _CommentPageDetailState extends State<CommentPageDetail> {
     userGet();
     firestore = FirebaseFirestore.instance;
     current_id = FirebaseAuth.instance.currentUser!.uid;
-    print("Giris yapili kullanici : " + current_id);
-    print("Acilan Kitap Uid : ${widget.bookUid}");
+
     //await getCommentFromFirebase(widget.bookUid);
   }
 
@@ -248,8 +247,6 @@ class _CommentPageDetailState extends State<CommentPageDetail> {
                                   onTap: () => {
                                         if (content.text.isNotEmpty)
                                           {
-                                            print(
-                                                "Yorum yapan kisi : ${sender}\nYorum : ${content.text}\nyorum yapan id : ${current_id}"),
                                             saveComment(widget.bookUid, sender,
                                                 content.text, current_id),
                                             content.clear(),
@@ -329,7 +326,6 @@ class _CommentPageDetailState extends State<CommentPageDetail> {
         .get()
         .then((value) => {commentList = value.data()!['comments']});
 
-    print("Comments List from Firebase ${commentList}");
     return commentList;
   }
 }

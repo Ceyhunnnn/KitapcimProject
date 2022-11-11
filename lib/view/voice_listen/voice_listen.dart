@@ -47,7 +47,6 @@ class _VoiceListenState extends State<VoiceListen> {
     cache = AudioCache(fixedPlayer: _player);
 
     _player.onDurationChanged.listen((Duration d) {
-      print('Max duration: $d');
       setState(() => musicLength = d);
     });
 

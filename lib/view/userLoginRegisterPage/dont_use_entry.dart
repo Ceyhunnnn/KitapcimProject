@@ -31,7 +31,7 @@
 //   getUsers() {
 //     userRef.get().then((QuerySnapshot snapshot) =>
 //         snapshot.docs.forEach((DocumentSnapshot doc) {
-//           print(doc.data());
+
 //         }));
 //   }*/
 
@@ -264,7 +264,6 @@
 //               text: " Kayıt Ol",
 //               recognizer: TapGestureRecognizer()
 //                 ..onTap = () {
-//                   debugPrint("KayitOl*");
 //                   Navigator.push(
 //                       context,
 //                       MaterialPageRoute(

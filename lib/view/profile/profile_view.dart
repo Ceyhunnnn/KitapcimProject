@@ -56,14 +56,11 @@ class _ProfileState extends State<Profile> {
           .getDownloadURL()
           .then((value) {
         if (value.isEmpty) {
-          print("Fotoğraf yok");
         } else {
           indirmeBag = value;
         }
       });
-    } catch (e) {
-      print(e);
-    }
+    } catch (e) {}
   }
 
   @override
@@ -91,7 +88,6 @@ class _ProfileState extends State<Profile> {
     String url = await (await yuklemeGorevi).ref.getDownloadURL();
     setState(() {
       indirmeBag = url;
-      print("URL  :   $indirmeBag");
     });
   }
 

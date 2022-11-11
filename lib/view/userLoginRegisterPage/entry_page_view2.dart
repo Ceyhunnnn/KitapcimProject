@@ -220,8 +220,6 @@ class _EntryPageViewState extends State<EntryPageView> {
       }
 
       //  _buildErrorMessage(error.message);
-
-      print(error.message);
     });
   }
 
@@ -338,7 +336,6 @@ class _registerPage extends StatelessWidget {
                                 .then((value) => {
                                       if (value != null)
                                         {
-                                          print("Hesap oluşturuldu"),
                                           pageController.animateToPage(0,
                                               duration:
                                                   Duration(milliseconds: 500),
@@ -350,7 +347,7 @@ class _registerPage extends StatelessWidget {
                                                   context.appColor),
                                         }
                                       else
-                                        {print("Hesap olusturma hata")}
+                                        {}
                                     });
                           },
                           child: Padding(
