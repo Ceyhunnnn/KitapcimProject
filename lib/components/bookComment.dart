@@ -194,6 +194,7 @@ class _CommentPageDetailState extends State<CommentPageDetail> {
                                                                 },
                                                                 child: FaIcon(
                                                                   FontAwesomeIcons
+                                                                      // ignore: deprecated_member_use
                                                                       .trashAlt,
                                                                   color: Colors
                                                                       .red,

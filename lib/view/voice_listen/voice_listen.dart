@@ -44,14 +44,14 @@ class _VoiceListenState extends State<VoiceListen> {
   void initState() {
     super.initState();
     _player = AudioPlayer();
-    cache = AudioCache(fixedPlayer: _player);
+    //cache = AudioCache(fixedPlayer: _player);
 
     _player.onDurationChanged.listen((Duration d) {
       setState(() => musicLength = d);
     });
 
-    _player.onAudioPositionChanged
-        .listen((Duration p) => {setState(() => position = p)});
+    // _player.onAudioPositionChanged
+    //     .listen((Duration p) => {setState(() => position = p)});
   }
 
   @override
@@ -149,7 +149,7 @@ class _VoiceListenState extends State<VoiceListen> {
                             IconButton(
                                 onPressed: () {
                                   if (!playing) {
-                                    cache.play("sound_example.mp3");
+                                    //cache.play("sound_example.mp3");
 
                                     setState(() {
                                       plyButton = Icons.pause;
@@ -206,6 +206,7 @@ class NullPageWidget extends StatelessWidget {
         Expanded(
           flex: 1,
           child: Icon(
+            // ignore: deprecated_member_use
             FontAwesomeIcons.exclamationTriangle,
             size: 25,
             color: Colors.black,
