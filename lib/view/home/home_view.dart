@@ -64,17 +64,12 @@ class _HomePageState extends State<HomePage> {
           clipBehavior: Clip.hardEdge,
           slivers: [
             SliverAppBar(
-              stretch: true,
-              collapsedHeight: Platform.isAndroid
-                  ? context.dynamicHeight(0.15)
-                  : Platform.isIOS
-                      ? context.dynamicHeight(0.12)
-                      : context.dynamicHeight(0.15),
+              stretch: false,
+              collapsedHeight: context.dynamicHeight(0.07),
               pinned: true,
               forceElevated: true,
               automaticallyImplyLeading: false,
               backgroundColor: Colors.transparent,
-              expandedHeight: context.dynamicHeight(0.12),
               flexibleSpace: FlexibleSpaceBar(
                 background: Column(
                   children: [
@@ -114,34 +109,42 @@ class _HomePageState extends State<HomePage> {
   Expanded buildTopBar(BuildContext context) {
     return Expanded(
       child: Container(
-        padding: EdgeInsets.only(top: context.dynamicHeight(0.05)),
-        //margin: EdgeInsets.only(top: context.dynamicHeight(0.05)),
         color: Color(0xff05595B),
         child: Column(
           children: [
-            Row(
-              children: [
-                SizedBox(
-                  width: context.dynamicWidth(0.03),
+            Expanded(
+              child: Padding(
+                padding: EdgeInsets.symmetric(vertical: 20, horizontal: 15),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  crossAxisAlignment: CrossAxisAlignment.end,
+                  children: [
+                    CircleAvatar(
+                      backgroundColor: Colors.transparent,
+                      radius: 15, // Image radius
+                      backgroundImage: NetworkImage(profilePhoto),
+                    ),
+                    SizedBox(
+                      width: context.dynamicWidth(0.03),
+                    ),
+                    Text(
+                      "Merhaba $name",
+                      style: buildTextStyle(20, Colors.white),
+                    ),
+                    Spacer(),
+                    InkWell(
+                      onTap: () {
+                        buildMessageAlert(context);
+                      },
+                      child: Icon(
+                        Icons.message,
+                        color: Colors.white,
+                      ),
+                    ),
+                  ],
                 ),
-                CircleAvatar(
-                  backgroundColor: Colors.transparent,
-                  radius: 15, // Image radius
-                  backgroundImage: NetworkImage(profilePhoto),
-                ),
-                SizedBox(
-                  width: context.dynamicWidth(0.03),
-                ),
-                Text(
-                  "Merhaba $name",
-                  style: buildTextStyle(20, Colors.white),
-                )
-              ],
+              ),
             ),
-            SizedBox(
-              height: context.dynamicHeight(0.02),
-            ),
-            buildSearchBar(),
           ],
         ),
       ),
@@ -180,59 +183,21 @@ class _HomePageState extends State<HomePage> {
   }
 }
 
-class buildSearchBar extends StatelessWidget {
-  const buildSearchBar({
-    Key? key,
-  }) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return Row(
-      children: [
-        Expanded(
-            child: TextFormField(
-          cursorColor: Colors.white,
-          decoration: const InputDecoration(
-              border: InputBorder.none,
-              prefixIcon: Icon(
-                Icons.search,
-                color: Colors.white,
-              ),
-              hintText: "Kitap arayın",
-              hintStyle: TextStyle(color: Colors.white)),
-        )),
-        InkWell(
-          onTap: () {
-            buildMessageAlert(context);
-          },
-          child: Icon(
-            Icons.message,
-            color: Colors.white,
-          ),
+Future<bool?> buildMessageAlert(BuildContext context) {
+  return Alert(
+    context: context,
+    type: AlertType.info,
+    title: "Kitapçım",
+    desc: "Bu özellik yakın zamanda sizlerle.",
+    buttons: [
+      DialogButton(
+        color: Color(0xff05595B),
+        child: Text(
+          "Kapat",
+          style: TextStyle(color: Colors.white, fontSize: 20),
         ),
-        SizedBox(
-          width: context.dynamicWidth(0.05),
-        )
-      ],
-    );
-  }
-
-  Future<bool?> buildMessageAlert(BuildContext context) {
-    return Alert(
-      context: context,
-      type: AlertType.info,
-      title: "Kitapçım",
-      desc: "Bu özellik yakın zamanda sizlerle.",
-      buttons: [
-        DialogButton(
-          color: Color(0xff05595B),
-          child: Text(
-            "Kapat",
-            style: TextStyle(color: Colors.white, fontSize: 20),
-          ),
-          onPressed: () => Navigator.pop(context),
-        )
-      ],
-    ).show();
-  }
+        onPressed: () => Navigator.pop(context),
+      )
+    ],
+  ).show();
 }
