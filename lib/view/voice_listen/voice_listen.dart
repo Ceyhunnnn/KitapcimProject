@@ -63,7 +63,7 @@ class _VoiceListenState extends State<VoiceListen> {
           backgroundColor: context.appColor,
           title: Text(
             "Kitapları Sesli Dinle",
-            style: context.buildTextStyle(20, Colors.white),
+            style: context.customTextStyle(Colors.white, 23.0),
           ),
           automaticallyImplyLeading: false,
           centerTitle: true,
@@ -94,7 +94,7 @@ class _VoiceListenState extends State<VoiceListen> {
                 Center(
                   child: Text(
                     "Oynatma Listesi",
-                    style: context.buildTextStyle(25, Colors.white),
+                    style: context.customTextStyle(Colors.white, 20.0),
                   ),
                 ),
                 Center(
@@ -107,8 +107,10 @@ class _VoiceListenState extends State<VoiceListen> {
                   ),
                 ),
                 Center(
-                    child: Text("Aşkımız Eski Bir Roman",
-                        style: context.buildTextStyle(20, Colors.white))),
+                    child: Text(
+                  "Aşkımız Eski Bir Roman",
+                  style: context.customTextStyle(Colors.white, 20.0),
+                )),
                 SizedBox(
                   height: context.dynamicHeight(0.05),
                 ),
@@ -216,7 +218,7 @@ class NullPageWidget extends StatelessWidget {
           flex: 1,
           child: Text(
             "Bu bölüm yapım aşamasındadır.",
-            style: context.buildTextStyle(15, Colors.black),
+            style: context.customTextStyle(Colors.black, 20.0),
           ),
         )
       ],

@@ -8,6 +8,7 @@ import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:kitapcim/constants/context_extentions.dart';
 import 'package:kitapcim/services/auth.dart';
 
 import '../authentication/login_register_view.dart';
@@ -43,7 +44,7 @@ class _ProfileState extends State<Profile> {
   }
 
   late File yuklenecekDosya;
-
+  var textColor = Color.fromARGB(255, 215, 213, 213);
   @override
   void initState() {
     WidgetsBinding.instance.addPostFrameCallback((_) async {
@@ -87,7 +88,7 @@ class _ProfileState extends State<Profile> {
                   //circle avatar ad soyad
 
                   Expanded(
-                    flex: 0,
+                    flex: 1,
                     child: nameAndBooks(context),
                   ),
 
@@ -129,10 +130,8 @@ class _ProfileState extends State<Profile> {
   Container buildMyFavBooks() {
     return Container(
       child: Center(
-          child: Text(
-        values.dontLikeBooks,
-        style: buildTextStyle(15, Color.fromARGB(255, 215, 213, 213)),
-      )),
+          child: Text(values.dontLikeBooks,
+              style: context.customTextStyle(textColor, 20.0))),
     );
   }
 
@@ -140,10 +139,7 @@ class _ProfileState extends State<Profile> {
     return Row(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
-        Text(
-          values.myFav,
-          style: buildTextStyle(20, Color.fromARGB(255, 215, 213, 213)),
-        )
+        Text(values.myFav, style: context.customTextStyle(textColor, 20.0))
       ],
     );
   }
@@ -153,31 +149,23 @@ class _ProfileState extends State<Profile> {
       crossAxisAlignment: CrossAxisAlignment.center,
       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
       children: [
-        Text(
-          "${values.mail} : $mail",
-          style: TextStyle(color: Color.fromARGB(255, 215, 213, 213)),
-        ),
-        Text(
-          "${values.registerDate} : $date",
-          style: TextStyle(color: Color.fromARGB(255, 215, 213, 213)),
-        ),
-        Text(
-          "${values.favBookCount} : 0",
-          style: TextStyle(color: Color.fromARGB(255, 215, 213, 213)),
-        ),
+        Text("${values.mail} : $mail",
+            style: context.customTextStyle(textColor, 17.0)),
+        Text("${values.registerDate} : $date",
+            style: context.customTextStyle(textColor, 17.0)),
+        Text("${values.favBookCount} : 0",
+            style: context.customTextStyle(textColor, 17.0)),
       ],
     );
   }
 
   Column nameAndBooks(BuildContext context) {
     return Column(
-      mainAxisAlignment: MainAxisAlignment.center,
-      crossAxisAlignment: CrossAxisAlignment.center,
+      mainAxisAlignment: MainAxisAlignment.spaceAround,
       children: [
-        Text("$name",
-            style: buildTextStyle(22, Color.fromARGB(255, 215, 213, 213))),
+        Text("$name", style: context.customTextStyle(textColor, 25.0)),
         Text(values.bookReadTitle,
-            style: buildTextStyle(15, Color.fromARGB(255, 215, 213, 213))),
+            style: context.customTextStyle(textColor, 20.0)),
       ],
     );
   }
@@ -203,8 +191,7 @@ class _ProfileState extends State<Profile> {
             Align(
               alignment: Alignment.center,
               child: Text(values.myProfile,
-                  style:
-                      buildTextStyle(26, Color.fromARGB(255, 215, 213, 213))),
+                  style: context.customTextStyle(textColor, 25.0)),
             ),
             Align(
                 alignment: Alignment.centerRight,
@@ -213,10 +200,6 @@ class _ProfileState extends State<Profile> {
         ),
       ],
     );
-  }
-
-  TextStyle buildTextStyle(double fontSize, Color color) {
-    return GoogleFonts.comfortaa(fontSize: fontSize, color: color);
   }
 }
   //begenilen kitapların fotoğraflarının görünecegi kisim

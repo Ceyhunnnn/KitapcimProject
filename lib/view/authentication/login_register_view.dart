@@ -69,7 +69,7 @@ class _EntryPageViewState extends State<EntryPageView> {
                     Padding(
                       padding: const EdgeInsets.all(20.0),
                       child: Text(values.welcome,
-                          style: GoogleFonts.quicksand(fontSize: 20)),
+                          style: context.customTextStyle(Colors.black, 17.0)),
                     ),
                   ],
                 ),
@@ -83,7 +83,7 @@ class _EntryPageViewState extends State<EntryPageView> {
                         prefixIcon: Icon(Icons.mail),
                         isDense: true,
                         labelText: values.email,
-                        labelStyle: TextStyle(color: Colors.grey),
+                        labelStyle: context.customTextStyle(Colors.black, 17.0),
                         border: UnderlineInputBorder()),
                   ),
                 ),
@@ -117,7 +117,7 @@ class _EntryPageViewState extends State<EntryPageView> {
                           ],
                         ),
                         labelText: values.password,
-                        labelStyle: TextStyle(color: Colors.grey),
+                        labelStyle: context.customTextStyle(Colors.black, 17.0),
                         border: UnderlineInputBorder()),
                   ),
                 ),
@@ -140,7 +140,8 @@ class _EntryPageViewState extends State<EntryPageView> {
                                   const EdgeInsets.only(top: 20.0, bottom: 20),
                               child: Text(
                                 values.login,
-                                style: TextStyle(fontWeight: FontWeight.bold),
+                                style:
+                                    context.customTextStyle(Colors.white, 17.0),
                               ),
                             )),
                       ),
@@ -155,8 +156,7 @@ class _EntryPageViewState extends State<EntryPageView> {
                         buildShowDialogWidget(context);
                       },
                       child: Text(values.forgetPasswd,
-                          style: GoogleFonts.quicksand(
-                              color: Colors.black, fontSize: 17)),
+                          style: context.customTextStyle(Colors.black, 17.0)),
                     )
                   ],
                 ),
@@ -180,12 +180,9 @@ class _EntryPageViewState extends State<EntryPageView> {
                             child: Padding(
                               padding:
                                   const EdgeInsets.only(top: 20.0, bottom: 20),
-                              child: Text(
-                                values.register,
-                                style: TextStyle(
-                                    color: Colors.black,
-                                    fontWeight: FontWeight.bold),
-                              ),
+                              child: Text(values.register,
+                                  style: context.customTextStyle(
+                                      Colors.black, 17.0)),
                             )),
                       ),
                     ),
@@ -261,7 +258,7 @@ class _registerPage extends StatelessWidget {
                     Padding(
                       padding: const EdgeInsets.all(20.0),
                       child: Text("Yeni bir Hesap oluştur",
-                          style: GoogleFonts.quicksand(fontSize: 20)),
+                          style: context.customTextStyle(Colors.black, 18.0)),
                     ),
                   ],
                 ),
@@ -275,7 +272,7 @@ class _registerPage extends StatelessWidget {
                         prefixIcon: Icon(Icons.person),
                         isDense: true,
                         labelText: "Ad",
-                        labelStyle: TextStyle(color: Colors.grey),
+                        labelStyle: context.customTextStyle(Colors.black, 17.0),
                         border: UnderlineInputBorder()),
                   ),
                 ),
@@ -289,7 +286,7 @@ class _registerPage extends StatelessWidget {
                         prefixIcon: Icon(Icons.mail),
                         isDense: true,
                         labelText: "E-Posta",
-                        labelStyle: TextStyle(color: Colors.grey),
+                        labelStyle: context.customTextStyle(Colors.black, 17.0),
                         border: UnderlineInputBorder()),
                   ),
                 ),
@@ -304,7 +301,7 @@ class _registerPage extends StatelessWidget {
                         prefixIcon: Icon(Icons.lock),
                         isDense: true,
                         labelText: "Parola",
-                        labelStyle: TextStyle(color: Colors.grey),
+                        labelStyle: context.customTextStyle(Colors.black, 17.0),
                         border: UnderlineInputBorder()),
                   ),
                 ),
@@ -351,9 +348,8 @@ class _registerPage extends StatelessWidget {
                                   const EdgeInsets.only(top: 20.0, bottom: 20),
                               child: Text(
                                 "Kaydol",
-                                style: TextStyle(
-                                    color: Colors.white,
-                                    fontWeight: FontWeight.bold),
+                                style:
+                                    context.customTextStyle(Colors.white, 17.0),
                               ),
                             )),
                       ),
@@ -371,7 +367,8 @@ class _registerPage extends StatelessWidget {
                         Padding(
                           padding: const EdgeInsets.all(20.0),
                           child: Text("Zaten bir hesabın var mı?",
-                              style: GoogleFonts.quicksand(fontSize: 16)),
+                              style:
+                                  context.customTextStyle(Colors.black, 17.0)),
                         ),
                       ],
                     ),
@@ -394,9 +391,8 @@ class _registerPage extends StatelessWidget {
                                   const EdgeInsets.only(top: 20.0, bottom: 20),
                               child: Text(
                                 "Giriş Yap",
-                                style: TextStyle(
-                                    color: Colors.black,
-                                    fontWeight: FontWeight.bold),
+                                style:
+                                    context.customTextStyle(Colors.black, 17.0),
                               ),
                             )),
                       ],

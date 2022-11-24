@@ -1,5 +1,6 @@
 import 'package:bottom_bar/bottom_bar.dart';
 import "package:flutter/material.dart";
+import 'package:kitapcim/constants/context_extentions.dart';
 
 import '../view/home/home_view.dart';
 import '../view/library/library_view.dart';
@@ -44,19 +45,28 @@ class _BottomBarPageState extends State<BottomBarPage> {
         items: <BottomBarItem>[
           BottomBarItem(
               icon: Icon(Icons.home),
-              title: Text('Anasayfa'),
+              title: Text(
+                'Anasayfa',
+                style: context.customTextStyle(Colors.white, 15.0),
+              ),
               activeColor: Colors.white,
               inactiveColor: Colors.white),
           BottomBarItem(
               icon: Icon(Icons.book_sharp),
-              title: Text('Kütüphane'),
+              title: Text(
+                'Kütüphane',
+                style: context.customTextStyle(Colors.white, 15.0),
+              ),
               activeColor: Colors.white,
               inactiveColor: Colors.white
               // Optional
               ),
           BottomBarItem(
               icon: Icon(Icons.library_music),
-              title: Text('Sesli Dinle'),
+              title: Text(
+                'Sesli Dinle',
+                style: context.customTextStyle(Colors.white, 15.0),
+              ),
               activeColor: Colors.white,
               inactiveColor: Colors.white
 
@@ -64,7 +74,10 @@ class _BottomBarPageState extends State<BottomBarPage> {
               ),
           BottomBarItem(
               icon: Icon(Icons.person),
-              title: Text('Profil'),
+              title: Text(
+                'Profil',
+                style: context.customTextStyle(Colors.white, 15.0),
+              ),
               activeColor: Colors.white,
               inactiveColor: Colors.white
               // Optional

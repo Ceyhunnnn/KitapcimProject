@@ -96,7 +96,7 @@ class _HomePageState extends State<HomePage> {
       Center(
         child: Text(
           values.forYou,
-          style: buildTextStyle(20, Colors.black),
+          style: context.customTextStyle(Colors.black, 20.0),
         ),
       ),
       Padding(
@@ -130,7 +130,7 @@ class _HomePageState extends State<HomePage> {
                     ),
                     Text(
                       "${values.hello} $name",
-                      style: buildTextStyle(20, Colors.white),
+                      style: context.customTextStyle(Colors.white, 20.0),
                     ),
                     Spacer(),
                     InkWell(
@@ -178,10 +178,6 @@ class _HomePageState extends State<HomePage> {
       }).toList(),
     );
   }
-
-  TextStyle buildTextStyle(double fontSize, Color color) {
-    return GoogleFonts.comfortaa(fontSize: fontSize, color: color);
-  }
 }
 
 Future<bool?> buildMessageAlert(BuildContext context) {
@@ -195,7 +191,7 @@ Future<bool?> buildMessageAlert(BuildContext context) {
         color: Color(0xff05595B),
         child: Text(
           "Kapat",
-          style: TextStyle(color: Colors.white, fontSize: 20),
+          style: context.customTextStyle(Colors.white, 20.0),
         ),
         onPressed: () => Navigator.pop(context),
       )

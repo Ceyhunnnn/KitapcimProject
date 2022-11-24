@@ -74,8 +74,8 @@ class _buildBooksCardsState extends State<buildBooksCards> {
                                     padding: const EdgeInsets.all(10.0),
                                     child: Text(
                                       '${myBooks['bookAbout']}',
-                                      style: context.buildTextStyle(
-                                          15, Colors.black),
+                                      style: context.customTextStyle(
+                                          Colors.black, 15.0),
                                     ),
                                   ))
                                 ],
@@ -101,24 +101,24 @@ class _buildBooksCardsState extends State<buildBooksCards> {
                                       children: [
                                         Text(
                                           '${myBooks['bookAuthor']}',
-                                          style: TextStyle(
-                                              fontStyle: FontStyle.italic),
+                                          style: context.customTextStyle(
+                                              Colors.black, 15.0),
                                         ),
                                         SizedBox(
                                           height: context.dynamicHeight(0.02),
                                         ),
                                         Text(
                                           '${myBooks['bookName']}',
-                                          style: TextStyle(
-                                              fontStyle: FontStyle.italic),
+                                          style: context.customTextStyle(
+                                              Colors.black, 15.0),
                                         ),
                                         SizedBox(
                                           height: context.dynamicHeight(0.02),
                                         ),
                                         Text(
                                           '${myBooks['bookPageNumber']} - \t$category',
-                                          style: TextStyle(
-                                              fontStyle: FontStyle.italic),
+                                          style: context.customTextStyle(
+                                              Colors.black, 15.0),
                                         ),
                                       ],
                                     ),

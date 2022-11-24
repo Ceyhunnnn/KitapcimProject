@@ -74,10 +74,11 @@ class _LibraryState extends State<Library> {
                         padding: const EdgeInsets.all(8.0),
                         child: Column(
                           children: [
-                            Text(categoryItems[index],
-                                style: TextStyle(
-                                  fontSize: 19,
-                                )),
+                            Text(
+                              categoryItems[index],
+                              style:
+                                  context.customTextStyle(Colors.black, 20.0),
+                            ),
                             SizedBox(
                               height: context.dynamicHeight(0.005),
                             ),
@@ -123,7 +124,7 @@ class _LibraryState extends State<Library> {
                       color: Color(0xff05595B),
                       child: Text(
                         values.close,
-                        style: TextStyle(color: Colors.white, fontSize: 20),
+                        style: context.customTextStyle(Colors.white, 20.0),
                       ),
                       onPressed: () => Navigator.pop(context),
                     )
@@ -172,7 +173,7 @@ class _LibraryState extends State<Library> {
                   children: [
                     Text(
                       "${values.forYou}\n${values.theBestBooks}",
-                      style: context.buildTextStyle(25, Colors.white),
+                      style: context.customTextStyle(Colors.white, 30.0),
                     ),
                   ],
                 )),
@@ -182,7 +183,7 @@ class _LibraryState extends State<Library> {
                   children: [
                     Text(
                       values.findLoveBook,
-                      style: context.buildTextStyle(14, Colors.white),
+                      style: context.customTextStyle(Colors.white, 20.0),
                     ),
                   ],
                 )),
@@ -200,7 +201,7 @@ class _LibraryState extends State<Library> {
                         borderRadius: BorderRadius.circular(50.0),
                       ),
                       filled: true,
-                      hintStyle: TextStyle(color: Colors.grey[800]),
+                      hintStyle: context.customTextStyle(Colors.white, 15.0),
                       hintText: values.bookName,
                       prefixIcon: Icon(Icons.search),
                       fillColor: Colors.white),

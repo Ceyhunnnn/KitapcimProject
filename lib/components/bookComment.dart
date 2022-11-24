@@ -66,7 +66,10 @@ class _CommentPageDetailState extends State<CommentPageDetail> {
     return Scaffold(
         appBar: AppBar(
           backgroundColor: context.appColor,
-          title: Text(comments),
+          title: Text(
+            comments,
+            style: context.customTextStyle(Colors.white, 20.0),
+          ),
         ),
         body: Column(
           children: [
@@ -90,21 +93,19 @@ class _CommentPageDetailState extends State<CommentPageDetail> {
                       children: [
                         Text(
                           '${widget.author}',
-                          style: TextStyle(fontStyle: FontStyle.italic),
+                          style: context.customTextStyle(Colors.black, 15.0),
                         ),
                         SizedBox(
                           height: context.dynamicHeight(0.02),
                         ),
-                        Text(
-                          '${widget.name}',
-                          style: TextStyle(fontStyle: FontStyle.italic),
-                        ),
+                        Text('${widget.name}',
+                            style: context.customTextStyle(Colors.black, 15.0)),
                         SizedBox(
                           height: context.dynamicHeight(0.02),
                         ),
                         Text(
                           '${widget.number}',
-                          style: TextStyle(fontStyle: FontStyle.italic),
+                          style: context.customTextStyle(Colors.black, 15.0),
                         ),
                       ],
                     ),
@@ -120,7 +121,12 @@ class _CommentPageDetailState extends State<CommentPageDetail> {
                       if (snapshot.hasData) {
                         List? comment = snapshot.data as List;
                         return comment.isEmpty
-                            ? Center(child: Text("Henüz yorum yok..."))
+                            ? Center(
+                                child: Text(
+                                "Henüz yorum yok...",
+                                style:
+                                    context.customTextStyle(Colors.black, 15.0),
+                              ))
                             : ListView.builder(
                                 itemCount: comment.length,
                                 itemBuilder: (context, index) {
@@ -162,15 +168,14 @@ class _CommentPageDetailState extends State<CommentPageDetail> {
                                                                   0.01),
                                                         ),
                                                         Text(
-                                                          comment[index]
-                                                                  ["sender"]
-                                                              .toString(),
-                                                          style: TextStyle(
-                                                            decoration:
-                                                                TextDecoration
-                                                                    .underline,
-                                                          ),
-                                                        ),
+                                                            comment[index]
+                                                                    ["sender"]
+                                                                .toString(),
+                                                            style: context
+                                                                .customTextStyle(
+                                                                    Colors
+                                                                        .black,
+                                                                    15.0)),
                                                         Spacer(),
                                                         current_id ==
                                                                 comment[index]
@@ -209,13 +214,13 @@ class _CommentPageDetailState extends State<CommentPageDetail> {
                                                           const EdgeInsets.all(
                                                               8.0),
                                                       child: Text(
-                                                        comment[index]
-                                                                ["content"]
-                                                            .toString(),
-                                                        style: TextStyle(
-                                                            fontStyle: FontStyle
-                                                                .italic),
-                                                      ),
+                                                          comment[index]
+                                                                  ["content"]
+                                                              .toString(),
+                                                          style: context
+                                                              .customTextStyle(
+                                                                  Colors.black,
+                                                                  15.0)),
                                                     ),
                                                     Divider()
                                                   ],
@@ -270,6 +275,8 @@ class _CommentPageDetailState extends State<CommentPageDetail> {
                                 borderRadius: new BorderRadius.circular(15.0),
                                 borderSide: new BorderSide(),
                               ),
+                              hintStyle:
+                                  context.customTextStyle(Colors.black, 15.0),
                               hintText: "Yorum Yap..."),
                         ),
                       ),
