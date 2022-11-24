@@ -7,6 +7,7 @@ import 'package:flutter/material.dart';
 
 import 'package:kitapcim/constants/context_extentions.dart';
 import 'package:rflutter_alert/rflutter_alert.dart';
+part "library_string_value.dart";
 
 class Library extends StatefulWidget {
   const Library({Key? key}) : super(key: key);
@@ -16,6 +17,7 @@ class Library extends StatefulWidget {
 }
 
 class _LibraryState extends State<Library> {
+  final _LibraryStringValue values = _LibraryStringValue();
   var photoList = [];
   var bookAbout = [];
   var bookName = [];
@@ -29,7 +31,7 @@ class _LibraryState extends State<Library> {
 
   void initState() {
     super.initState();
-    buildBookListWidget();
+    buildBookListWidget(values);
     bookListUpdate(selectedItemCategory);
   }
 
@@ -42,9 +44,9 @@ class _LibraryState extends State<Library> {
           height: context.dynamicHeight(1),
           child: Column(
             children: [
-              Expanded(flex: 3, child: buildTopBar(context)),
+              Expanded(flex: 3, child: buildTopBar(context, values)),
               Expanded(flex: 1, child: buildCategory()),
-              Expanded(flex: 6, child: buildBookListWidget())
+              Expanded(flex: 6, child: buildBookListWidget(values))
             ],
           ),
         ),
@@ -98,7 +100,7 @@ class _LibraryState extends State<Library> {
         }));
   }
 
-  buildBookListWidget() {
+  buildBookListWidget(values) {
     return GridView.builder(
         gridDelegate: const SliverGridDelegateWithMaxCrossAxisExtent(
           mainAxisSpacing: 5,
@@ -120,7 +122,7 @@ class _LibraryState extends State<Library> {
                       // gradient: Gradient(colors: [Colors.red, Colors.black]),
                       color: Color(0xff05595B),
                       child: Text(
-                        "Kapat",
+                        values.close,
                         style: TextStyle(color: Colors.white, fontSize: 20),
                       ),
                       onPressed: () => Navigator.pop(context),
@@ -153,9 +155,7 @@ class _LibraryState extends State<Library> {
     });
   }
 
-  Container buildTopBar(BuildContext context) {
-    var bookForYou = "Senin için\nen iyi kitaplar!";
-    var findLoveBook = "En sevdiğin kitapları ara";
+  Container buildTopBar(BuildContext context, values) {
     return Container(
       decoration: BoxDecoration(
         borderRadius: BorderRadius.only(bottomRight: Radius.circular(35)),
@@ -171,7 +171,7 @@ class _LibraryState extends State<Library> {
                 child: Row(
                   children: [
                     Text(
-                      bookForYou,
+                      "${values.forYou}\n${values.theBestBooks}",
                       style: context.buildTextStyle(25, Colors.white),
                     ),
                   ],
@@ -181,7 +181,7 @@ class _LibraryState extends State<Library> {
                 child: Row(
                   children: [
                     Text(
-                      findLoveBook,
+                      values.findLoveBook,
                       style: context.buildTextStyle(14, Colors.white),
                     ),
                   ],
@@ -201,7 +201,7 @@ class _LibraryState extends State<Library> {
                       ),
                       filled: true,
                       hintStyle: TextStyle(color: Colors.grey[800]),
-                      hintText: "Kitap adı",
+                      hintText: values.bookName,
                       prefixIcon: Icon(Icons.search),
                       fillColor: Colors.white),
                 ))

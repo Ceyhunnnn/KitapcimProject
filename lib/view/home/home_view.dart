@@ -1,5 +1,3 @@
-import 'dart:io' show Platform;
-
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -10,6 +8,7 @@ import 'package:kitapcim/constants/context_extentions.dart';
 import 'package:rflutter_alert/rflutter_alert.dart';
 
 import '../../components/bookCard.dart';
+part "home_string_values.dart";
 
 class HomePage extends StatefulWidget {
   const HomePage({Key? key}) : super(key: key);
@@ -19,6 +18,7 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
+  final _HomeStringValues values = _HomeStringValues();
   var isLoading = false;
   var firebaseUser = FirebaseAuth.instance.currentUser;
   var name;
@@ -65,7 +65,7 @@ class _HomePageState extends State<HomePage> {
           slivers: [
             SliverAppBar(
               stretch: false,
-              collapsedHeight: context.dynamicHeight(0.07),
+              collapsedHeight: 75,
               pinned: true,
               forceElevated: true,
               automaticallyImplyLeading: false,
@@ -95,7 +95,7 @@ class _HomePageState extends State<HomePage> {
       ),
       Center(
         child: Text(
-          "Sizin için seçilenler",
+          values.forYou,
           style: buildTextStyle(20, Colors.black),
         ),
       ),
@@ -128,7 +128,7 @@ class _HomePageState extends State<HomePage> {
                       width: context.dynamicWidth(0.03),
                     ),
                     Text(
-                      "Merhaba $name",
+                      "${values.hello} $name",
                       style: buildTextStyle(20, Colors.white),
                     ),
                     Spacer(),

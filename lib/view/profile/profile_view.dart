@@ -11,6 +11,7 @@ import 'package:image_picker/image_picker.dart';
 import 'package:kitapcim/services/auth.dart';
 
 import '../userLoginRegisterPage/entry_page_view2.dart';
+part "profile_string_values.dart";
 
 class Profile extends StatefulWidget {
   const Profile({Key? key}) : super(key: key);
@@ -20,6 +21,7 @@ class Profile extends StatefulWidget {
 }
 
 class _ProfileState extends State<Profile> {
+  final _ProfileStringValues values = _ProfileStringValues();
   var isLoading = false;
   var firebaseUser = FirebaseAuth.instance.currentUser;
   AuthService _authService = AuthService();
@@ -41,27 +43,6 @@ class _ProfileState extends State<Profile> {
   }
 
   late File yuklenecekDosya;
-  String indirmeBag =
-      "https://images.pexels.com/photos/46274/pexels-photo-46274.jpeg?auto=compress&cs=tinysrgb&w=1200";
-
-  baglantiAl() async {
-    //String baglanti = await
-
-    try {
-      FirebaseStorage.instance
-          .ref()
-          .child("ProfilePhoto")
-          .child(_auth.currentUser!.uid)
-          .child("ProfilResmi.png")
-          .getDownloadURL()
-          .then((value) {
-        if (value.isEmpty) {
-        } else {
-          indirmeBag = value;
-        }
-      });
-    } catch (e) {}
-  }
 
   @override
   void initState() {
@@ -71,24 +52,6 @@ class _ProfileState extends State<Profile> {
       //ilk durum için kontrol yap
     });
     super.initState();
-  }
-
-  kameradanYukle() async {
-    var alinanDosya = await ImagePicker().getImage(source: ImageSource.camera);
-    setState(() {
-      yuklenecekDosya = File(alinanDosya!.path);
-    });
-    Reference refYol = FirebaseStorage.instance
-        .ref()
-        .child("ProfilePhoto")
-        .child(_auth.currentUser!.uid)
-        .child("ProfilResmi.png");
-
-    UploadTask yuklemeGorevi = refYol.putFile(yuklenecekDosya);
-    String url = await (await yuklemeGorevi).ref.getDownloadURL();
-    setState(() {
-      indirmeBag = url;
-    });
   }
 
   @override
@@ -167,7 +130,7 @@ class _ProfileState extends State<Profile> {
     return Container(
       child: Center(
           child: Text(
-        "Henüz bir kitap beğenilmedi",
+        values.dontLikeBooks,
         style: buildTextStyle(15, Color.fromARGB(255, 215, 213, 213)),
       )),
     );
@@ -178,7 +141,7 @@ class _ProfileState extends State<Profile> {
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
         Text(
-          "Favorilerim",
+          values.myFav,
           style: buildTextStyle(20, Color.fromARGB(255, 215, 213, 213)),
         )
       ],
@@ -191,28 +154,17 @@ class _ProfileState extends State<Profile> {
       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
       children: [
         Text(
-          "E-posta : $mail",
+          "${values.mail} : $mail",
           style: TextStyle(color: Color.fromARGB(255, 215, 213, 213)),
         ),
         Text(
-          "Kayıt tarihi : $date",
+          "${values.registerDate} : $date",
           style: TextStyle(color: Color.fromARGB(255, 215, 213, 213)),
         ),
         Text(
-          "Beğenilen kitap sayısı : 0",
+          "${values.favBookCount} : 0",
           style: TextStyle(color: Color.fromARGB(255, 215, 213, 213)),
         ),
-      ],
-    );
-  }
-
-  Row buildMyInfo() {
-    return Row(
-      children: [
-        Text(
-          "Bilgilerim",
-          style: buildTextStyle(20, Color.fromARGB(255, 215, 213, 213)),
-        )
       ],
     );
   }
@@ -222,9 +174,9 @@ class _ProfileState extends State<Profile> {
       mainAxisAlignment: MainAxisAlignment.center,
       crossAxisAlignment: CrossAxisAlignment.center,
       children: [
-        Text("$name ",
+        Text("$name",
             style: buildTextStyle(22, Color.fromARGB(255, 215, 213, 213))),
-        Text("Kitap okuma ünvanı",
+        Text(values.bookReadTitle,
             style: buildTextStyle(15, Color.fromARGB(255, 215, 213, 213))),
       ],
     );
@@ -237,7 +189,7 @@ class _ProfileState extends State<Profile> {
         CircleAvatar(
           backgroundColor: Colors.transparent,
           radius: 48, // Image radius
-          backgroundImage: NetworkImage(indirmeBag),
+          backgroundImage: NetworkImage(values.downloadProfilePhoto),
         ),
       ],
     );
@@ -250,7 +202,7 @@ class _ProfileState extends State<Profile> {
           child: Stack(children: [
             Align(
               alignment: Alignment.center,
-              child: Text("Profilim",
+              child: Text(values.myProfile,
                   style:
                       buildTextStyle(26, Color.fromARGB(255, 215, 213, 213))),
             ),
@@ -287,3 +239,45 @@ class _ProfileState extends State<Profile> {
                 );
               }).toList(),
             ),*/
+
+
+
+
+              // kameradanYukle() async {
+  //   var alinanDosya = await ImagePicker().getImage(source: ImageSource.camera);
+  //   setState(() {
+  //     yuklenecekDosya = File(alinanDosya!.path);
+  //   });
+  //   Reference refYol = FirebaseStorage.instance
+  //       .ref()
+  //       .child("ProfilePhoto")
+  //       .child(_auth.currentUser!.uid)
+  //       .child("ProfilResmi.png");
+
+  //   UploadTask yuklemeGorevi = refYol.putFile(yuklenecekDosya);
+  //   String url = await (await yuklemeGorevi).ref.getDownloadURL();
+  //   setState(() {
+  //     indirmeBag = url;
+  //   });
+  // }
+
+
+
+  // baglantiAl() async {
+  //   //String baglanti = await
+
+  //   try {
+  //     FirebaseStorage.instance
+  //         .ref()
+  //         .child("ProfilePhoto")
+  //         .child(_auth.currentUser!.uid)
+  //         .child("ProfilResmi.png")
+  //         .getDownloadURL()
+  //         .then((value) {
+  //       if (value.isEmpty) {
+  //       } else {
+  //         indirmeBag = value;
+  //       }
+  //     });
+  //   } catch (e) {}
+  // }
