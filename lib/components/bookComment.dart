@@ -74,15 +74,13 @@ class _CommentPageDetailState extends State<CommentPageDetail> {
         body: Column(
           children: [
             Expanded(
-              flex: 3,
+              flex: 4,
               child: Row(
                 children: [
                   Padding(
                     padding: const EdgeInsets.all(8.0),
                     child: Container(
                       child: Image.network(widget.url),
-                      width: context.dynamicWidth(0.20),
-                      height: context.dynamicHeight(0.15),
                     ),
                   ),
                   Padding(
@@ -239,7 +237,7 @@ class _CommentPageDetailState extends State<CommentPageDetail> {
                       }
                     })),
             Expanded(
-              flex: 2,
+              flex: 3,
               child: SafeArea(
                 child: Padding(
                   padding: const EdgeInsets.all(8.0),
