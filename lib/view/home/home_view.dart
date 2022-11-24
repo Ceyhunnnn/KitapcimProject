@@ -122,7 +122,8 @@ class _HomePageState extends State<HomePage> {
                     CircleAvatar(
                       backgroundColor: Colors.transparent,
                       radius: 15, // Image radius
-                      backgroundImage: NetworkImage(profilePhoto),
+                      backgroundImage:
+                          NetworkImage(values.downloadProfilePhoto),
                     ),
                     SizedBox(
                       width: context.dynamicWidth(0.03),

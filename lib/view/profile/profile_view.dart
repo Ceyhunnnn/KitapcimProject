@@ -10,7 +10,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:kitapcim/services/auth.dart';
 
-import '../userLoginRegisterPage/entry_page_view2.dart';
+import '../authentication/login_register_view.dart';
 part "profile_string_values.dart";
 
 class Profile extends StatefulWidget {

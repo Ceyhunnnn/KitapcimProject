@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:kitapcim/constants/context_extentions.dart';
-import 'package:kitapcim/view/userLoginRegisterPage/entry_page_view2.dart';
+import 'package:kitapcim/view/authentication/login_register_view.dart';
 
 class ScaleTransitionScreen extends StatefulWidget {
   @override
