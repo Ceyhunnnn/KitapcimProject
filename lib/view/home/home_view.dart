@@ -2,7 +2,6 @@ import 'package:carousel_slider/carousel_slider.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import "package:flutter/material.dart";
-import 'package:google_fonts/google_fonts.dart';
 import 'package:kitapcim/constants/context_extentions.dart';
 
 import 'package:rflutter_alert/rflutter_alert.dart';
@@ -44,8 +43,6 @@ class _HomePageState extends State<HomePage> {
   }
 
   List photoList = [];
-  var profilePhoto =
-      "https://images.pexels.com/photos/46274/pexels-photo-46274.jpeg?auto=compress&cs=tinysrgb&w=1200";
 
   Future<void> getBookInfo() async {
     FirebaseFirestore.instance.collection('Books').get().then((value) {

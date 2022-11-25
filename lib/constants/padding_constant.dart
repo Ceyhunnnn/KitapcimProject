@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 class PaddingConstant {
-  PaddingConstant instance = PaddingConstant._init();
+  static PaddingConstant instance = PaddingConstant._init();
   PaddingConstant._init();
 
   final paddingLow = EdgeInsets.all(8);

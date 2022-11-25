@@ -4,10 +4,7 @@ import 'dart:io';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
-import 'package:image_picker/image_picker.dart';
 import 'package:kitapcim/constants/context_extentions.dart';
 import 'package:kitapcim/services/auth.dart';
 
@@ -26,6 +23,7 @@ class _ProfileState extends State<Profile> {
   var isLoading = false;
   var firebaseUser = FirebaseAuth.instance.currentUser;
   AuthService _authService = AuthService();
+  // ignore: unused_field
   FirebaseAuth _auth = FirebaseAuth.instance;
   var name, surname, mail, date, photo;
   Future<void> userGet() async {

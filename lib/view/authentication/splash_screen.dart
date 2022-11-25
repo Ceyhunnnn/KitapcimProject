@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:kitapcim/constants/assets_constant.dart';
 import 'package:kitapcim/constants/context_extentions.dart';
 import 'package:kitapcim/view/authentication/login_register_view.dart';
 
@@ -39,7 +40,7 @@ class ScaleTransitionScreenState extends State<ScaleTransitionScreen>
       scale: _scale,
       child: Center(
           child: Image.asset(
-        "assets/newLogo.png",
+        AssetsConstant.instance.logoImage,
         width: context.dynamicWidth(0.6),
         height: context.dynamicHeight(0.3),
       )),

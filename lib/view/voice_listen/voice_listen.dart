@@ -1,6 +1,7 @@
 import 'package:audioplayers/audioplayers.dart';
 import "package:flutter/material.dart";
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:kitapcim/constants/assets_constant.dart';
 import 'package:kitapcim/constants/context_extentions.dart';
 
 class VoiceListen extends StatefulWidget {
@@ -203,7 +204,7 @@ class NullPageWidget extends StatelessWidget {
             flex: 5,
             child: Padding(
               padding: const EdgeInsets.all(8.0),
-              child: Image.asset("assets/work.gif"),
+              child: Image.asset(AssetsConstant.instance.gifWork),
             )),
         Expanded(
           flex: 1,

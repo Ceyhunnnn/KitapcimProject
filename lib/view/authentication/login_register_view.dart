@@ -1,10 +1,10 @@
-import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:kitapcim/components/bottombar_view.dart';
+import 'package:kitapcim/constants/assets_constant.dart';
 import 'package:kitapcim/constants/context_extentions.dart';
+import 'package:kitapcim/constants/padding_constant.dart';
 import 'package:kitapcim/services/auth.dart';
 import 'package:rflutter_alert/rflutter_alert.dart';
 import 'package:intl/intl.dart';
@@ -37,7 +37,7 @@ class _EntryPageViewState extends State<EntryPageView> {
       body: Container(
         decoration: BoxDecoration(
           image: DecorationImage(
-            image: AssetImage("assets/books.jpg"),
+            image: AssetImage(AssetsConstant.instance.loginImage),
             fit: BoxFit.cover,
           ),
         ),

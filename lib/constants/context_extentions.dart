@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
 
 extension ScreenExtension on BuildContext {
   double dynamicWidth(double val) => MediaQuery.of(this).size.width * val;
