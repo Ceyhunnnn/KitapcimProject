@@ -4,7 +4,6 @@ import 'package:get/get.dart';
 import 'package:kitapcim/components/bottombar_view.dart';
 import 'package:kitapcim/constants/assets_constant.dart';
 import 'package:kitapcim/constants/context_extentions.dart';
-import 'package:kitapcim/constants/padding_constant.dart';
 import 'package:kitapcim/services/auth.dart';
 import 'package:rflutter_alert/rflutter_alert.dart';
 import 'package:intl/intl.dart';

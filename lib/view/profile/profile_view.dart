@@ -63,7 +63,7 @@ class _ProfileState extends State<Profile> {
               end: Alignment.bottomLeft,
               colors: [
                 Color(0xff05595B),
-                Colors.grey,
+                Color.fromARGB(255, 154, 103, 103),
               ],
             )),
             child: oldProfilePage(context)));
