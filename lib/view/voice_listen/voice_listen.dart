@@ -1,8 +1,8 @@
 import 'package:audioplayers/audioplayers.dart';
 import "package:flutter/material.dart";
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:kitapcim/constants/assets_constant.dart';
-import 'package:kitapcim/constants/context_extentions.dart';
+import 'package:kitapcim/core/constants/assets_constant.dart';
+import 'package:kitapcim/core/extensions/context_extentions.dart';
 
 class VoiceListen extends StatefulWidget {
   const VoiceListen({Key? key}) : super(key: key);

@@ -5,8 +5,8 @@ import 'dart:io';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:kitapcim/constants/context_extentions.dart';
-import 'package:kitapcim/services/auth.dart';
+import 'package:kitapcim/core/extensions/context_extentions.dart';
+import 'package:kitapcim/view/services/auth.dart';
 
 import '../authentication/login_register_view.dart';
 part "profile_string_values.dart";

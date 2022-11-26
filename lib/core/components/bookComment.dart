@@ -3,7 +3,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
-import 'package:kitapcim/constants/context_extentions.dart';
+import 'package:kitapcim/core/extensions/context_extentions.dart';
 
 // ignore: must_be_immutable
 class CommentPageDetail extends StatefulWidget {

@@ -2,9 +2,9 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import "package:flutter/material.dart";
-import 'package:kitapcim/components/bookComment.dart';
-import 'package:kitapcim/constants/context_extentions.dart';
-import 'package:kitapcim/services/statusService.dart';
+import 'package:kitapcim/core/components/bookComment.dart';
+import 'package:kitapcim/core/extensions/context_extentions.dart';
+import 'package:kitapcim/view/services/statusService.dart';
 
 class buildBooksCards extends StatefulWidget {
   const buildBooksCards({Key? key}) : super(key: key);

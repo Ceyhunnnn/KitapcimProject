@@ -1,11 +1,11 @@
 import 'package:bottom_bar/bottom_bar.dart';
 import "package:flutter/material.dart";
-import 'package:kitapcim/constants/context_extentions.dart';
+import 'package:kitapcim/core/extensions/context_extentions.dart';
 
-import '../view/home/home_view.dart';
-import '../view/library/library_view.dart';
-import '../view/profile/profile_view.dart';
-import '../view/voice_listen/voice_listen.dart';
+import '../../view/home/home_view.dart';
+import '../../view/library/library_view.dart';
+import '../../view/profile/profile_view.dart';
+import '../../view/voice_listen/voice_listen.dart';
 
 class BottomBarPage extends StatefulWidget {
   const BottomBarPage({Key? key}) : super(key: key);

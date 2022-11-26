@@ -2,11 +2,11 @@ import 'package:carousel_slider/carousel_slider.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import "package:flutter/material.dart";
-import 'package:kitapcim/constants/context_extentions.dart';
+import 'package:kitapcim/core/extensions/context_extentions.dart';
 
 import 'package:rflutter_alert/rflutter_alert.dart';
 
-import '../../components/bookCard.dart';
+import '../../core/components/bookCard.dart';
 part "home_string_values.dart";
 
 class HomePage extends StatefulWidget {
