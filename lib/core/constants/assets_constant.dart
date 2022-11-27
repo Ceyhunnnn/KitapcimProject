@@ -3,6 +3,6 @@ class AssetsConstant {
   AssetsConstant._init();
 
   final loginImage = "assets/images/books.jpg";
-  final logoImage = "assets/iamges/newLogo.png";
+  final logoImage = "assets/images/newLogo.png";
   final gifWork = "assets/images/work.gif";
 }

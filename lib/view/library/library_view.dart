@@ -118,6 +118,9 @@ class _LibraryState extends State<Library> {
                   context: context,
                   title: "${bookName[index]}",
                   desc: "${bookAbout[index]}",
+                  style: AlertStyle(
+                      titleStyle: context.customTextStyle(Colors.black, 20.0),
+                      descStyle: context.customTextStyle(Colors.black, 18.0)),
                   buttons: [
                     DialogButton(
                       // gradient: Gradient(colors: [Colors.red, Colors.black]),
@@ -127,7 +130,7 @@ class _LibraryState extends State<Library> {
                         style: context.customTextStyle(Colors.white, 20.0),
                       ),
                       onPressed: () => Navigator.pop(context),
-                    )
+                    ),
                   ],
                 ).show();
               });

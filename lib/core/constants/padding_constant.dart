@@ -8,5 +8,5 @@ class PaddingConstant {
   final paddingNormal = EdgeInsets.all(16);
   final paddingHight = EdgeInsets.all(20);
 }
-//class tarafında kullanımı 
+//Property tarafında kullanımı 
 // PaddingConstants.instance.paddingNormal, 
