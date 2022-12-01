@@ -64,6 +64,7 @@ class _LibraryState extends State<Library> {
                 selectedItemCategory = categoryItems[index];
                 bookListUpdate(selectedItemCategory);
               },
+              onDoubleTap: () => null,
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
