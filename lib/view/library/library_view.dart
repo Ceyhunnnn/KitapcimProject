@@ -74,6 +74,8 @@ class _LibraryState extends State<Library> {
                       child: Padding(
                         padding: const EdgeInsets.all(8.0),
                         child: Column(
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             Text(
                               categoryItems[index],
@@ -84,9 +86,10 @@ class _LibraryState extends State<Library> {
                               height: context.dynamicHeight(0.005),
                             ),
                             selectedItemCategory == categoryItems[index]
-                                ? CircleAvatar(
-                                    radius: 5,
-                                    backgroundColor: Color(0xff05595B),
+                                ? Container(
+                                    width: 40,
+                                    height: 1.5,
+                                    color: context.appColor,
                                   )
                                 : Text("")
                           ],
