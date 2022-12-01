@@ -2,7 +2,7 @@ Hello! I am a Computer Engineering student in Selcuk University.
 Kitapçım Mobile Application.
 I used Flutter - Firebase - Figma.
 Kitapçım is book application.You can share comment and like book in app.
-![Simulator Screen Shot - İphone 11 - 2022-12-01 at 21 28 54](https://user-images.githubusercontent.com/70198902/205132912-aea28c52-606a-4ff3-9892-fe420b1ac722.png width="200" height="400")
+![Simulator Screen Shot - İphone 11 - 2022-12-01 at 21 28 54](https://user-images.githubusercontent.com/70198902/205132912-aea28c52-606a-4ff3-9892-fe420b1ac722.png)
 
 ![Simulator Screen Shot - İphone 11 - 2022-12-01 at 21 28 44](https://user-images.githubusercontent.com/70198902/205132928-4819d1fc-8329-43c3-a458-8fe9109d98e6.png width="200" height="400")
 
