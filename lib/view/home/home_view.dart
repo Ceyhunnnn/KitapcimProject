@@ -1,12 +1,14 @@
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/cupertino.dart';
 import "package:flutter/material.dart";
 import 'package:kitapcim/core/extensions/context_extentions.dart';
 
 import 'package:rflutter_alert/rflutter_alert.dart';
 
 import '../../core/components/bookCard.dart';
+import '../message/message_view.dart';
 part "home_string_values.dart";
 
 class HomePage extends StatefulWidget {
@@ -132,7 +134,11 @@ class _HomePageState extends State<HomePage> {
                     Spacer(),
                     InkWell(
                       onTap: () {
-                        buildMessageAlert(context);
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => Message(),
+                            ));
                       },
                       child: Icon(
                         Icons.message,
