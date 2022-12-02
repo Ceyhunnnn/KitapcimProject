@@ -4,6 +4,7 @@
 // ignore: import_of_legacy_library_into_null_safe
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:kitapcim/core/constants/padding_constant.dart';
 
 import 'package:kitapcim/core/extensions/context_extentions.dart';
 import 'package:rflutter_alert/rflutter_alert.dart';
@@ -65,42 +66,33 @@ class _LibraryState extends State<Library> {
                 bookListUpdate(selectedItemCategory);
               },
               onDoubleTap: () => null,
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Padding(
-                    padding: const EdgeInsets.all(10),
-                    child: Container(
-                      child: Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: Column(
-                          mainAxisAlignment: MainAxisAlignment.start,
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text(
-                              categoryItems[index],
-                              style:
-                                  context.customTextStyle(Colors.black, 20.0),
-                            ),
-                            SizedBox(
-                              height: context.dynamicHeight(0.005),
-                            ),
-                            selectedItemCategory == categoryItems[index]
-                                ? Container(
-                                    width: 40,
-                                    height: 1.5,
-                                    color: context.appColor,
-                                  )
-                                : Text("")
-                          ],
-                        ),
-                      ),
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(10),
-                      ),
-                    ),
-                  ),
-                ],
+              child: Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Container(
+                    alignment: Alignment.center,
+                    padding: PaddingConstant.instance.paddingLow,
+                    // decoration: BoxDecoration(
+                    //   borderRadius: BorderRadius.circular(20),
+                    //   color: selectedItemCategory == categoryItems[index]
+                    //       ? Colors.grey
+                    //       : Colors.transparent,
+                    // ),
+                    child: Text(
+                      categoryItems[index],
+                      style: selectedItemCategory == categoryItems[index]
+                          ? TextStyle(
+                              fontSize: 20,
+                              shadows: [
+                                Shadow(
+                                    color: Colors.black, offset: Offset(0, -5))
+                              ],
+                              color: Colors.transparent,
+                              decoration: TextDecoration.underline,
+                              decorationColor: Colors.black,
+                              decorationThickness: 2,
+                            )
+                          : TextStyle(fontSize: 15),
+                    )),
               ));
         }));
   }
