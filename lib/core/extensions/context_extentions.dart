@@ -22,3 +22,16 @@ extension customText on BuildContext {
       .displaySmall!
       .copyWith(color: color, fontSize: size, fontWeight: FontWeight.w300);
 }
+
+extension customBackground on BuildContext {
+  Decoration get customBackgroundStyle => BoxDecoration(
+        gradient: LinearGradient(
+          begin: Alignment.topRight,
+          end: Alignment.bottomLeft,
+          colors: [
+            Color(0xff05595B),
+            Color.fromARGB(255, 156, 53, 45),
+          ],
+        ),
+      );
+}

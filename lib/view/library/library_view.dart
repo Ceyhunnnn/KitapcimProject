@@ -71,12 +71,6 @@ class _LibraryState extends State<Library> {
                 child: Container(
                     alignment: Alignment.center,
                     padding: PaddingConstant.instance.paddingLow,
-                    // decoration: BoxDecoration(
-                    //   borderRadius: BorderRadius.circular(20),
-                    //   color: selectedItemCategory == categoryItems[index]
-                    //       ? Colors.grey
-                    //       : Colors.transparent,
-                    // ),
                     child: Text(
                       categoryItems[index],
                       style: selectedItemCategory == categoryItems[index]

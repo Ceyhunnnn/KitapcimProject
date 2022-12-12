@@ -5,6 +5,7 @@ import 'package:kitapcim/core/components/bookCard.dart';
 
 import 'package:kitapcim/core/extensions/context_extentions.dart';
 import 'package:kitapcim/view/message/message_service.dart';
+import 'package:kitapcim/view/message_detail/message_detail_view.dart';
 part 'message_string_values.dart';
 
 class Message extends StatefulWidget {
@@ -32,20 +33,12 @@ class _MessageState extends State<Message> {
           title: Text(_MessasgeStringValues.instance.appBarTitle),
         ),
         body: Container(
-            decoration: BoxDecoration(
-              gradient: LinearGradient(
-                begin: Alignment.topRight,
-                end: Alignment.bottomLeft,
-                colors: [
-                  context.appColor,
-                  Color.fromARGB(255, 156, 53, 45),
-                ],
-              ),
-            ),
+            decoration: context.customBackgroundStyle,
             child: buildUsersList(messageService: _messageService)));
   }
 }
 
+// ignore: must_be_immutable
 class buildUsersList extends StatelessWidget {
   buildUsersList({
     Key? key,
@@ -54,6 +47,7 @@ class buildUsersList extends StatelessWidget {
         super(key: key);
 
   final MessageService _messageService;
+  String userMessageDoc = "";
 
   @override
   Widget build(BuildContext context) {
@@ -71,40 +65,46 @@ class buildUsersList extends StatelessWidget {
                     String userUid = '${users['uid']}';
                     if (current_id != userUid) {
                       return InkWell(
-                        onTap: () => {print(userName)},
+                        onTap: () => {
+                          userMessageDoc =
+                              userUid.toString() + current_id.toString(),
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: ((context) => MessageDetailView(
+                                        userName: userName,
+                                        messageId: userMessageDoc,
+                                      ))))
+                        },
                         child: Card(
                           color: Colors.transparent,
                           shape: RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(15)),
                           shadowColor: Colors.grey,
-                          child: Padding(
-                            padding: const EdgeInsets.all(8.0),
-                            child: ListTile(
-                                trailing: Icon(
-                                  Icons.arrow_right_alt,
-                                  color: Colors.white,
-                                ),
-                                leading: CircleAvatar(
-                                    backgroundColor: Colors.transparent,
-                                    backgroundImage: NetworkImage(
-                                        _MessasgeStringValues
-                                            .instance.defaultPhoto
-                                            .toString())),
-                                title: Text(
-                                  userName,
+                          child: ListTile(
+                              trailing: Icon(
+                                Icons.message,
+                                color: Colors.white,
+                              ),
+                              leading: CircleAvatar(
+                                  backgroundColor: Colors.transparent,
+                                  backgroundImage: NetworkImage(
+                                      _MessasgeStringValues
+                                          .instance.defaultPhoto
+                                          .toString())),
+                              title: Text(
+                                userName,
+                                style:
+                                    context.customTextStyle(Colors.white, 18.0),
+                              ),
+                              subtitle: Text(userMail,
                                   style: context.customTextStyle(
-                                      Colors.white, 18.0),
-                                ),
-                                subtitle: Text(userMail,
-                                    style: context.customTextStyle(
-                                        Colors.white, 14.0))),
-                          ),
+                                      Colors.white, 14.0))),
                         ),
                       );
                     } else {
                       return Container();
                     }
-                    ;
                   });
         }));
   }
