@@ -48,6 +48,7 @@ class buildUsersList extends StatelessWidget {
 
   final MessageService _messageService;
   String userMessageDoc = "";
+  String otherUser = "";
 
   @override
   Widget build(BuildContext context) {
@@ -68,13 +69,15 @@ class buildUsersList extends StatelessWidget {
                         onTap: () => {
                           userMessageDoc =
                               userUid.toString() + current_id.toString(),
+                          otherUser =
+                              current_id.toString() + userUid.toString(),
                           Navigator.push(
                               context,
                               MaterialPageRoute(
                                   builder: ((context) => MessageDetailView(
-                                        userName: userName,
-                                        messageId: userMessageDoc,
-                                      ))))
+                                      userName: userName,
+                                      messageId: userMessageDoc,
+                                      otherUser: otherUser))))
                         },
                         child: Card(
                           color: Colors.transparent,
