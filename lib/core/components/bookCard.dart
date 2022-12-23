@@ -21,6 +21,7 @@ var number;
 var bookUidPost;
 List gelenVeri = [];
 List? likeList = [];
+List? commentList = [];
 FirebaseFirestore firestore = FirebaseFirestore.instance;
 var current_id;
 // ignore: unused_element
@@ -54,6 +55,7 @@ class _buildBooksCardsState extends State<buildBooksCards> {
                     var category = '${myBooks['category']}';
 
                     likeList = myBooks['likes'] as List;
+                    commentList = myBooks['comments'] as List;
 
                     return Padding(
                       padding: const EdgeInsets.all(8.0),
@@ -184,6 +186,10 @@ class _buildBooksCardsState extends State<buildBooksCards> {
                                         Icons.comment_bank_outlined,
                                       ),
                                     ),
+                                    SizedBox(
+                                      width: context.dynamicWidth(0.01),
+                                    ),
+                                    Text(commentList!.length.toString()),
                                     SizedBox(
                                       width: context.dynamicWidth(0.05),
                                     ),

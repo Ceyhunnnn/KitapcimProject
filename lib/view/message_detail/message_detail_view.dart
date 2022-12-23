@@ -22,6 +22,10 @@ class _MessageDetailViewState extends State<MessageDetailView> {
   var mes1;
   var mes2;
   var isLoading = false;
+  List chatDoc = [];
+  List meesageFromFirebase = [];
+  TextEditingController messageController = TextEditingController();
+
   List message = [
     {
       "content": "selam",
@@ -39,21 +43,16 @@ class _MessageDetailViewState extends State<MessageDetailView> {
       "isSendByMe": true
     },
     {
-      "content": "iyi ben de :)",
+      "content": "iyi ben de",
       "date": DateTime.now().subtract(Duration(minutes: 1)),
       "isSendByMe": false
     },
     {
-      "content": "Hayat nasıl gidiyor",
+      "content": "Çok teşekkür ederim :) ",
       "date": DateTime.now().subtract(Duration(minutes: 1)),
       "isSendByMe": false
     },
   ];
-  @override
-  void initState() {
-    super.initState();
-    messageCreateAndGet();
-  }
 
   void buildChangeState() {
     setState(() {
@@ -61,10 +60,6 @@ class _MessageDetailViewState extends State<MessageDetailView> {
     });
   }
 
-  // ignore: unnecessary_cast
-  List chatDoc = [] as List;
-
-  List meesageFromFirebase = [];
   Future<void> getDoc() async {
     buildChangeState();
 
@@ -76,27 +71,49 @@ class _MessageDetailViewState extends State<MessageDetailView> {
     });
   }
 
-  sendMessage() {}
   getMessage() {}
+  buildCreateDocument(String uid) async {
+    print(uid);
+    print("ile başlayan olacak");
+    await _firestore.collection('chats').doc(uid).set({'messages': []});
+    //konusma alani olmamasinan karsin document olusturan metottur.
+  }
 
   Future<void>? messageCreateAndGet() {
     getDoc();
     Future.delayed(Duration(seconds: 1)).then((value) => {
           mes1 = chatDoc.contains(widget.messageId),
           mes2 = chatDoc.contains(widget.otherUser),
+
           if (chatDoc.contains(widget.messageId) ||
               chatDoc.contains(widget.otherUser))
             {
               print("var, konuşmalar gelecek"),
-              if (mes1) {getMessage()} else if (mes2) {getMessage()},
+              print(mes1),
+              print(mes2),
+              if (mes1)
+                {print("mes1 den gelecek"), getMessage()}
+              else if (mes2)
+                {print("mes2 den gelecek"), getMessage()},
             }
           else
-            {print("yok. konuşma başlayacak")},
-          print("mes1 : " + mes1.toString()),
-          print("mes2 : " + mes2.toString()),
+            {
+              buildCreateDocument(widget.otherUser),
+              print(widget.otherUser.toString() + " document created")
+            },
+          // print("mes1 : " + mes1.toString()),
+          // print("mes2 : " + mes2.toString()),
           buildChangeState(),
         });
     return null;
+  }
+
+  sendMessage() {}
+
+  @override
+  void initState() {
+    super.initState();
+    messageCreateAndGet();
   }
 
   @override
@@ -141,11 +158,16 @@ class _MessageDetailViewState extends State<MessageDetailView> {
                     child: Padding(
                       padding: const EdgeInsets.all(8.0),
                       child: TextFormField(
+                          controller: messageController,
                           style: TextStyle(color: Colors.white),
                           cursorColor: Colors.grey,
                           decoration: new InputDecoration(
                               suffixIconColor: Colors.white,
-                              suffixIcon: Icon(Icons.send),
+                              suffixIcon: InkWell(
+                                  onTap: () {
+                                    print("messageController");
+                                  },
+                                  child: Icon(Icons.send)),
                               isDense: true,
                               labelStyle: TextStyle(color: Colors.white),
                               hintText: "Mesaj Yaz...",
