@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:kitapcim/core/extensions/context_extentions.dart';
 
@@ -21,38 +22,19 @@ class _MessageDetailViewState extends State<MessageDetailView> {
   FirebaseFirestore _firestore = FirebaseFirestore.instance;
   var mes1;
   var mes2;
+  var firebaseUser = FirebaseAuth.instance.currentUser!.uid;
+
   var isLoading = false;
   List chatDoc = [];
   List meesageFromFirebase = [];
+  List messeageList = [];
   TextEditingController messageController = TextEditingController();
 
-  List message = [
-    {
-      "content": "selam",
-      "date": DateTime.now().subtract(Duration(minutes: 1)),
-      "isSendByMe": true
-    },
-    {
-      "content": "Naber",
-      "date": DateTime.now().subtract(Duration(minutes: 1)),
-      "isSendByMe": false
-    },
-    {
-      "content": "iyidir, senden naber",
-      "date": DateTime.now().subtract(Duration(minutes: 1)),
-      "isSendByMe": true
-    },
-    {
-      "content": "iyi ben de",
-      "date": DateTime.now().subtract(Duration(minutes: 1)),
-      "isSendByMe": false
-    },
-    {
-      "content": "Çok teşekkür ederim :) ",
-      "date": DateTime.now().subtract(Duration(minutes: 1)),
-      "isSendByMe": false
-    },
-  ];
+  @override
+  void initState() {
+    super.initState();
+    messageCreateAndGet();
+  }
 
   void buildChangeState() {
     setState(() {
@@ -61,7 +43,7 @@ class _MessageDetailViewState extends State<MessageDetailView> {
   }
 
   Future<void> getDoc() async {
-    buildChangeState();
+    // buildChangeState();
 
     chatDoc.clear();
     await _firestore.collection("chats").snapshots().listen((event) {
@@ -71,7 +53,14 @@ class _MessageDetailViewState extends State<MessageDetailView> {
     });
   }
 
-  getMessage() {}
+  Future<void> getMessage(String uid) async {
+    await FirebaseFirestore.instance.collection('chats').doc(uid).get().then(
+        (value) async => {
+              messeageList = await value.data()!['messages'],
+              print(messeageList)
+            });
+  }
+
   buildCreateDocument(String uid) async {
     print(uid);
     print("ile başlayan olacak");
@@ -81,40 +70,36 @@ class _MessageDetailViewState extends State<MessageDetailView> {
 
   Future<void>? messageCreateAndGet() {
     getDoc();
-    Future.delayed(Duration(seconds: 1)).then((value) => {
+    Future.delayed(Duration(seconds: 1)).then((value) async => {
           mes1 = chatDoc.contains(widget.messageId),
           mes2 = chatDoc.contains(widget.otherUser),
-
           if (chatDoc.contains(widget.messageId) ||
               chatDoc.contains(widget.otherUser))
             {
               print("var, konuşmalar gelecek"),
-              print(mes1),
-              print(mes2),
               if (mes1)
-                {print("mes1 den gelecek"), getMessage()}
+                {
+                  print("mes1 den gelecek"),
+                  await getMessage(widget.messageId),
+                }
               else if (mes2)
-                {print("mes2 den gelecek"), getMessage()},
+                {
+                  print("mes2 den gelecek"),
+                  setState(() {
+                    getMessage(widget.otherUser);
+                  }),
+                },
             }
           else
             {
               buildCreateDocument(widget.otherUser),
               print(widget.otherUser.toString() + " document created")
             },
-          // print("mes1 : " + mes1.toString()),
-          // print("mes2 : " + mes2.toString()),
-          buildChangeState(),
+          // buildChangeState(),
         });
-    return null;
   }
 
   sendMessage() {}
-
-  @override
-  void initState() {
-    super.initState();
-    messageCreateAndGet();
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -125,71 +110,69 @@ class _MessageDetailViewState extends State<MessageDetailView> {
       ),
       body: Container(
         decoration: context.customBackgroundStyle,
-        child: isLoading
-            ? Center(child: CircularProgressIndicator())
-            : Column(
-                children: [
-                  Expanded(
-                      child: ListView.builder(
-                          itemCount: message.length,
-                          itemBuilder: ((context, index) {
-                            return Padding(
-                              padding: const EdgeInsets.all(8.0),
-                              child: Align(
-                                  alignment: message[index]["isSendByMe"]
-                                      ? Alignment.centerRight
-                                      : Alignment.centerLeft,
-                                  child: Card(
-                                    shape: RoundedRectangleBorder(
-                                        borderRadius:
-                                            BorderRadius.circular(15)),
-                                    color: Colors.transparent,
-                                    child: Padding(
-                                      padding: const EdgeInsets.all(8.0),
-                                      child: Text(
-                                        message[index]["content"],
-                                        style: TextStyle(color: Colors.white),
-                                      ),
-                                    ),
-                                  )),
-                            );
-                          }))),
-                  SafeArea(
-                    child: Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: TextFormField(
-                          controller: messageController,
-                          style: TextStyle(color: Colors.white),
-                          cursorColor: Colors.grey,
-                          decoration: new InputDecoration(
-                              suffixIconColor: Colors.white,
-                              suffixIcon: InkWell(
-                                  onTap: () {
-                                    print("messageController");
-                                  },
-                                  child: Icon(Icons.send)),
-                              isDense: true,
-                              labelStyle: TextStyle(color: Colors.white),
-                              hintText: "Mesaj Yaz...",
-                              hintStyle: TextStyle(color: Colors.white),
-                              fillColor: Colors.white,
-                              focusedBorder: OutlineInputBorder(
-                                borderRadius: BorderRadius.circular(25.0),
-                                borderSide: BorderSide(
-                                  color: Colors.white,
+        child: Column(
+          children: [
+            Expanded(
+                child: ListView.builder(
+                    itemCount: messeageList.length,
+                    itemBuilder: ((context, index) {
+                      return Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: Align(
+                            alignment: messeageList[index]["sendBy"] ==
+                                    firebaseUser.toString()
+                                ? Alignment.centerRight
+                                : Alignment.centerLeft,
+                            child: Card(
+                              shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(15)),
+                              color: Colors.transparent,
+                              child: Padding(
+                                padding: const EdgeInsets.all(8.0),
+                                child: Text(
+                                  messeageList[index]["content"],
+                                  style: TextStyle(color: Colors.white),
                                 ),
                               ),
-                              enabledBorder: OutlineInputBorder(
-                                borderRadius: BorderRadius.circular(25.0),
-                                borderSide: BorderSide(
-                                  color: Colors.white,
-                                  width: 2.0,
-                                ),
-                              ))),
-                    ),
-                  ),
-                ],
+                            )),
+                      );
+                    }))),
+            SafeArea(
+              child: Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: TextFormField(
+                    controller: messageController,
+                    style: TextStyle(color: Colors.white),
+                    cursorColor: Colors.grey,
+                    decoration: new InputDecoration(
+                        suffixIconColor: Colors.white,
+                        suffixIcon: InkWell(
+                            onTap: () {
+                              print("messageController");
+                            },
+                            child: Icon(Icons.send)),
+                        isDense: true,
+                        labelStyle: TextStyle(color: Colors.white),
+                        hintText: "Mesaj Yaz...",
+                        hintStyle: TextStyle(color: Colors.white),
+                        fillColor: Colors.white,
+                        focusedBorder: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(25.0),
+                          borderSide: BorderSide(
+                            color: Colors.white,
+                          ),
+                        ),
+                        enabledBorder: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(25.0),
+                          borderSide: BorderSide(
+                            color: Colors.white,
+                            width: 2.0,
+                          ),
+                        ))),
               ),
+            ),
+          ],
+        ),
       ),
     );
   }
