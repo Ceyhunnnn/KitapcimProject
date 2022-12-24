@@ -54,11 +54,16 @@ class _MessageDetailViewState extends State<MessageDetailView> {
   }
 
   Future<void> getMessage(String uid) async {
-    await FirebaseFirestore.instance.collection('chats').doc(uid).get().then(
-        (value) async => {
-              messeageList = await value.data()!['messages'],
-              print(messeageList)
-            });
+    await FirebaseFirestore.instance
+        .collection('chats')
+        .doc(uid)
+        .get()
+        .then((value) {
+      setState(() {
+        messeageList = value.data()!['messages'];
+        print(messeageList);
+      });
+    });
   }
 
   buildCreateDocument(String uid) async {
@@ -83,12 +88,7 @@ class _MessageDetailViewState extends State<MessageDetailView> {
                   await getMessage(widget.messageId),
                 }
               else if (mes2)
-                {
-                  print("mes2 den gelecek"),
-                  setState(() {
-                    getMessage(widget.otherUser);
-                  }),
-                },
+                {print("mes2 den gelecek"), getMessage(widget.otherUser)},
             }
           else
             {
@@ -99,7 +99,41 @@ class _MessageDetailViewState extends State<MessageDetailView> {
         });
   }
 
-  sendMessage() {}
+  sendMessage(String messeage, String other, String content, userUid) {
+    if (mes1) {
+      print(messeage);
+      String res = "Some error occurred";
+      try {
+        _firestore.collection('chats').doc(messeage).update({
+          'messages': FieldValue.arrayUnion([
+            {
+              "content": content,
+              "sendBy": userUid,
+            }
+          ]),
+        });
+      } catch (err) {
+        res = err.toString();
+      }
+      return res;
+    } else if (mes2) {
+      String res = "Some error occurred";
+      try {
+        _firestore.collection('chats').doc(other).update({
+          'messages': FieldValue.arrayUnion([
+            {
+              "content": content,
+              "sendBy": userUid,
+            }
+          ]),
+        });
+      } catch (err) {
+        res = err.toString();
+      }
+      messageCreateAndGet();
+      return res;
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -147,8 +181,11 @@ class _MessageDetailViewState extends State<MessageDetailView> {
                     decoration: new InputDecoration(
                         suffixIconColor: Colors.white,
                         suffixIcon: InkWell(
-                            onTap: () {
+                            onTap: () async {
                               print("messageController");
+                              sendMessage(widget.messageId, widget.otherUser,
+                                  messageController.text, firebaseUser);
+                              messageController.clear();
                             },
                             child: Icon(Icons.send)),
                         isDense: true,
