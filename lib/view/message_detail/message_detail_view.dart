@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -61,7 +63,6 @@ class _MessageDetailViewState extends State<MessageDetailView> {
         .then((value) {
       setState(() {
         messeageList = value.data()!['messages'];
-        print(messeageList);
       });
     });
   }
@@ -71,6 +72,23 @@ class _MessageDetailViewState extends State<MessageDetailView> {
     print("ile başlayan olacak");
     await _firestore.collection('chats').doc(uid).set({'messages': []});
     //konusma alani olmamasinan karsin document olusturan metottur.
+  }
+
+  Future<void> getMesseagesFromFirebase(String document) async {
+    messeageList.clear();
+    final DocumentReference doc =
+        await _firestore.collection('chats').doc(document);
+
+    await doc.snapshots().listen((snapshot) {
+      if (snapshot.exists) {
+        //print('Document data: ${snapshot.data()}');
+        messeageList.add(snapshot.data());
+
+        print(messeageList);
+      } else {
+        print('Document does not exist');
+      }
+    });
   }
 
   Future<void>? messageCreateAndGet() {
@@ -85,10 +103,16 @@ class _MessageDetailViewState extends State<MessageDetailView> {
               if (mes1)
                 {
                   print("mes1 den gelecek"),
+                  //await getMesseagesFromFirebase(widget.messageId),
                   await getMessage(widget.messageId),
                 }
               else if (mes2)
-                {print("mes2 den gelecek"), getMessage(widget.otherUser)},
+                {
+                  // await getMesseagesFromFirebase(widget.otherUser),
+
+                  print("mes2 den gelecek"),
+                  getMessage(widget.otherUser)
+                },
             }
           else
             {
@@ -97,6 +121,8 @@ class _MessageDetailViewState extends State<MessageDetailView> {
             },
           // buildChangeState(),
         });
+
+    return null;
   }
 
   sendMessage(String messeage, String other, String content, userUid) {
@@ -137,6 +163,17 @@ class _MessageDetailViewState extends State<MessageDetailView> {
 
   @override
   Widget build(BuildContext context) {
+    Timer.periodic(new Duration(seconds: 1), (timer) {
+      if (mes1) {
+        setState(() {
+          getMessage(widget.messageId);
+        });
+      } else if (mes2) {
+        setState(() {
+          getMessage(widget.otherUser);
+        });
+      }
+    });
     return Scaffold(
       appBar: AppBar(
         title: Text(widget.userName),
@@ -150,26 +187,7 @@ class _MessageDetailViewState extends State<MessageDetailView> {
                 child: ListView.builder(
                     itemCount: messeageList.length,
                     itemBuilder: ((context, index) {
-                      return Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: Align(
-                            alignment: messeageList[index]["sendBy"] ==
-                                    firebaseUser.toString()
-                                ? Alignment.centerRight
-                                : Alignment.centerLeft,
-                            child: Card(
-                              shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(15)),
-                              color: Colors.transparent,
-                              child: Padding(
-                                padding: const EdgeInsets.all(8.0),
-                                child: Text(
-                                  messeageList[index]["content"],
-                                  style: TextStyle(color: Colors.white),
-                                ),
-                              ),
-                            )),
-                      );
+                      return buildMessageStyle(index);
                     }))),
             SafeArea(
               child: Padding(
@@ -211,6 +229,28 @@ class _MessageDetailViewState extends State<MessageDetailView> {
           ],
         ),
       ),
+    );
+  }
+
+  Padding buildMessageStyle(int index) {
+    return Padding(
+      padding: const EdgeInsets.all(8.0),
+      child: Align(
+          alignment: messeageList[index]["sendBy"] == firebaseUser.toString()
+              ? Alignment.centerRight
+              : Alignment.centerLeft,
+          child: Card(
+            shape:
+                RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
+            color: Colors.transparent,
+            child: Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Text(
+                messeageList[index]["content"] ?? "",
+                style: TextStyle(color: Colors.white),
+              ),
+            ),
+          )),
     );
   }
 }
